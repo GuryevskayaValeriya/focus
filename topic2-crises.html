@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тема 2 – Возрастные кризисы</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap');
+
+        :root {
+            --bg: #faf8f5;
+            --card: #ffffff;
+            --text: #2c2c2c;
+            --text-secondary: #6b6b6b;
+            --accent: #b8a9c9;
+            --accent-light: #e8e0f0;
+            --accent-dark: #8b7aad;
+            --warm: #e8d5c4;
+            --warm-light: #f5ede4;
+            --green: #a8c5a0;
+            --green-light: #e4f0e1;
+            --blue: #a0b8c5;
+            --blue-light: #dde9ef;
+            --rose: #c5a0b0;
+            --rose-light: #f0dde5;
+            --border: #e8e4df;
+            --shadow: 0 2px 20px rgba(0,0,0,0.04);
+            --shadow-hover: 0 4px 30px rgba(0,0,0,0.08);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            font-weight: 300;
+        }
+
+        /* Hero */
+        .hero {
+            min-height: 80vh;
+            display: flex; align-items: center; justify-content: center;
+            text-align: center; padding: 60px 20px;
+            background: linear-gradient(135deg, #e8e0f0 0%, #f0dde5 50%, #f5ede4 100%);
+            position: relative; overflow: hidden;
+        }
+        .hero::before {
+            content: ''; position: absolute; width: 600px; height: 600px;
+            background: radial-gradient(circle, rgba(184,169,201,0.12) 0%, transparent 70%);
+            top: -150px; right: -150px; border-radius: 50%;
+        }
+        .hero-content { position: relative; z-index: 1; max-width: 700px; }
+        .hero-label { font-size: 0.7rem; letter-spacing: 3px; text-transform: uppercase; color: var(--accent-dark); margin-bottom: 20px; font-weight: 500; }
+        .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4.5vw, 3.2rem); font-weight: 400; line-height: 1.3; margin-bottom: 16px; }
+        .hero h1 em { font-style: italic; color: var(--accent-dark); }
+        .hero-subtitle { font-size: 1rem; color: var(--text-secondary); max-width: 520px; margin: 0 auto 32px; }
+        .hero-tags { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+        .hero-tag { padding: 6px 14px; border-radius: 20px; font-size: 0.75rem; font-weight: 500; background: rgba(255,255,255,0.6); color: var(--accent-dark); }
+        .scroll-hint { display: inline-flex; align-items: center; gap: 8px; font-size: 0.75rem; color: var(--accent-dark); letter-spacing: 1px; text-transform: uppercase; animation: bounce 2s infinite; cursor: pointer; text-decoration: none; margin-top: 32px; }
+        .scroll-hint svg { width: 16px; height: 16px; }
+        @keyframes bounce { 0%,20%,50%,80%,100% { transform: translateY(0); } 40% { transform: translateY(6px); } 60% { transform: translateY(3px); } }
+
+        /* Nav */
+        .section-nav { position: sticky; top: 0; background: rgba(250,248,245,0.92); backdrop-filter: blur(12px); z-index: 100; padding: 14px 0; border-bottom: 1px solid var(--border); margin-bottom: 60px; }
+        .nav-inner { max-width: 900px; margin: 0 auto; padding: 0 20px; display: flex; align-items: center; gap: 6px; }
+        .nav-scroll { flex: 1; display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; scroll-behavior: smooth; }
+        .nav-scroll::-webkit-scrollbar { display: none; }
+        .nav-arrow { width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--border); background: var(--card); display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; transition: all 0.25s; color: var(--text-secondary); }
+        .nav-arrow:hover { background: var(--accent-light); border-color: var(--accent); color: var(--accent-dark); }
+        .nav-arrow svg { width: 14px; height: 14px; }
+        .nav-btn { padding: 7px 14px; border: 1px solid var(--border); background: var(--card); border-radius: 18px; font-size: 0.72rem; font-family: 'Inter', sans-serif; color: var(--text-secondary); cursor: pointer; white-space: nowrap; transition: all 0.25s; flex-shrink: 0; }
+        .nav-btn:hover, .nav-btn.active { background: var(--accent-light); border-color: var(--accent); color: var(--accent-dark); }
+
+        /* Content */
+        .content { max-width: 820px; margin: 0 auto; padding: 60px 24px 120px; }
+        .section { margin-bottom: 80px; animation: fadeIn 0.5s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+        .section-number { font-family: 'Playfair Display', serif; font-size: 2.8rem; color: var(--accent-light); font-weight: 600; line-height: 1; margin-bottom: 6px; }
+        .section h2 { font-family: 'Playfair Display', serif; font-size: 1.7rem; font-weight: 400; margin-bottom: 28px; }
+        .section h3 { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 400; margin: 28px 0 14px; color: var(--accent-dark); }
+        .section p { margin-bottom: 16px; }
+        .section strong { font-weight: 500; }
+
+        .highlight { background: var(--card); border-left: 3px solid var(--accent); padding: 22px 26px; border-radius: 0 12px 12px 0; margin: 28px 0; box-shadow: var(--shadow); }
+        .highlight p:last-child { margin-bottom: 0; }
+        .quote { text-align: center; padding: 36px 28px; margin: 36px 0; background: linear-gradient(135deg, var(--accent-light) 0%, var(--warm-light) 100%); border-radius: 18px; }
+        .quote p { font-family: 'Playfair Display', serif; font-size: 1.15rem; font-style: italic; color: var(--accent-dark); line-height: 1.6; }
+        .divider { text-align: center; margin: 50px 0; color: var(--border); font-size: 1.4rem; letter-spacing: 10px; }
+
+        .card { background: var(--card); border-radius: 14px; padding: 28px; margin: 20px 0; box-shadow: var(--shadow); transition: box-shadow 0.3s; }
+        .card:hover { box-shadow: var(--shadow-hover); }
+        .card h4 { font-family: 'Playfair Display', serif; font-size: 1.05rem; font-weight: 400; margin-bottom: 12px; color: var(--accent-dark); }
+
+        .tbl { width: 100%; border-collapse: separate; border-spacing: 0; margin: 24px 0; background: var(--card); border-radius: 14px; overflow: hidden; box-shadow: var(--shadow); }
+        .tbl thead th { background: var(--accent-light); color: var(--accent-dark); padding: 14px 18px; font-weight: 500; font-size: 0.78rem; letter-spacing: 0.5px; text-align: left; }
+        .tbl tbody td { padding: 13px 18px; border-bottom: 1px solid var(--border); font-size: 0.88rem; vertical-align: top; }
+        .tbl tbody tr:last-child td { border-bottom: none; }
+        .tbl tbody tr:hover { background: rgba(184,169,201,0.03); }
+
+        /* Collapsible */
+        .collapse { background: var(--card); border-radius: 14px; margin-bottom: 10px; box-shadow: var(--shadow); overflow: hidden; }
+        .collapse-header { padding: 18px 22px; cursor: pointer; display: flex; align-items: center; gap: 14px; transition: background 0.2s; }
+        .collapse-header:hover { background: rgba(184,169,201,0.04); }
+        .collapse-num { width: 34px; height: 34px; background: var(--accent-light); border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 0.8rem; color: var(--accent-dark); font-weight: 600; }
+        .collapse-title { font-weight: 500; font-size: 0.92rem; flex: 1; }
+        .collapse-toggle { color: var(--accent); transition: transform 0.3s; font-size: 1.2rem; }
+        .collapse.open .collapse-toggle { transform: rotate(45deg); }
+        .collapse-body { max-height: 0; overflow: hidden; transition: max-height 0.5s ease; }
+        .collapse.open .collapse-body { max-height: 4000px; }
+        .collapse-body-inner { padding: 0 22px 22px; }
+        .collapse-body-inner p { font-size: 0.9rem; margin-bottom: 12px; }
+        .collapse-body-inner p:last-child { margin-bottom: 0; }
+
+        .list { list-style: none; margin: 16px 0; counter-reset: concl; }
+        .list li { position: relative; padding: 16px 22px 16px 52px; background: var(--card); border-radius: 12px; margin-bottom: 10px; box-shadow: var(--shadow); font-size: 0.95rem; line-height: 1.65; }
+        .list li::before { counter-increment: concl; content: counter(concl); position: absolute; left: 16px; top: 16px; width: 24px; height: 24px; background: var(--accent-light); color: var(--accent-dark); border-radius: 50%; font-size: 0.78rem; font-weight: 600; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+
+        .tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0; }
+        .tag { padding: 5px 12px; border-radius: 16px; font-size: 0.75rem; font-weight: 500; }
+        .tag-purple { background: var(--accent-light); color: var(--accent-dark); }
+        .tag-warm { background: var(--warm); color: #8b6f56; }
+        .tag-green { background: var(--green-light); color: #5a7d52; }
+        .tag-blue { background: var(--blue-light); color: #4a6b7d; }
+        .tag-rose { background: var(--rose-light); color: #8b5a6b; }
+
+        /* Sensitive items grid */
+        .sensitive-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; margin: 18px 0; }
+        .sensitive-item { background: var(--bg); border-radius: 12px; padding: 16px 18px; border-left: 3px solid var(--accent); }
+        .sensitive-item .si-age { font-size: 0.72rem; font-weight: 600; color: var(--accent-dark); letter-spacing: 0.5px; }
+        .sensitive-item .si-name { font-weight: 500; font-size: 0.9rem; margin: 4px 0 6px; }
+        .sensitive-item .si-desc { font-size: 0.8rem; color: var(--text-secondary); line-height: 1.5; }
+
+        /* Action cards */
+        .action-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 14px; margin: 24px 0; }
+        .action-card { background: var(--card); border-radius: 14px; padding: 22px; box-shadow: var(--shadow); transition: all 0.25s; border-top: 3px solid var(--green); }
+        .action-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover); }
+        .action-card .ac-icon { font-size: 1.6rem; margin-bottom: 8px; }
+        .action-card .ac-title { font-weight: 500; font-size: 0.92rem; margin-bottom: 6px; }
+        .action-card .ac-desc { font-size: 0.82rem; color: var(--text-secondary); line-height: 1.55; }
+
+        /* Timeline interactive */
+        .timeline-wrap { background: var(--card); border-radius: 16px; padding: 32px; margin: 32px 0; box-shadow: var(--shadow); }
+        .timeline-slider-row { display: flex; align-items: center; gap: 16px; margin-bottom: 8px; }
+        .timeline-slider-row label { font-size: 0.85rem; font-weight: 500; white-space: nowrap; }
+        .timeline-slider-row input[type="range"] { -webkit-appearance: none; flex: 1; height: 6px; background: linear-gradient(90deg, var(--rose-light), var(--accent-light), var(--green-light)); border-radius: 3px; outline: none; }
+        .timeline-slider-row input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 22px; height: 22px; background: var(--accent-dark); border-radius: 50%; cursor: pointer; box-shadow: 0 2px 6px rgba(139,122,173,0.4); }
+        .age-display { font-family: 'Playfair Display', serif; font-size: 2.2rem; font-weight: 600; color: var(--accent-dark); text-align: center; margin: 12px 0; }
+        .age-display span { font-size: 0.9rem; color: var(--text-secondary); font-family: 'Inter', sans-serif; }
+        .stage-result { background: var(--accent-light); border-radius: 12px; padding: 22px; transition: all 0.3s; }
+        .stage-result .sr-title { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 400; color: var(--accent-dark); margin-bottom: 10px; }
+        .stage-result .sr-items { display: flex; flex-wrap: wrap; gap: 8px; }
+        .stage-result .sr-chip { background: var(--card); padding: 6px 12px; border-radius: 14px; font-size: 0.78rem; color: var(--text); box-shadow: var(--shadow); }
+
+        /* Open question */
+        .open-q { margin: 24px 0; }
+        .open-q label { display: block; font-size: 0.88rem; font-weight: 500; margin-bottom: 10px; }
+        .open-q textarea { width: 100%; min-height: 80px; padding: 16px 20px; border: 1px solid var(--border); border-radius: 12px; font-family: 'Inter', sans-serif; font-size: 0.88rem; font-weight: 300; color: var(--text); background: var(--card); resize: vertical; transition: border-color 0.2s; line-height: 1.6; }
+        .open-q textarea:focus { outline: none; border-color: var(--accent); }
+        .open-q textarea::placeholder { color: #c0b8b0; }
+
+        .final-quote { text-align: center; padding: 50px 36px; margin-top: 70px; background: linear-gradient(135deg, var(--accent-light) 0%, var(--warm-light) 50%, var(--green-light) 100%); border-radius: 22px; }
+        .final-quote p { font-family: 'Playfair Display', serif; font-size: 1.15rem; font-style: italic; color: var(--accent-dark); line-height: 1.7; max-width: 500px; margin: 0 auto; }
+
+        .footer { text-align: center; padding: 36px 24px; color: var(--text-secondary); font-size: 0.78rem; }
+
+        @media (max-width: 700px) {
+            .sensitive-grid { grid-template-columns: 1fr; }
+            .action-grid { grid-template-columns: 1fr; }
+        }
+    
+        /* ===================== WORKBOOK GLOBAL NAVIGATION & PAGINATION ===================== */
+        :root {
+            --topbar-height: 54px;
+            --accent-l: var(--accent-light, #e8e0f0);
+            --accent-d: var(--accent-dark, #8b7aad);
+            --text-s: var(--text-secondary, #6b6b6b);
+        }
+
+        .section {
+            scroll-margin-top: 125px;
+        }
+
+        .workbook-topbar {
+            position: sticky;
+            top: 0;
+            z-index: 300;
+            background: rgba(250, 248, 245, 0.95);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border-bottom: 1px solid var(--border);
+            height: var(--topbar-height);
+            display: flex;
+            align-items: center;
+        }
+
+        .topbar-inner {
+            max-width: 960px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+        }
+
+        .topbar-brand {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            font-size: 0.9rem;
+            white-space: nowrap;
+            flex-shrink: 0;
+            transition: opacity 0.2s;
+        }
+
+        .topbar-brand:hover {
+            opacity: 0.8;
+        }
+
+        .topbar-tabs {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            overflow-x: auto;
+            scrollbar-width: none;
+            -webkit-overflow-scrolling: touch;
+            padding: 4px 0;
+        }
+
+        .topbar-tabs::-webkit-scrollbar {
+            display: none;
+        }
+
+        .tab-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 6px 13px;
+            border-radius: 16px;
+            font-size: 0.77rem;
+            font-weight: 500;
+            color: var(--text-s);
+            text-decoration: none;
+            background: transparent;
+            border: 1px solid transparent;
+            white-space: nowrap;
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+        }
+
+        .tab-link:hover {
+            background: rgba(184, 169, 201, 0.14);
+            color: var(--accent-d);
+        }
+
+        .tab-link.active {
+            background: var(--accent-l);
+            border-color: var(--accent);
+            color: var(--accent-d);
+            font-weight: 600;
+        }
+
+        .section-nav {
+            position: sticky;
+            top: var(--topbar-height) !important;
+            z-index: 150;
+        }
+
+        /* Pagination & CTA buttons */
+        .topic-pagination {
+            margin: 60px 0 20px;
+            padding-top: 40px;
+            border-top: 1px solid var(--border);
+        }
+
+        .pagination-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .page-nav-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 22px;
+            background: var(--card);
+            border: 1.5px solid var(--border);
+            border-radius: 16px;
+            text-decoration: none;
+            color: var(--text);
+            box-shadow: var(--shadow);
+            transition: all 0.25s ease;
+            min-width: 210px;
+        }
+
+        .page-nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 25px rgba(0,0,0,0.08);
+            border-color: var(--accent);
+        }
+
+        .page-nav-btn.next {
+            margin-left: auto;
+            background: linear-gradient(135deg, #ffffff 0%, var(--accent-l) 100%);
+            border-color: var(--accent);
+            text-align: right;
+            justify-content: flex-end;
+        }
+
+        .page-nav-btn.finish {
+            background: linear-gradient(135deg, #ffffff 0%, var(--green-light, var(--green-l, #e4f0e1)) 100%);
+            border-color: var(--green);
+        }
+
+        .page-nav-btn.primary-start {
+            display: inline-flex;
+            padding: 16px 36px;
+            font-size: 0.98rem;
+            font-weight: 500;
+            background: linear-gradient(135deg, var(--accent-d) 0%, #6f5f8f 100%);
+            color: #ffffff !important;
+            border: none;
+            border-radius: 30px;
+            box-shadow: 0 4px 20px rgba(139, 122, 173, 0.35);
+            text-align: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: all 0.25s ease;
+        }
+
+        .page-nav-btn.primary-start:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 6px 25px rgba(139, 122, 173, 0.45);
+        }
+
+        .nav-arrow-icon {
+            font-size: 1.3rem;
+            line-height: 1;
+            color: var(--accent-d);
+            transition: transform 0.2s;
+        }
+
+        .page-nav-btn:hover .nav-arrow-icon {
+            transform: translateX(4px);
+        }
+        .page-nav-btn.prev:hover .nav-arrow-icon {
+            transform: translateX(-4px);
+        }
+
+        .nav-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .nav-sub {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-s);
+            margin-bottom: 2px;
+        }
+
+        .nav-title {
+            font-weight: 500;
+            font-size: 0.9rem;
+            color: var(--text);
+        }
+
+        .page-nav-btn.next .nav-title {
+            color: var(--accent-d);
+            font-weight: 600;
+        }
+
+        .pagination-status {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            text-align: center;
+            min-width: 140px;
+        }
+
+        .status-badge {
+            font-size: 0.76rem;
+            font-weight: 500;
+            color: var(--text-s);
+        }
+
+        .progress-bar-wrap {
+            width: 130px;
+            height: 6px;
+            background: var(--border);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: var(--accent);
+            border-radius: 3px;
+            transition: width 0.3s ease;
+        }
+
+        .start-topic-cta {
+            text-align: center;
+            margin: 48px 0 24px;
+            padding: 36px 24px;
+            background: linear-gradient(135deg, var(--accent-l) 0%, var(--warm-light, #f5ede4) 100%);
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+        }
+
+        .start-topic-cta .cta-subtitle {
+            font-size: 0.95rem;
+            color: var(--text-s);
+            margin-bottom: 20px;
+            font-weight: 400;
+        }
+
+        @media (max-width: 640px) {
+            .pagination-inner {
+                flex-direction: column;
+            }
+            .page-nav-btn {
+                width: 100%;
+                min-width: auto;
+            }
+            .page-nav-btn.next {
+                text-align: left;
+                justify-content: space-between;
+            }
+            .page-nav-btn.prev {
+                justify-content: flex-start;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Global Workbook Topbar -->
+    <header class="workbook-topbar">
+        <div class="topbar-inner">
+            <a href="introduction.html" class="topbar-brand">
+                <span>📖</span>
+                <span>Рабочая тетрадь</span>
+            </a>
+            <nav class="topbar-tabs" aria-label="Разделы тетради">
+            <a href="introduction.html" class="tab-link">Введение</a>
+            <a href="topic1-emotions.html" class="tab-link">1. Эмоции</a>
+            <a href="topic2-crises.html" class="tab-link active">2. Кризисы</a>
+            <a href="topic3-boundaries.html" class="tab-link">3. Границы</a>
+            <a href="topic4-ontogenesis.html" class="tab-link">4. Онтогенез</a>
+            <a href="topic5-cognitive-biases.html" class="tab-link">5. Искажения</a>
+            </nav>
+        </div>
+    </header>
+
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-label">Тема 2</div>
+            <h1>Возрастные <em>кризисы</em></h1>
+            <p class="hero-subtitle">Когда внутри всё меняется. Как понимать переходы, сензитивные периоды и своё место на жизненном пути.</p>
+            <div class="hero-tags">
+                <span class="hero-tag">что такое кризис</span>
+                <span class="hero-tag">что делать</span>
+                <span class="hero-tag">сензитивные периоды</span>
+                <span class="hero-tag">таймлайн</span>
+            </div>
+            <a href="#start" class="scroll-hint">
+                Начать
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+            </a>
+        </div>
+    </section>
+
+    <!-- Nav -->
+    <nav class="section-nav">
+        <div class="nav-inner">
+            <button class="nav-arrow" onclick="scrollNav(-1)">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+            </button>
+            <div class="nav-scroll" id="navScroll">
+                <button class="nav-btn active" data-section="sec-what">Что такое кризис</button>
+                <button class="nav-btn" data-section="sec-do">Что делать</button>
+                <button class="nav-btn" data-section="sec-sens">Сензитивные</button>
+                <button class="nav-btn" data-section="sec-stages">Этапы жизни</button>
+                <button class="nav-btn" data-section="sec-timeline">Таймлайн</button>
+                <button class="nav-btn" data-section="sec-reflect">Рефлексия</button>
+            </div>
+            <button class="nav-arrow" onclick="scrollNav(1)">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+            </button>
+        </div>
+    </nav>
+
+    <main class="content" id="start">
+
+        <!-- ===================== ЧТО ТАКОЕ КРИЗИС ===================== -->
+        <section class="section" id="sec-what">
+            <div class="section-number">01</div>
+            <h2>Что такое возрастной кризис</h2>
+
+            <div class="highlight">
+                <p><strong>Кризис</strong> – это не катастрофа и не «поломка». В психологии это <strong>период перехода от одного состояния к другому</strong>, когда старая версия жизни уже не подходит, а новая ещё не сформировалась.</p>
+            </div>
+
+            <p>Мы меняемся постоянно: тело, мышление, отношения, ценности, желания, представления о себе. Иногда эти изменения накапливаются, и возникает ощущение:</p>
+
+            <div class="quote">
+                <p>«Я не понимаю, что со мной происходит».</p>
+            </div>
+
+            <p><strong>И это не обязательно означает, что с тобой что-то не так.</strong> Часто это означает, что ты <strong>меняешься</strong>.</p>
+
+            <h3>Почему кризисы пугают</h3>
+            <ul class="list">
+                <li>Старые способы жить перестают работать, а новые ещё не найдены.</li>
+                <li>Меняется самоощущение: «я не тот, кем был раньше».</li>
+                <li>Окружающие могут не замечать внутренней перестройки и ждать «прежнего» поведения.</li>
+                <li>Появляются вопросы без быстрых ответов: «кто я?», «чего я хочу?», «зачем мне это?».</li>
+            </ul>
+
+            <div class="highlight" style="border-left-color: var(--green);">
+                <p><strong>Важно:</strong> кризис – это не ошибка развития, а его необходимая часть. Через него мы переходим на следующий уровень взросления.</p>
+            </div>
+        </section>
+
+        <!-- ===================== ЧТО ДЕЛАТЬ ===================== -->
+        <section class="section" id="sec-do">
+            <div class="section-number">02</div>
+            <h2>Что делать в период кризиса</h2>
+
+            <p>Кризис невозможно «перескочить», но можно пройти его бережнее. Вот что помогает в переходные периоды:</p>
+
+            <div class="action-grid">
+                <div class="action-card">
+                    <div class="ac-icon">🌊</div>
+                    <div class="ac-title">Примите, что это временно</div>
+                    <div class="ac-desc">Кризис – не навсегда. Это волна, которая поднимается и спадает. Назовите его про себя: «сейчас я в переходе».</div>
+                </div>
+                <div class="action-card">
+                    <div class="ac-icon">🧭</div>
+                    <div class="ac-title">Снизьте планку требований</div>
+                    <div class="ac-desc">В период перестройки энергии меньше. Разрешите себе делать меньше и медленнее, без чувства вины.</div>
+                </div>
+                <div class="action-card">
+                    <div class="ac-icon">📝</div>
+                    <div class="ac-title">Наблюдайте, не оценивайте</div>
+                    <div class="ac-desc">Ведите заметки: что меняется, чего хочется, что тревожит. Наблюдение снижает панику и даёт опору.</div>
+                </div>
+                <div class="action-card">
+                    <div class="ac-icon">🤝</div>
+                    <div class="ac-title">Ищите поддержку</div>
+                    <div class="ac-desc">Близкие, сообщество, специалист. Делиться переживаниями легче, чем нести их в одиночку.</div>
+                </div>
+                <div class="action-card">
+                    <div class="ac-icon">🕳️</div>
+                    <div class="ac-title">Позвольте себе «не знать»</div>
+                    <div class="ac-desc">Ответы приходят позже. Не нужно срочно решать всё сегодня – допустимо быть в вопросе.</div>
+                </div>
+                <div class="action-card">
+                    <div class="ac-icon">🌱</div>
+                    <div class="ac-title">Исследуйте, а не боритесь</div>
+                    <div class="ac-desc">Попробуйте новое мягко: хобби, роль, круг общения. Кризис – окно к настоящему «Я».</div>
+                </div>
+            </div>
+
+            <div class="highlight" style="border-left-color: var(--warm);">
+                <p><strong>Золотое правило кризиса:</strong> не чинить себя, а сопровождать. Вы не сломались – вы растёте туда, где пока нет привычной почвы.</p>
+            </div>
+        </section>
+
+        <!-- ===================== СЕНЗИТИВНЫЕ ПЕРИОДЫ ===================== -->
+        <section class="section" id="sec-sens">
+            <div class="section-number">03</div>
+            <h2>Сензитивные периоды</h2>
+
+            <p><strong>Сензитивный период</strong> – это период наивысших возможностей для наиболее эффективного развития какой-либо стороны психики. В это окно организм максимально восприимчив к определённому опыту.</p>
+
+            <div class="highlight">
+                <p>Если возможность использована – навык даётся легко и прочно. Если упущена – позже его можно развить, но это потребует заметно больше усилий.</p>
+            </div>
+
+            <h3>Основные периоды по М. Монтессори (раннее детство)</h3>
+            <div class="sensitive-grid">
+                <div class="sensitive-item"><div class="si-age">0–6 лет (пик 1,5–3)</div><div class="si-name">Развитие речи</div><div class="si-desc">Завершается формирование языкового чутья, легче всего осваивается родной и иностранный язык.</div></div>
+                <div class="sensitive-item"><div class="si-age">0–3 года</div><div class="si-name">Восприятие порядка</div><div class="si-desc">Ребёнок любит стабильность, режим и предсказуемость окружения.</div></div>
+                <div class="sensitive-item"><div class="si-age">0–5,5 лет</div><div class="si-name">Сенсорное развитие</div><div class="si-desc">Изучение мира через органы чувств: зрение, слух, осязание, вкус.</div></div>
+                <div class="sensitive-item"><div class="si-age">1–4 года</div><div class="si-name">Движения и действия</div><div class="si-desc">Ходьба, бег, овладение телом и координацией.</div></div>
+                <div class="sensitive-item"><div class="si-age">1,5–6,5 лет</div><div class="si-name">Интерес к мелким предметам</div><div class="si-desc">Концентрация на деталях, развитие внимания и мелкой моторики.</div></div>
+                <div class="sensitive-item"><div class="si-age">2,5–6 лет</div><div class="si-name">Социальные навыки</div><div class="si-desc">Общение с другими детьми, правила в группе, первые друзья.</div></div>
+            </div>
+
+            <div class="open-q">
+                <label>Какие из ранних сензитивных периодов я помню в себе или вижу в детях/близких?</label>
+                <textarea placeholder="Напиши здесь..."></textarea>
+            </div>
+        </section>
+
+        <!-- ===================== ЭТАПЫ ЖИЗНИ ===================== -->
+        <section class="section" id="sec-stages">
+            <div class="section-number">04</div>
+            <h2>Этапы жизни и их окна возможностей</h2>
+
+            <p>Развернем каждый возрастной этап и посмотрим, к каким именно навыкам и смыслам он наиболее чувствителен.</p>
+
+            <div class="collapse open">
+                <div class="collapse-header" onclick="toggleCollapse(this)">
+                    <div class="collapse-num">6–11</div>
+                    <div class="collapse-title">Младший школьный возраст</div>
+                    <div class="collapse-toggle">+</div>
+                </div>
+                <div class="collapse-body">
+                    <div class="collapse-body-inner">
+                        <p>Главное окно – освоение знаковых систем и правил. Ведущая деятельность – учёба.</p>
+                        <div class="sensitive-grid">
+                            <div class="sensitive-item"><div class="si-age">6–9 лет</div><div class="si-name">Чтение и письмо</div><div class="si-desc">Завершается формирование языкового чутья. Легче всего подтянуть грамотность и полюбить чтение.</div></div>
+                            <div class="sensitive-item"><div class="si-age">7–10 лет</div><div class="si-name">Понятийное мышление</div><div class="si-desc">Ребёнок учится выстраивать логические связи, понимать абстрактные термины и планировать действия.</div></div>
+                            <div class="sensitive-item"><div class="si-age">6–10 лет</div><div class="si-name">Координация и гибкость</div><div class="si-desc">Организм отзывчив к сложным координационным движениям: гимнастика, танцы, плавание.</div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="collapse">
+                <div class="collapse-header" onclick="toggleCollapse(this)">
+                    <div class="collapse-num">11–15</div>
+                    <div class="collapse-title">Подростковый возраст</div>
+                    <div class="collapse-toggle">+</div>
+                </div>
+                <div class="collapse-body">
+                    <div class="collapse-body-inner">
+                        <p>На первый план выходит интимно-личностное общение со сверстниками. Бурная гормональная перестройка.</p>
+                        <div class="sensitive-grid">
+                            <div class="sensitive-item"><div class="si-age">11–13 лет</div><div class="si-name">Выносливость и скорость</div><div class="si-desc">Организм готов к серьёзным физическим нагрузкам: бег, командные виды спорта.</div></div>
+                            <div class="sensitive-item"><div class="si-age">12–15 лет</div><div class="si-name">Рефлексия и самосознание</div><div class="si-desc">Подросток ищет ответ на вопрос «Кто я?». Пик чувствительности к оценке, самооценке и личным границам.</div></div>
+                            <div class="sensitive-item"><div class="si-age">12–15 лет</div><div class="si-name">Эмоциональный интеллект</div><div class="si-desc">Закладывается способность понимать переживания других, контролировать свои эмоции и экологично проживать стресс.</div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="collapse">
+                <div class="collapse-header" onclick="toggleCollapse(this)">
+                    <div class="collapse-num">15–18</div>
+                    <div class="collapse-title">Старший школьный возраст и юность</div>
+                    <div class="collapse-toggle">+</div>
+                </div>
+                <div class="collapse-body">
+                    <div class="collapse-body-inner">
+                        <p>Окно возможностей закрывает этап детства и открывает путь к профессиональному самоопределению.</p>
+                        <div class="sensitive-grid">
+                            <div class="sensitive-item"><div class="si-age">15–17 лет</div><div class="si-name">Мировоззренческий период</div><div class="si-desc">Формирование устойчивой системы ценностей, морали, философских и жизненных взглядов.</div></div>
+                            <div class="sensitive-item"><div class="si-age">16–18 лет</div><div class="si-name">Профессиональное мышление</div><div class="si-desc">Мозг созревает для глубокого, осознанного выбора профессии и долгосрочного целеполагания.</div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="collapse">
+                <div class="collapse-header" onclick="toggleCollapse(this)">
+                    <div class="collapse-num">18–30</div>
+                    <div class="collapse-title">Ранняя взрослость</div>
+                    <div class="collapse-toggle">+</div>
+                </div>
+                <div class="collapse-body">
+                    <div class="collapse-body-inner">
+                        <p>Время максимальной обучаемости, сепарации от родителей и первых шагов в профессии.</p>
+                        <div class="sensitive-grid">
+                            <div class="sensitive-item"><div class="si-age">18–25 лет</div><div class="si-name">Высшее когнитивное развитие</div><div class="si-desc">Максимальная скорость обработки информации и объём рабочей памяти. Легко осваивать сложные науки, программирование, языки на профессиональном уровне.</div></div>
+                            <div class="sensitive-item"><div class="si-age">20–30 лет</div><div class="si-name">Сепарация и идентичность</div><div class="si-desc">Окно для окончательного отделения от родителей и построения финансовой, бытовой независимости.</div></div>
+                            <div class="sensitive-item"><div class="si-age">22–28 лет</div><div class="si-name">Карьерный старт и адаптация</div><div class="si-desc">Гибкая адаптация к корпоративной культуре, работа в команде, выдерживание рабочего стресса.</div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="collapse">
+                <div class="collapse-header" onclick="toggleCollapse(this)">
+                    <div class="collapse-num">30–45</div>
+                    <div class="collapse-title">Взрослость и переоценка</div>
+                    <div class="collapse-toggle">+</div>
+                </div>
+                <div class="collapse-body">
+                    <div class="collapse-body-inner">
+                        <p>Переход от накопления к качеству, глубине и поиску истинного «Я».</p>
+                        <div class="sensitive-grid">
+                            <div class="sensitive-item"><div class="si-age">30–35 лет</div><div class="si-name">Осознанное родительство</div><div class="si-desc">Наивысшая психологическая готовность к воспитанию детей: эмпатия, терпение и опыт в балансе.</div></div>
+                            <div class="sensitive-item"><div class="si-age">30–40 лет</div><div class="si-name">Глубокая экспертиза и мастерство</div><div class="si-desc">Количество переходит в качество: системное мышление, стратегия, лидерство.</div></div>
+                            <div class="sensitive-item"><div class="si-age">38–42 года</div><div class="si-name">Переоценка ценностей</div><div class="si-desc">Кризис среднего возраста. Сензитивный период для духовного роста, смены жизненной философии и часто – профессии. Открытость к поиску истинного «Я» вместо чужих ожиданий.</div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="collapse">
+                <div class="collapse-header" onclick="toggleCollapse(this)">
+                    <div class="collapse-num">45–65</div>
+                    <div class="collapse-title">Зрелость</div>
+                    <div class="collapse-toggle">+</div>
+                </div>
+                <div class="collapse-body">
+                    <div class="collapse-body-inner">
+                        <p>Передача опыта, интеграция смыслов и принятие своего пути.</p>
+                        <div class="sensitive-grid">
+                            <div class="sensitive-item"><div class="si-age">45–55 лет</div><div class="si-name">Наставничество и передача опыта</div><div class="si-desc">Естественная потребность и наивысшая способность обучать других, руководить проектами, хранить традиции.</div></div>
+                            <div class="sensitive-item"><div class="si-age">50–60 лет</div><div class="si-name">Эмоциональная интеграция</div><div class="si-desc">Окно для внутренней гармонии, принятия жизненного пути без сожалений, глубокой житейской мудрости.</div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="collapse">
+                <div class="collapse-header" onclick="toggleCollapse(this)">
+                    <div class="collapse-num">65+</div>
+                    <div class="collapse-title">Поздний возраст</div>
+                    <div class="collapse-toggle">+</div>
+                </div>
+                <div class="collapse-body">
+                    <div class="collapse-body-inner">
+                        <p>Мозг активирует резервные зоны (часто задействует оба полушария там, где молодые – одно).</p>
+                        <div class="sensitive-grid">
+                            <div class="sensitive-item"><div class="si-age">После 65</div><div class="si-name">Стратегии компенсации</div><div class="si-desc">Сензитивный период для неспешного творчества, мемуаристики и философского осмысления жизни.</div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===================== ТАЙМЛАЙН ===================== -->
+        <section class="section" id="sec-timeline">
+            <div class="section-number">05</div>
+            <h2>Где я на таймлайне?</h2>
+
+            <p>Передвинь ползунок, чтобы увидеть, в каком возрастном этапе ты сейчас находишься и к каким задачам он наиболее чувствителен.</p>
+
+            <div class="timeline-wrap">
+                <div class="timeline-slider-row">
+                    <label>Мой возраст</label>
+                    <input type="range" id="ageSlider" min="0" max="80" value="30" oninput="updateStage()">
+                </div>
+                <div class="age-display"><span id="ageNum">30</span> <span>лет</span></div>
+
+                <div class="stage-result" id="stageResult">
+                    <div class="sr-title" id="srTitle">Взрослость и переоценка</div>
+                    <div class="sr-items" id="srItems"></div>
+                </div>
+            </div>
+
+            <div class="open-q">
+                <label>Что из актуального для моего этапа я уже использую, а что чувствую как вызов?</label>
+                <textarea placeholder="Напиши здесь..."></textarea>
+            </div>
+        </section>
+
+        <!-- ===================== РЕФЛЕКСИЯ ===================== -->
+        <section class="section" id="sec-reflect">
+            <div class="section-number">06</div>
+            <h2>Рефлексия</h2>
+
+            <div class="open-q">
+                <label>Какой возрастной кризис я переживаю (или недавно пережил)?</label>
+                <textarea placeholder="Напиши здесь..."></textarea>
+            </div>
+
+            <div class="open-q">
+                <label>Что именно во мне менялось в этот период: желания, ценности, отношения, тело?</label>
+                <textarea placeholder="Напиши здесь..."></textarea>
+            </div>
+
+            <div class="open-q">
+                <label>Какое «окно возможностей» я хочу использовать прямо сейчас?</label>
+                <textarea placeholder="Напиши здесь..."></textarea>
+            </div>
+
+            <div class="open-q">
+                <label>Какое открытие о себе я сделал(а) из этой темы?</label>
+                <textarea placeholder="Напиши здесь..."></textarea>
+            </div>
+
+            <div class="final-quote">
+                <p>Не обязательно знать себя полностью, чтобы начать себя понимать. Иногда достаточно остановиться и впервые честно спросить себя: «А как мне на самом деле?»</p>
+            </div>
+        </section>
+
+    
+        <!-- Topic Pagination Navigation -->
+        <nav class="topic-pagination" aria-label="Навигация по темам тетради">
+            <div class="pagination-inner">
+            <a href="topic1-emotions.html" class="page-nav-btn prev">
+                <span class="nav-arrow-icon">←</span>
+                <span class="nav-text">
+                    <span class="nav-sub">Назад</span>
+                    <span class="nav-title">Тема 1: Эмоции</span>
+                </span>
+            </a>
+            <div class="pagination-status">
+                <span class="status-badge">Тема 2 из 5</span>
+                <div class="progress-bar-wrap">
+                    <div class="progress-bar-fill" style="width: 40%;"></div>
+                </div>
+            </div>
+            <a href="topic3-boundaries.html" class="page-nav-btn next ">
+                <span class="nav-text">
+                    <span class="nav-sub">Далее</span>
+                    <span class="nav-title">Тема 3: Личные границы</span>
+                </span>
+                <span class="nav-arrow-icon">→</span>
+            </a>
+            </div>
+        </nav>
+
+    </main>
+
+    <footer class="footer">Тема 2 · Возрастные кризисы</footer>
+
+    <script>
+        function scrollNav(dir) {
+            document.getElementById('navScroll').scrollBy({ left: dir * 160, behavior: 'smooth' });
+        }
+
+        document.querySelectorAll('.nav-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const t = document.getElementById(btn.dataset.section);
+                if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+
+        const sections = document.querySelectorAll('.section');
+        const navBtns = document.querySelectorAll('.nav-btn');
+        const navScroll = document.getElementById('navScroll');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(sec => {
+                if (sec.getBoundingClientRect().top <= 120) current = sec.id;
+            });
+            navBtns.forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.section === current);
+                if (btn.dataset.section === current) {
+                    btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+                }
+            });
+        });
+
+        function toggleCollapse(h) {
+            h.parentElement.classList.toggle('open');
+        }
+
+        // Interactive timeline
+        const stages = [
+            { min: 0, max: 6, title: 'Раннее детство (0–6)', items: ['Речь', 'Порядок', 'Сенсорика', 'Движение', 'Мелкая моторика', 'Социальные навыки'] },
+            { min: 6, max: 11, title: 'Младший школьный (6–11)', items: ['Чтение и письмо', 'Понятийное мышление', 'Координация и гибкость'] },
+            { min: 11, max: 15, title: 'Подростковый (11–15)', items: ['Выносливость и скорость', 'Рефлексия и самосознание', 'Эмоциональный интеллект'] },
+            { min: 15, max: 18, title: 'Юность (15–18)', items: ['Мировоззрение', 'Профессиональное мышление'] },
+            { min: 18, max: 30, title: 'Ранняя взрослость (18–30)', items: ['Когнитивный пик', 'Сепарация', 'Карьерный старт'] },
+            { min: 30, max: 45, title: 'Взрослость и переоценка (30–45)', items: ['Осознанное родительство', 'Глубокая экспертиза', 'Кризис середины жизни'] },
+            { min: 45, max: 65, title: 'Зрелость (45–65)', items: ['Наставничество', 'Эмоциональная интеграция'] },
+            { min: 65, max: 99, title: 'Поздний возраст (65+)', items: ['Стратегии компенсации', 'Творчество', 'Мудрость'] }
+        ];
+
+        function updateStage() {
+            const age = parseInt(document.getElementById('ageSlider').value, 10);
+            document.getElementById('ageNum').textContent = age;
+            const stage = stages.find(s => age >= s.min && age < s.max) || stages[stages.length - 1];
+            document.getElementById('srTitle').textContent = stage.title;
+            document.getElementById('srItems').innerHTML =
+                stage.items.map(i => `<span class="sr-chip">${i}</span>`).join('');
+        }
+
+        updateStage();
+    
+        // ===================== WORKBOOK AUTOSAVE =====================
+        (function() {
+            const pageKey = 'wb_' + window.location.pathname.split('/').pop().replace('.html','');
+            
+            function saveState() {
+                try {
+                    const data = {};
+                    document.querySelectorAll('input:not([type="button"]):not([type="submit"]), textarea, select').forEach((el, i) => {
+                        const id = el.id || ('input_' + i);
+                        if (el.type === 'checkbox') {
+                            data[id] = el.checked;
+                        } else if (el.type === 'radio') {
+                            if (el.checked) data[el.name] = el.value;
+                        } else {
+                            data[id] = el.value;
+                        }
+                    });
+                    
+                    const activeElements = [];
+                    document.querySelectorAll('.emotion-card.selected, .rating-item.selected, .signal-item.checked, .diary-emotion-btn.active').forEach(el => {
+                        const parentId = el.closest('section')?.id || 'sec';
+                        const text = el.textContent.trim().slice(0, 30);
+                        activeElements.push(parentId + '::' + text);
+                    });
+                    data['__active_elements'] = activeElements;
+                    
+                    localStorage.setItem(pageKey, JSON.stringify(data));
+                } catch(e) {}
+            }
+
+            function restoreState() {
+                try {
+                    const raw = localStorage.getItem(pageKey);
+                    if (!raw) return;
+                    const data = JSON.parse(raw);
+                    
+                    document.querySelectorAll('input:not([type="button"]):not([type="submit"]), textarea, select').forEach((el, i) => {
+                        const id = el.id || ('input_' + i);
+                        if (data[id] !== undefined) {
+                            if (el.type === 'checkbox') {
+                                el.checked = data[id];
+                                const signalItem = el.closest('.signal-item');
+                                if (signalItem) signalItem.classList.toggle('checked', el.checked);
+                            } else if (el.type === 'radio') {
+                                if (el.value === data[el.name]) el.checked = true;
+                            } else {
+                                el.value = data[id];
+                                if (el.type === 'range') {
+                                    const valEl = el.nextElementSibling;
+                                    if (valEl && (valEl.classList.contains('slider-value') || valEl.classList.contains('intensity-val') || valEl.id === 'ageNum')) {
+                                        valEl.textContent = el.value;
+                                    }
+                                }
+                            }
+                            el.dispatchEvent(new Event('input', { bubbles: true }));
+                        }
+                    });
+
+                    if (data['__active_elements'] && Array.isArray(data['__active_elements'])) {
+                        const set = new Set(data['__active_elements']);
+                        document.querySelectorAll('.emotion-card, .rating-item, .signal-item, .diary-emotion-btn').forEach(el => {
+                            const parentId = el.closest('section')?.id || 'sec';
+                            const text = el.textContent.trim().slice(0, 30);
+                            if (set.has(parentId + '::' + text)) {
+                                if (el.classList.contains('emotion-card')) el.classList.add('selected');
+                                if (el.classList.contains('rating-item')) el.classList.add('selected');
+                                if (el.classList.contains('signal-item')) {
+                                    el.classList.add('checked');
+                                    const cb = el.querySelector('input[type="checkbox"]');
+                                    if (cb) cb.checked = true;
+                                }
+                                if (el.classList.contains('diary-emotion-btn')) el.classList.add('active');
+                            }
+                        });
+                    }
+                } catch(e) {}
+            }
+
+            if (document.readyState === 'loading') {
+                window.addEventListener('DOMContentLoaded', restoreState);
+            } else {
+                restoreState();
+            }
+            document.addEventListener('input', saveState);
+            document.addEventListener('change', saveState);
+            document.addEventListener('click', (e) => {
+                if (e.target.closest('.emotion-card, .rating-item, .signal-item, .diary-emotion-btn')) {
+                    setTimeout(saveState, 50);
+                }
+            });
+        })();
+
+    </script>
+</body>
+</html>

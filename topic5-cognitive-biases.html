@@ -1,0 +1,1765 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тема 5 – Когнитивные искажения</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap');
+        :root{--bg:#faf8f5;--card:#fff;--text:#2c2c2c;--text-s:#6b6b6b;--accent:#b8a9c9;--accent-l:#e8e0f0;--accent-d:#8b7aad;--warm:#e8d5c4;--warm-l:#f5ede4;--green:#a8c5a0;--green-l:#e4f0e1;--blue:#a0b8c5;--blue-l:#dde9ef;--rose:#c5a0b0;--rose-l:#f0dde5;--amber:#d4b896;--amber-l:#f5edd8;--border:#e8e4df;--shadow:0 2px 20px rgba(0,0,0,.04);--shadow-h:0 4px 30px rgba(0,0,0,.08)}
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;font-weight:300}
+        .hero{min-height:75vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:60px 20px;background:linear-gradient(135deg,#f5edd8 0%,#e8e0f0 50%,#dde9ef 100%);position:relative;overflow:hidden}
+        .hero::before{content:'';position:absolute;width:600px;height:600px;background:radial-gradient(circle,rgba(212,184,150,.12) 0%,transparent 70%);top:-150px;right:-150px;border-radius:50%}
+        .hero-content{position:relative;z-index:1;max-width:720px}
+        .hero-label{font-size:.7rem;letter-spacing:3px;text-transform:uppercase;color:var(--accent-d);margin-bottom:20px;font-weight:500}
+        .hero h1{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:400;line-height:1.3;margin-bottom:16px}
+        .hero h1 em{font-style:italic;color:var(--accent-d)}
+        .hero-subtitle{font-size:.95rem;color:var(--text-s);max-width:560px;margin:0 auto 28px}
+        .hero-tags{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+        .hero-tag{padding:5px 13px;border-radius:20px;font-size:.72rem;font-weight:500;background:rgba(255,255,255,.6);color:var(--accent-d)}
+        .scroll-hint{display:inline-flex;align-items:center;gap:8px;font-size:.75rem;color:var(--accent-d);letter-spacing:1px;text-transform:uppercase;animation:bounce 2s infinite;cursor:pointer;text-decoration:none;margin-top:28px}
+        .scroll-hint svg{width:16px;height:16px}
+        @keyframes bounce{0%,20%,50%,80%,100%{transform:translateY(0)}40%{transform:translateY(6px)}60%{transform:translateY(3px)}}
+
+        .section-nav{position:sticky;top:0;background:rgba(250,248,245,.92);backdrop-filter:blur(12px);z-index:100;padding:14px 0;border-bottom:1px solid var(--border);margin-bottom:60px}
+        .nav-inner{max-width:960px;margin:0 auto;padding:0 20px;display:flex;align-items:center;gap:6px}
+        .nav-scroll{flex:1;display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;scroll-behavior:smooth}
+        .nav-scroll::-webkit-scrollbar{display:none}
+        .nav-arrow{width:32px;height:32px;border-radius:50%;border:1px solid var(--border);background:var(--card);display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;transition:all .25s;color:var(--text-s)}
+        .nav-arrow:hover{background:var(--accent-l);border-color:var(--accent);color:var(--accent-d)}
+        .nav-arrow svg{width:14px;height:14px}
+        .nav-btn{padding:7px 13px;border:1px solid var(--border);background:var(--card);border-radius:18px;font-size:.7rem;font-family:'Inter',sans-serif;color:var(--text-s);cursor:pointer;white-space:nowrap;transition:all .25s;flex-shrink:0}
+        .nav-btn:hover,.nav-btn.active{background:var(--accent-l);border-color:var(--accent);color:var(--accent-d)}
+
+        .content{max-width:840px;margin:0 auto;padding:60px 24px 120px}
+        .section{margin-bottom:80px;animation:fadeIn .5s ease}
+        @keyframes fadeIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+        .section-number{font-family:'Playfair Display',serif;font-size:2.8rem;color:var(--accent-l);font-weight:600;line-height:1;margin-bottom:6px}
+        .section h2{font-family:'Playfair Display',serif;font-size:1.7rem;font-weight:400;margin-bottom:28px}
+        .section h3{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:400;margin:28px 0 14px;color:var(--accent-d)}
+        .section p{margin-bottom:16px}
+        .section strong{font-weight:500}
+
+        .highlight{background:var(--card);border-left:3px solid var(--accent);padding:22px 26px;border-radius:0 12px 12px 0;margin:28px 0;box-shadow:var(--shadow)}
+        .highlight p:last-child{margin-bottom:0}
+        .quote{text-align:center;padding:36px 28px;margin:36px 0;background:linear-gradient(135deg,var(--accent-l) 0%,var(--warm-l) 100%);border-radius:18px}
+        .quote p{font-family:'Playfair Display',serif;font-size:1.1rem;font-style:italic;color:var(--accent-d);line-height:1.6}
+        .divider{text-align:center;margin:50px 0;color:var(--border);font-size:1.4rem;letter-spacing:10px}
+
+        .search-box{position:relative;margin-bottom:24px}
+        .search-box input{width:100%;padding:14px 18px 14px 44px;border:1px solid var(--border);border-radius:14px;font-family:'Inter',sans-serif;font-size:.88rem;font-weight:300;color:var(--text);background:var(--card);box-shadow:var(--shadow);transition:border-color .2s}
+        .search-box input:focus{outline:none;border-color:var(--accent)}
+        .search-box input::placeholder{color:#c0b8b0}
+        .search-box svg{position:absolute;left:16px;top:50%;transform:translateY(-50%);width:18px;height:18px;color:var(--text-s)}
+
+        .filter-tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px}
+        .filter-tag{padding:6px 14px;border-radius:18px;font-size:.74rem;font-weight:500;border:1.5px solid var(--border);background:var(--card);cursor:pointer;transition:all .2s;font-family:'Inter',sans-serif;color:var(--text-s)}
+        .filter-tag:hover{border-color:var(--accent)}
+        .filter-tag.active{background:var(--accent-l);border-color:var(--accent);color:var(--accent-d)}
+        .filter-tag[data-cat="decide"].active{background:var(--amber-l);border-color:var(--amber);color:#8b7248}
+        .filter-tag[data-cat="prob"].active{background:var(--blue-l);border-color:var(--blue);color:#4a6b7d}
+        .filter-tag[data-cat="social"].active{background:var(--green-l);border-color:var(--green);color:#5a7d52}
+        .filter-tag[data-cat="memory"].active{background:var(--rose-l);border-color:var(--rose);color:#8b5a6b}
+
+        .result-count{font-size:.8rem;color:var(--text-s);margin-bottom:20px}
+        .result-count span{font-weight:600;color:var(--accent-d)}
+
+        .bias-card{background:var(--card);border-radius:14px;margin-bottom:8px;box-shadow:var(--shadow);overflow:hidden;transition:all .25s}
+        .bias-card:hover{box-shadow:var(--shadow-h)}
+        .bias-header{padding:16px 20px;cursor:pointer;display:flex;align-items:center;gap:12px}
+        .bias-header:hover{background:rgba(184,169,201,.03)}
+        .bias-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:.9rem}
+        .bias-icon.decide{background:var(--amber-l);color:#8b7248}
+        .bias-icon.prob{background:var(--blue-l);color:#4a6b7d}
+        .bias-icon.social{background:var(--green-l);color:#5a7d52}
+        .bias-icon.memory{background:var(--rose-l);color:#8b5a6b}
+        .bias-name{font-weight:500;font-size:.9rem;flex:1}
+        .bias-tag-mini{font-size:.65rem;padding:3px 8px;border-radius:10px;font-weight:500;flex-shrink:0}
+        .bias-tag-mini.decide{background:var(--amber-l);color:#8b7248}
+        .bias-tag-mini.prob{background:var(--blue-l);color:#4a6b7d}
+        .bias-tag-mini.social{background:var(--green-l);color:#5a7d52}
+        .bias-tag-mini.memory{background:var(--rose-l);color:#8b5a6b}
+        .bias-toggle{color:var(--accent);transition:transform .3s;font-size:1.2rem;flex-shrink:0}
+        .bias-card.open .bias-toggle{transform:rotate(45deg)}
+        .bias-body{max-height:0;overflow:hidden;transition:max-height .4s ease}
+        .bias-card.open .bias-body{max-height:1500px}
+        .bias-body-inner{padding:0 20px 20px;font-size:.88rem;color:var(--text-s);line-height:1.65}
+        .bias-body-inner p{margin-bottom:0}
+
+        .cat-header{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:400;color:var(--accent-d);margin:40px 0 16px;padding-bottom:8px;border-bottom:2px solid var(--border)}
+        .cat-header:first-of-type{margin-top:0}
+
+        .legend{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:32px;padding:18px 22px;background:var(--card);border-radius:14px;box-shadow:var(--shadow)}
+        .legend-item{display:flex;align-items:center;gap:6px;font-size:.76rem;color:var(--text-s)}
+        .legend-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+
+        .list{list-style:none;margin:16px 0;counter-reset:concl}
+        .list li{position:relative;padding:14px 20px 14px 48px;background:var(--card);border-radius:12px;margin-bottom:8px;box-shadow:var(--shadow);font-size:.92rem;line-height:1.65}
+        .list li::before{counter-increment:concl;content:counter(concl);position:absolute;left:14px;top:14px;width:24px;height:24px;background:var(--accent-l);color:var(--accent-d);border-radius:50%;font-size:.75rem;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+
+        .tags{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0}
+        .tag{padding:5px 12px;border-radius:16px;font-size:.74rem;font-weight:500}
+        .tag-purple{background:var(--accent-l);color:var(--accent-d)}
+        .tag-warm{background:var(--warm);color:#8b6f56}
+        .tag-green{background:var(--green-l);color:#5a7d52}
+        .tag-blue{background:var(--blue-l);color:#4a6b7d}
+        .tag-rose{background:var(--rose-l);color:#8b5a6b}
+
+        .scenario-card{background:var(--card);border-radius:14px;padding:24px;margin:16px 0;box-shadow:var(--shadow);border-top:3px solid var(--accent)}
+        .scenario-card h4{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:400;margin-bottom:10px;color:var(--accent-d)}
+        .scenario-card p,.scenario-card li{font-size:.88rem}
+        .scenario-card ul{list-style:none;margin:10px 0}
+        .scenario-card li{padding:6px 0}
+
+        .checklist{margin:20px 0}
+        .check-item{display:flex;align-items:flex-start;gap:12px;padding:12px 16px;border-radius:12px;cursor:pointer;transition:background .2s;border:2px solid transparent}
+        .check-item:hover{background:var(--accent-l)}
+        .check-item.checked{background:var(--green-l);border-color:var(--green)}
+        .check-box{width:22px;height:22px;border:2px solid var(--border);border-radius:6px;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .2s;margin-top:1px}
+        .check-item.checked .check-box{background:var(--green);border-color:var(--green);color:#fff}
+        .check-box svg{width:14px;height:14px;display:none}
+        .check-item.checked .check-box svg{display:block}
+        .check-label{font-size:.88rem;line-height:1.5}
+        .check-label strong{font-weight:500}
+
+        .open-q{margin:24px 0}
+        .open-q label{display:block;font-size:.88rem;font-weight:500;margin-bottom:10px}
+        .open-q textarea{width:100%;min-height:70px;padding:14px 18px;border:1px solid var(--border);border-radius:12px;font-family:'Inter',sans-serif;font-size:.86rem;font-weight:300;color:var(--text);background:var(--card);resize:vertical;transition:border-color .2s;line-height:1.6}
+        .open-q textarea:focus{outline:none;border-color:var(--accent)}
+        .open-q textarea::placeholder{color:#c0b8b0}
+
+        .final-quote{text-align:center;padding:48px 32px;margin-top:70px;background:linear-gradient(135deg,var(--green-l) 0%,var(--accent-l) 50%,var(--warm-l) 100%);border-radius:22px}
+        .final-quote p{font-family:'Playfair Display',serif;font-size:1.1rem;font-style:italic;color:var(--accent-d);line-height:1.7;max-width:520px;margin:0 auto}
+        .footer{text-align:center;padding:36px 24px;color:var(--text-s);font-size:.78rem}
+    
+        /* ===================== WORKBOOK GLOBAL NAVIGATION & PAGINATION ===================== */
+        :root {
+            --topbar-height: 54px;
+            --accent-l: var(--accent-light, #e8e0f0);
+            --accent-d: var(--accent-dark, #8b7aad);
+            --text-s: var(--text-secondary, #6b6b6b);
+        }
+
+        .section {
+            scroll-margin-top: 125px;
+        }
+
+        .workbook-topbar {
+            position: sticky;
+            top: 0;
+            z-index: 300;
+            background: rgba(250, 248, 245, 0.95);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border-bottom: 1px solid var(--border);
+            height: var(--topbar-height);
+            display: flex;
+            align-items: center;
+        }
+
+        .topbar-inner {
+            max-width: 960px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+        }
+
+        .topbar-brand {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            font-size: 0.9rem;
+            white-space: nowrap;
+            flex-shrink: 0;
+            transition: opacity 0.2s;
+        }
+
+        .topbar-brand:hover {
+            opacity: 0.8;
+        }
+
+        .topbar-tabs {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            overflow-x: auto;
+            scrollbar-width: none;
+            -webkit-overflow-scrolling: touch;
+            padding: 4px 0;
+        }
+
+        .topbar-tabs::-webkit-scrollbar {
+            display: none;
+        }
+
+        .tab-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 6px 13px;
+            border-radius: 16px;
+            font-size: 0.77rem;
+            font-weight: 500;
+            color: var(--text-s);
+            text-decoration: none;
+            background: transparent;
+            border: 1px solid transparent;
+            white-space: nowrap;
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+        }
+
+        .tab-link:hover {
+            background: rgba(184, 169, 201, 0.14);
+            color: var(--accent-d);
+        }
+
+        .tab-link.active {
+            background: var(--accent-l);
+            border-color: var(--accent);
+            color: var(--accent-d);
+            font-weight: 600;
+        }
+
+        .section-nav {
+            position: sticky;
+            top: var(--topbar-height) !important;
+            z-index: 150;
+        }
+
+        /* Pagination & CTA buttons */
+        .topic-pagination {
+            margin: 60px 0 20px;
+            padding-top: 40px;
+            border-top: 1px solid var(--border);
+        }
+
+        .pagination-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .page-nav-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 22px;
+            background: var(--card);
+            border: 1.5px solid var(--border);
+            border-radius: 16px;
+            text-decoration: none;
+            color: var(--text);
+            box-shadow: var(--shadow);
+            transition: all 0.25s ease;
+            min-width: 210px;
+        }
+
+        .page-nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 25px rgba(0,0,0,0.08);
+            border-color: var(--accent);
+        }
+
+        .page-nav-btn.next {
+            margin-left: auto;
+            background: linear-gradient(135deg, #ffffff 0%, var(--accent-l) 100%);
+            border-color: var(--accent);
+            text-align: right;
+            justify-content: flex-end;
+        }
+
+        .page-nav-btn.finish {
+            background: linear-gradient(135deg, #ffffff 0%, var(--green-light, var(--green-l, #e4f0e1)) 100%);
+            border-color: var(--green);
+        }
+
+        .page-nav-btn.primary-start {
+            display: inline-flex;
+            padding: 16px 36px;
+            font-size: 0.98rem;
+            font-weight: 500;
+            background: linear-gradient(135deg, var(--accent-d) 0%, #6f5f8f 100%);
+            color: #ffffff !important;
+            border: none;
+            border-radius: 30px;
+            box-shadow: 0 4px 20px rgba(139, 122, 173, 0.35);
+            text-align: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: all 0.25s ease;
+        }
+
+        .page-nav-btn.primary-start:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 6px 25px rgba(139, 122, 173, 0.45);
+        }
+
+        .nav-arrow-icon {
+            font-size: 1.3rem;
+            line-height: 1;
+            color: var(--accent-d);
+            transition: transform 0.2s;
+        }
+
+        .page-nav-btn:hover .nav-arrow-icon {
+            transform: translateX(4px);
+        }
+        .page-nav-btn.prev:hover .nav-arrow-icon {
+            transform: translateX(-4px);
+        }
+
+        .nav-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .nav-sub {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-s);
+            margin-bottom: 2px;
+        }
+
+        .nav-title {
+            font-weight: 500;
+            font-size: 0.9rem;
+            color: var(--text);
+        }
+
+        .page-nav-btn.next .nav-title {
+            color: var(--accent-d);
+            font-weight: 600;
+        }
+
+        .pagination-status {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            text-align: center;
+            min-width: 140px;
+        }
+
+        .status-badge {
+            font-size: 0.76rem;
+            font-weight: 500;
+            color: var(--text-s);
+        }
+
+        .progress-bar-wrap {
+            width: 130px;
+            height: 6px;
+            background: var(--border);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: var(--accent);
+            border-radius: 3px;
+            transition: width 0.3s ease;
+        }
+
+        .start-topic-cta {
+            text-align: center;
+            margin: 48px 0 24px;
+            padding: 36px 24px;
+            background: linear-gradient(135deg, var(--accent-l) 0%, var(--warm-light, #f5ede4) 100%);
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+        }
+
+        .start-topic-cta .cta-subtitle {
+            font-size: 0.95rem;
+            color: var(--text-s);
+            margin-bottom: 20px;
+            font-weight: 400;
+        }
+
+        @media (max-width: 640px) {
+            .pagination-inner {
+                flex-direction: column;
+            }
+            .page-nav-btn {
+                width: 100%;
+                min-width: auto;
+            }
+            .page-nav-btn.next {
+                text-align: left;
+                justify-content: space-between;
+            }
+            .page-nav-btn.prev {
+                justify-content: flex-start;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Global Workbook Topbar -->
+    <header class="workbook-topbar">
+        <div class="topbar-inner">
+            <a href="introduction.html" class="topbar-brand">
+                <span>📖</span>
+                <span>Рабочая тетрадь</span>
+            </a>
+            <nav class="topbar-tabs" aria-label="Разделы тетради">
+            <a href="introduction.html" class="tab-link">Введение</a>
+            <a href="topic1-emotions.html" class="tab-link">1. Эмоции</a>
+            <a href="topic2-crises.html" class="tab-link">2. Кризисы</a>
+            <a href="topic3-boundaries.html" class="tab-link">3. Границы</a>
+            <a href="topic4-ontogenesis.html" class="tab-link">4. Онтогенез</a>
+            <a href="topic5-cognitive-biases.html" class="tab-link active">5. Искажения</a>
+            </nav>
+        </div>
+    </header>
+
+
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-label">Тема 5</div>
+            <h1>Список <em>когнитивных</em> искажений</h1>
+            <p class="hero-subtitle">Систематические ошибки в мышлении – адаптивные механизмы, которые иногда работают против нас. 70+ искажений с описаниями и упражнениями.</p>
+            <div class="hero-tags">
+                <span class="hero-tag">поведение</span>
+                <span class="hero-tag">вероятности</span>
+                <span class="hero-tag">социальные</span>
+                <span class="hero-tag">память</span>
+            </div>
+            <a href="#start" class="scroll-hint">Начать<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg></a>
+        </div>
+    </section>
+
+    <nav class="section-nav">
+        <div class="nav-inner">
+            <button class="nav-arrow" onclick="scrollNav(-1)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg></button>
+            <div class="nav-scroll" id="navScroll">
+                <button class="nav-btn active" data-section="sec-intro">Введение</button>
+                <button class="nav-btn" data-section="sec-what">Что это</button>
+                <button class="nav-btn" data-section="sec-catalog">Каталог</button>
+                <button class="nav-btn" data-section="sec-examples">Примеры</button>
+                <button class="nav-btn" data-section="sec-selfcheck">Проверка</button>
+                <button class="nav-btn" data-section="sec-exercise">Упражнения</button>
+                <button class="nav-btn" data-section="sec-summary">Выводы</button>
+            </div>
+            <button class="nav-arrow" onclick="scrollNav(1)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></button>
+        </div>
+    </nav>
+
+    <main class="content" id="start">
+
+        <!-- 01 ВВЕДЕНИЕ -->
+        <section class="section" id="sec-intro">
+            <div class="section-number">01</div>
+            <h2>Введение</h2>
+            <div class="highlight">
+                <p><strong>Когнити́вные искаже́ния</strong> – это систематические ошибки в мышлении или шаблонные отклонения в суждениях, которые происходят в определённых ситуациях. Существование большинства из этих когнитивных искажений было описано учёными, а многие были доказаны в психологических экспериментах.</p>
+            </div>
+            <p>Когнитивные искажения являются примером эволюционно сложившегося ментального поведения. Некоторые из них выполняют адаптивную функцию, поскольку они способствуют более эффективным действиям или более быстрым решениям. Другие, по-видимому, происходят из-за отсутствия соответствующих навыков мышления, или из-за неуместного применения навыков, бывших адаптивными в других условиях.</p>
+            <p>Понимание этих искажений – первый шаг к осознанному мышлению. Этот раздел поможет вам научиться распознавать их в собственном суждении и поведении.</p>
+        </section>
+
+        <!-- 02 ЧТО ЭТО -->
+        <section class="section" id="sec-what">
+            <div class="section-number">02</div>
+            <h2>Что такое когнитивные искажения?</h2>
+            <p>Когнитивные искажения – это не «глупость» и не «порок». Это <strong>нормальные особенности</strong> работы человеческого мозга, которые в прошлом помогали выживать, но в современном мире могут приводить к ошибочным решениям.</p>
+
+            <h3>Почему они возникают?</h3>
+            <div class="tags">
+                <span class="tag tag-purple">скорость мышления</span>
+                <span class="tag tag-warm">экономия энергии</span>
+                <span class="tag tag-green">эволюционная память</span>
+                <span class="tag tag-blue">социальные потребности</span>
+                <span class="tag tag-rose">неполная информация</span>
+            </div>
+
+            <h3>Четыре категории</h3>
+            <div class="legend">
+                <div class="legend-item"><div class="legend-dot" style="background:var(--amber)"></div>Поведение и принятие решений</div>
+                <div class="legend-item"><div class="legend-dot" style="background:var(--blue)"></div>Вероятности и стереотипы</div>
+                <div class="legend-item"><div class="legend-dot" style="background:var(--green)"></div>Социально обусловленные</div>
+                <div class="legend-item"><div class="legend-dot" style="background:var(--rose)"></div>Ошибки памяти</div>
+            </div>
+
+            <div class="highlight" style="border-left-color:var(--warm)">
+                <p><strong>Интересный факт:</strong> осознание когнитивных искажений не защищает от них полностью. Даже психологи, изучающие эти явления, продолжают подвергаться им в повседневной жизни. Но осознанность снижает их влияние.</p>
+            </div>
+        </section>
+
+        <!-- 03 КАТАЛОГ -->
+        <section class="section" id="sec-catalog">
+            <div class="section-number">03</div>
+            <h2>Полный каталог искажений</h2>
+
+            <div class="search-box">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+                <input type="text" id="searchInput" placeholder="Поиск по названию или описанию..." oninput="filterBiases()">
+            </div>
+
+            <div class="filter-tags">
+                <button class="filter-tag active" data-cat="all" onclick="setFilter('all')">Все</button>
+                <button class="filter-tag" data-cat="decide" onclick="setFilter('decide')">Поведение и решения</button>
+                <button class="filter-tag" data-cat="prob" onclick="setFilter('prob')">Вероятности</button>
+                <button class="filter-tag" data-cat="social" onclick="setFilter('social')">Социальные</button>
+                <button class="filter-tag" data-cat="memory" onclick="setFilter('memory')">Память</button>
+            </div>
+
+            <div class="result-count" id="resultCount"></div>
+
+            <!-- КАТЕГОРИЯ: ПОВЕДЕНИЕ И РЕШЕНИЯ -->
+            <h3 class="cat-header" data-cat="decide">Поведение и принятие решений</h3>
+
+            <div class="bias-card" data-cat="decide" data-search="повальное увлечение конформизм стадное поведение мании верят делают">
+                <div class="bias-header" onclick="toggleBias(this)">
+                    <div class="bias-icon decide">🎯</div>
+                    <div class="bias-name">Эффект повального увлечения</div>
+                    <span class="bias-tag-mini decide">решения</span>
+                    <div class="bias-toggle">+</div>
+                </div>
+                <div class="bias-body"><div class="bias-body-inner"><p>Тенденция делать (или верить в) вещи, потому что много других людей делают это (или верят в это). Относится к групповому мышлению, стадному поведению и маниям.</p></div></div>
+            </div>
+
+            <div class="bias-card" data-cat="decide" data-search="частные примеры статистика частные случаи игнорирование">
+                <div class="bias-header" onclick="toggleBias(this)">
+                    <div class="bias-icon decide">🎯</div>
+                    <div class="bias-name">Ошибка частных примеров</div>
+                    <span class="bias-tag-mini decide">решения</span>
+                    <div class="bias-toggle">+</div>
+                </div>
+                <div class="bias-body"><div class="bias-body-inner"><p>Игнорирование доступных статистических данных в пользу частных случаев.</p></div></div>
+            </div>
+
+            <div class="bias-card" data-cat="decide" data-search="слепое пятно собственные когнитивные искажения компенсировать">
+                <div class="bias-header" onclick="toggleBias(this)">
+                    <div class="bias-icon decide">🎯</div>
+                    <div class="bias-name">Слепое пятно</div>
+                    <span class="bias-tag-mini decide">решения</span>
+                    <div class="bias-toggle">+</div>
+                </div>
+                <div class="bias-body"><div class="bias-body-inner"><p>Тенденция не компенсировать свои собственные когнитивные искажения.</p></div></div>
+            </div>
+
+            <div class="bias-card" data-cat="decide" data-search="восприятие сделанного выбора помнить выборы правильные">
+                <div class="bias-header" onclick="toggleBias(this)">
+                    <div class="bias-icon decide">🎯</div>
+                    <div class="bias-name">Искажение восприятия выбора</div>
+                    <span class="bias-tag-mini decide">решения</span>
+                    <div class="bias-toggle">+</div>
+                </div>
+                <div class="bias-body"><div class="bias-body-inner"><p>Тенденция помнить свои выборы как более правильные, чем они были на самом деле.</p></div></div>
+            </div>
+
+            <div class="bias-card" data-cat="decide" data-search="рационализация покупка убедить деньги рациональные аргументы">
+                <div class="bias-header" onclick="toggleBias(this)">
+                    <div class="bias-icon decide">🎯</div>
+                    <div class="bias-name">Рационализация после покупки</div>
+                    <span class="bias-tag-mini decide">решения</span>
+                    <div class="bias-toggle">+</div>
+                </div>
+                <div class="bias-body"><div class="bias-body-inner"><p>Тенденция убеждать себя с помощью рациональных аргументов, что покупка стоила своих денег.</p></div></div>
+            </div>
+
+            <div class="bias-card" data-cat="decide" data-search="неприятие потери объект приобретения огорчаются находке">
+                <div class="bias-header" onclick="toggleBias(this)">
+                    <div class="bias-icon decide">🎯</div>
+                    <div class="bias-name">Неприятие потери</div>
+                    <span class="bias-tag-mini decide">решения</span>
+                    <div class="bias-toggle">+</div>
+                </div>
+                <div class="bias-body"><div class="bias-body-inner"><p>Отрицательная полезность, связываемая с потерей объекта, оказывается больше, чем полезность, связанная с приобретением его. Люди больше огорчаются от потери какой-то вещи, чем они радовались бы её находке.</p></div></div>
+            </div>
+
+            <div class="bias-card" data-cat="decide" data-search="предвзятость подтверждения confirmation bias искать интерпретировать концепции">
+                <div class="bias-header" onclick="toggleBias(this)">
+                    <div class="bias-icon decide">🎯</div>
+                    <div class="bias-name">Предвзятость подтверждения</div>
+                    <span class="bias-tag-mini decide">решения</span>
+                    <div class="bias-toggle">+</div>
+                </div>
+                <div class="bias-body"><div class="bias-body-inner"><p>Тенденция искать или интерпретировать информацию таким образом, чтобы подтвердить имевшиеся заранее концепции. Confirmation bias – одно из самых изученных и распространённых искажений.</p></div></div>
+            </div>
+
+            <div class="bias-card" data-cat="decide" data-search="систематическая ошибка согласованности congruence гипотезы прямое тестирование альтернативные">
+                <div class="bias-header" onclick="toggleBias(this)">
+                    <div class="bias-icon decide">🎯</div>
+                    <div class="bias-name">Ошибка согласованности</div>
+                    <span class="bias-tag-mini decide">решения</span>
+                    <div class="bias-toggle">+</div>
+                </div>
+                <div class="bias-body"><div class="bias-body-inner"><p>Тенденция проверять гипотезы исключительно путём прямого тестирования, вместо того, чтобы тестировать возможные альтернативные гипотезы.</p></div></div>
+            </div>
+
+            <div class="bias-card" data-cat="decide" data-search="эффект контраста сравнение контрастный объект преуменьшение усиление">
+                <div class="bias-header" onclick="toggleBias(this)">
+                    <div class="bias-icon decide">🎯</div>
+                    <div class="bias-name">Эффект контраста</div>
+                    <span class="bias-tag-mini decide">решения</span>
+                    <div class="bias-toggle">+</div>
+                </div>
+                <div class="bias-body"><div class="bias-body-inner"><p>Усиление или преуменьшение значения одного измерения, когда оно сравнивается с недавно наблюдавшимся контрастным объектом. Например, человек радуется дешёвой покупке, но перестаёт радоваться после того, как узнаёт, что в соседнем магазине та же вещь стоит в 2 раза дешевле.</p></div></div>
+            </div>
+
+            <div class="bias-card" data-cat="decide" data-search="профессиональная деформация профессиональная деятельность правила профессия общая точка зрения">
+                <div class="bias-header" onclick="toggleBias(this)">
+                    <div class="bias-icon decide">🎯</div>
+                    <div class="bias-name">Профессиональная деформация</div>
+                    <span class="bias-tag-mini decide">решения</span>
+                    <div class="bias-toggle">+</div>
+                </div>
+                <div class="bias-body"><div class="bias-body-inner"><p>Психологическая дезориентация личности в ходе профессиональной деятельности. Тенденция смотреть на вещи согласно правилам, общепринятым для своей профессии, отбрасывая более общую точку зрения. Наиболее ей подвержены лица, работающие с людьми (полиция, социальные работники, учителя, медики, психологи).</p></div></div>
+            </div>
+
+            <div class="bias-card" data-cat="decide" data-search="систематическая ошибка различения варианта реализуются одновременно отдельности">
+                <div class="bias-header" onclick="toggleBias(this)">
+                    <div class="bias-icon decide">🎯</div>
+                    <div class="bias-name">Ошибка различения</div>
+                    <span class="bias-tag-mini decide">решения</span>
+                    <div class="bias-toggle">+</div>
+                </div>
+                <div class="bias-body"><div class="bias-body-inner"><p>Тенденция воспринимать два варианта как более различные, когда они реализуются одновременно, чем когда они реализуются по отдельности.</p></div></div>
+            </div>
+
+            <div class="bias-card" data-cat="decide" data-search="эффект вклада продать дороже заплатить приобрести">
+                <div class="bias-header" onclick="toggleBias(this)">
+                    <div class="bias-icon decide">🎯</div>
+                    <div class="bias-name">Эффект вклада</div>
+                    <span class="bias-tag-mini decide">решения</span>
+                    <div class="bias-toggle">+</div>
+                </div>
+                <div class="bias-body"><div class="bias-body-inner"><p>Тот факт, что люди часто хотят продать некий объект гораздо дороже, чем они готовы заплатить, чтобы приобрести его.</p></div></div>
+            </div>
+
+            <div class="bias-card" data-cat="decide" data-search="отвращение крайние решения экстремальные промежуточные">
+                <div class="bias-header" onclick="toggleBias(this)">
+                    <div class="bias-icon decide">🎯</div>
+                    <div class="bias-name">Отвращение к крайним решениям</div>
+                    <span class="bias-tag-mini decide">решения</span>
+                    <div class="bias-toggle">+</div>
+                </div>
+                <div class="bias-body"><div class="bias-body-inner"><p>Тенденция избегать экстремальных решений, выбирая промежуточные.</p></div></div>
+            </div>
+
+            <div class="bias-card" data-cat="decide" data-search="эффект фокусировки предсказания внимание аспект полезность исхода ядерная война">
+                <div class="bias-header" onclick="toggleBias(this)">
+                    <div class="bias-icon decide">🎯</div>
+                    <div class="bias-name">Эффект фокусировки</div>
+                    <span class="bias-tag-mini decide">решения</span>
+                    <div class="bias-toggle">+</div>
+                </div>
+                <div class="bias-body"><div class="bias-body-inner"><p>Ошибка в предсказаниях, возникающая, когда люди уделяют слишком много внимания какому-то одному аспекту явления; вызывает ошибки в правильном предсказании полезности будущего исхода. Например, концентрация внимания на том, кто виноват в возможной ядерной войне, отвлекает внимание от того, что пострадают в ней все.</p></div></div>
+            </div>
+
+            <div class="bias-card" data-cat="decide" data-search="эффект узких рамок узкий подход описания ситуации проблемы воздействия рамок представления">
+                <div class="bias-header" onclick="toggleBias(this)">
+                    <div class="bias-icon decide">🎯</div>
+                    <div class="bias-name">Эффект узких рамок</div>
+                    <span class="bias-tag-mini decide">решения</span>
+                    <div class="bias-toggle">+</div>
+                </div>
+                <div class="bias-body"><div class="bias-body-inner"><p>Использование слишком узкого подхода для описания ситуации или проблемы. Эффект воздействия рамок – различные выводы в зависимости от того, как данные представлены.</p></div></div>
+            </div>
+
+            <div class="bias-card" data-cat="decide" data-search="переоценка скидок hyperbolic discounting близкие выплаты отдалённое будущее предпочтение">
+                <div class="bias-header" onclick="toggleBias(this)">
+                    <div class="bias-icon decide">🎯</div>
+                    <div class="bias-name">Переоценка скидок</div>
+                    <span class="bias-tag-mini decide">решения</span>
+                    <div class="bias-toggle">+</div>
+                </div>
+                <div class="bias-body"><div class="bias-body-inner"><p>Тенденция людей тем больше предпочитать более близкие во времени выплаты относительно выплат в более отдалённом будущем, чем ближе обе выплаты к настоящему времени.</p></div></div>
+            </div>
+
+            <div class="bias-card" data-cat="decide" data-search="иллюзия контроля контролировать влиять результаты событий">
+                <div class="bias-header" onclick="toggleBias(this)">
+                    <div class="bias-icon decide">🎯</div>
+                    <div class="bias-name">Иллюзия контроля</div>
+                    <span class="bias-tag-mini decide">решения</span>
+                    <div class="bias-toggle">+</div>
+                </div>
+                <div class="bias-body"><div class="bias-body-inner"><p>Тенденция людей верить, что они могут контролировать или, по крайней мере, влиять на результаты событий, на которые они на самом деле влиять не могут.</p></div></div>
+            </div>
+
+            <div class="bias-card" data-cat="decide" data-search="переоценка воздействия длительность интенсивность события переживания будущие">
+                <div class="bias-header" onclick="toggleBias(this)">
+                    <div class="bias-icon decide">🎯</div>
+                    <div class="bias-name">Переоценка воздействия</div>
+                    <span class="bias-tag-mini decide">решения</span>
+                    <div class="bias-toggle">+</div>
+                </div>
+                <div class="bias-body"><div class="bias-body-inner"><p>Тенденция людей переоценивать длительность или интенсивность воздействия некого события на их будущие переживания.</p></div></div>
+            </div>
+
+            <div class="bias-card" data-cat="decide" data-search="уклон поиск информации не влияет на действия информация">
+                <div class="bias-header" onclick="toggleBias(this)">
+                    <div class="bias-icon decide">🎯</div>
+                    <div class="bias-name">Уклон в сторону поиска информации</div>
+                    <span class="bias-tag-mini decide">решения</span>
+                    <div class="bias-toggle">+</div>
+                </div>
+                <div class="bias-body"><div class="bias-body-inner"><p>Тенденция искать информацию даже тогда, когда она не влияет на действия.</p></div></div>
+            </div>
+
+            <div class="bias-card" data-cat="decide" data-search="иррациональное усиление иррациональные решения прошлые рациональные оправдание аукционы стоимость">
+                <div class="bias-header" onclick="toggleBias(this)">
+                    <div class="bias-icon decide">🎯</div>
+                    <div class="bias-name">Иррациональное усиление</div>
+                    <span class="bias-tag-mini decide">решения</span>
+                    <div class="bias-toggle">+</div>
+                </div>
+                <div class="bias-body"><div class="bias-body-inner"><p>Тенденция принимать иррациональные решения, основанные на прошлых рациональных решениях, или оправдание уже совершённых действий. Проявляется, например, на аукционах, когда вещь покупается выше её стоимости.</p></div></div>
+            </div>
+
+            <div class="bias-card" data-cat="decide" data-search="эффект знакомства объекта знакомы симпатия необоснованная">
+                <div class="bias-header" onclick="toggleBias(this)">
+                    <div class="bias-icon decide">🎯</div>
+                    <div class="bias-name">Эффект знакомства с объектом</div>
+                    <span class="bias-tag-mini decide">решения</span>
+                    <div class="bias-toggle">+</div>
+                </div>
+                <div class="bias-body"><div class="bias-body-inner"><p>Тенденция людей выражать необоснованную симпатию к некому объекту только потому, что они знакомы с ним.</p></div></div>
+            </div>
+
+            <div class="bias-card" data-cat="decide" data-search="эффект морального доверия предубеждения безгрешный иллюзия действие">
+                <div class="bias-header" onclick="toggleBias(this)">
+                    <div class="bias-icon decide">🎯</div>
+                    <div class="bias-name">Эффект морального доверия</div>
+                    <span class="bias-tag-mini decide">решения</span>
+                    <div class="bias-toggle">+</div>
+                </div>
+                <div class="bias-body"><div class="bias-body-inner"><p>Человек, относительно которого известно, что у него нет предубеждений, имеет в будущем большие шансы проявить предубеждения. Если все считают человека безгрешным, у него возникает иллюзия, что его любое действие также будет безгрешным.</p></div></div>
+            </div>
+
+            <div class="bias-card" data-cat="decide" data-search="потребность завершения ответ сомнения неуверенность обстоятельства время давление">
+                <div class="bias-header" onclick="toggleBias(this)">
+                    <div class="bias-icon decide">🎯</div>
+                    <div class="bias-name">Потребность в завершении</div>
+                    <span class="bias-tag-mini decide">решения</span>
+                    <div class="bias-toggle">+</div>
+                </div>
+                <div class="bias-body"><div class="bias-body-inner"><p>Потребность достигнуть завершения в важном вопросе, получить ответ и избежать чувства сомнений и неуверенности. Текущие обстоятельства (время или социальное давление) могут усилить этот источник ошибок.</p></div></div>
+            </div>
+
+            <div class="bias-card" data-cat="decide" data-search="потребность противоречии сенсационные большие темы дух противоречия печати">
+                <div class="bias-header" onclick="toggleBias(this)">
+                    <div class="bias-icon decide">🎯</div>
+                    <div class="bias-name">Потребность в противоречии</div>
+                    <span class="bias-tag-mini decide">решения</span>
+                    <div class="bias-toggle">+</div>
+                </div>
+                <div class="bias-body"><div class="bias-body-inner"><p>Более быстрое распространение более сенсационных, цепляющих за больные темы или возбуждающих дух противоречия сообщений в открытой печати.</p></div></div>
+            </div>
+
+            <div class="bias-card" data-cat="decide" data-search="отрицание вероятности вероятностная проблематика решения неопределённость">
+                <div class="bias-header" onclick="toggleBias(this)">
+                    <div class="bias-icon decide">🎯</div>
+                    <div class="bias-name">Отрицание вероятности</div>
+                    <span class="bias-tag-mini decide">решения</span>
+                    <div class="bias-toggle">+</div>
+                </div>
+                <div class="bias-body"><div class="bias-body-inner"><p>Тенденция полностью отвергать вероятностную проблематику при принятии решений в условиях неопределённости.</p></div></div>
+            </div>
+
+            <div class="bias-card" data-cat="decide" data-search="недооценка бездействия вредоносные действия бездействие преступное моральные">
+                <div class="bias-header" onclick="toggleBias(this)">
+                    <div class="bias-icon decide">🎯</div>
+                    <div class="bias-name">Недооценка бездействия</div>
+                    <span class="bias-tag-mini decide">решения</span>
+                    <div class="bias-toggle">+</div>
+                </div>
+                <div class="bias-body"><div class="bias-body-inner"><p>Тенденция оценивать вредоносные действия как худшие и менее моральные, чем равное по последствиям бездействие.</p></div></div>
+            </div>
+
+            <div class="bias-card" data-cat="decide" data-search="отклонение результат судить решения окончательные результаты обстоятельства победителей не судят">
+                <div class="bias-header" onclick="toggleBias(this)">
+                    <div class="bias-icon decide">🎯</div>
+                    <div class="bias-name">Отклонение в сторону результата</div>
+                    <span class="bias-tag-mini decide">решения</span>
+                    <div class="bias-toggle">+</div>
+                </div>
+                <div class="bias-body"><div class="bias-body-inner"><p>Тенденция судить о решениях по их окончательным результатам, вместо того, чтобы оценивать качество решений по обстоятельствам того момента времени, когда они были приняты. «Победителей не судят.»</p></div></div>
+            </div>
+
+            <div class="bias-card" data-cat="decide" data-search="ошибка планирования недооценивать время задач мёрфи работа время">
+                <div class="bias-header" onclick="toggleBias(this)">
+                    <div class="bias-icon decide">🎯</div>
+                    <div class="bias-name">Ошибка при планировании</div>
+                    <span class="bias-tag-mini decide">решения</span>
+                    <div class="bias-toggle">+</div>
+                </div>
+                <div class="bias-body"><div class="bias-body-inner"><p>Тенденция недооценивать время выполнения задач. Также известно как следствие закона Мёрфи: «Всякая работа требует больше времени, чем вы думаете».</p></div></div>
+            </div>
+
+            <div class="bias-card" data-cat="decide" data-search="эффект псевдоуверенности решения избегание риска позитивный негативный исход">
+                <div class="bias-header" onclick="toggleBias(this)">
+                    <div class="bias-icon decide">🎯</div>
+                    <div class="bias-name">Эффект псевдоуверенности</div>
+                    <span class="bias-tag-mini decide">решения</span>
+                    <div class="bias-toggle">+</div>
+                </div>
+                <div class="bias-body"><div class="bias-body-inner"><p>Тенденция принимать решения, избегающие риска, если ожидаемый результат позитивный, однако принимать рискованные решения, чтобы избежать негативного исхода.</p></div></div>
+            </div>
+
+            <div class="bias-card" data-cat="decide" data-search="сопротивление дух противоречия побуждает делать противоположное свобода выбора ограничить">
+                <div class="bias-header" onclick="toggleBias(this)">
+                    <div class="bias-icon decide">🎯</div>
+                    <div class="bias-name">Сопротивление, «дух противоречия»</div>
+                    <span class="bias-tag-mini decide">решения</span>
+                    <div class="bias-toggle">+</div>
+                </div>
+                <div class="bias-body"><div class="bias-body-inner"><p>Потребность делать нечто противоположное тому, что некто побуждает вас делать, из-за потребности противостоять кажущимся попыткам ограничить вашу свободу выбора.</p></div></div>
+            </div>
+
+            <div class="bias-card" data-cat="decide" data-search="селективное восприятие ожидания влияют восприятие">
+                <div class="bias-header" onclick="toggleBias(this)">
+                    <div class="bias-icon decide">🎯</div>
+                    <div class="bias-name">Селективное восприятие</div>
+                    <span class="bias-tag-mini decide">решения</span>
+                    <div class="bias-toggle">+</div>
+                </div>
+                <div class="bias-body"><div class="bias-body-inner"><p>Тенденция, состоящая в том, что ожидания влияют на восприятие.</p></div></div>
+            </div>
+
+            <div class="bias-card" data-cat="decide" data-search="отклонение статус кво желать вещи остаются теми же самыми">
+                <div class="bias-header" onclick="toggleBias(this)">
+                    <div class="bias-icon decide">🎯</div>
+                    <div class="bias-name">Отклонение в сторону статуса кво</div>
+                    <span class="bias-tag-mini decide">решения</span>
+                    <div class="bias-toggle">+</div>
+                </div>
+                <div class="bias-body"><div class="bias-body-inner"><p>Тенденция людей желать, чтобы вещи оставались приблизительно теми же самыми.</p></div></div>
+            </div>
+
+            <div class="bias-card" data-cat="decide" data-search="предпочтение целостных объектов задача закончить порции еды большие маленькие">
+                <div class="bias-header" onclick="toggleBias(this)">
+                    <div class="bias-icon decide">🎯</div>
+                    <div class="bias-name">Предпочтение целостных объектов</div>
+                    <span class="bias-tag-mini decide">решения</span>
+                    <div class="bias-toggle">+</div>
+                </div>
+                <div class="bias-body"><div class="bias-body-inner"><p>Потребность закончить данную часть задачи. Ярко проявляется в том, что людям свойственно есть больше, когда предлагаются большие порции еды, чем брать много маленьких порций.</p></div></div>
+            </div>
+
+            <div class="bias-card" data-cat="decide" data-search="эффект фон ресторфа изоляции запоминать отдельно выдающиеся объекты">
+                <div class="bias-header" onclick="toggleBias(this)">
+                    <div class="bias-icon decide">🎯</div>
+                    <div class="bias-name">Эффект фон Ресторфа</div>
+                    <span class="bias-tag-mini decide">решения</span>
+                    <div class="bias-toggle">+</div>
+                </div>
+                <div class="bias-body"><div class="bias-body-inner"><p>Склонность людей лучше запоминать отдельно стоящие выдающиеся объекты (эффект изоляции).</p></div></div>
+            </div>
+
+            <div class="bias-card" data-cat="decide" data-search="предпочтение нулевого риска уменьшить риск нуля террористические акты аварийность ятрофобия осложнения медицинские">
+                <div class="bias-header" onclick="toggleBias(this)">
+                    <div class="bias-icon decide">🎯</div>
+                    <div class="bias-name">Предпочтение нулевого риска</div>
+                    <span class="bias-tag-mini decide">решения</span>
+                    <div class="bias-toggle">+</div>
+                </div>
+                <div class="bias-body"><div class="bias-body-inner"><p>Предпочтение уменьшить какой-то один маленький риск до нуля вместо того, чтобы значительно уменьшить другой, больший риск. Например, большинство людей предпочли бы уменьшить вероятность террористических актов до нуля вместо снижения аварийности на дорогах, даже если бы второй эффект давал бы больше сохранённых жизней.</p></div></div>
+            </div>
+
+            <div class="bias-card" data-cat="decide" data-search="подчинение авторитету склонность подчиняться авторитет игнорировать суждения милгрэм">
+                <div class="bias-header" onclick="toggleBias(this)">
+                    <div class="bias-icon decide">🎯</div>
+                    <div class="bias-name">Подчинение авторитету</div>
+                    <span class="bias-tag-mini decide">решения</span>
+                    <div class="bias-toggle">+</div>
+                </div>
+                <div class="bias-body"><div class="bias-body-inner"><p>Склонность людей подчиняться авторитету, игнорируя свои собственные суждения о целесообразности действия. См. также эксперимент Милгрэма.</p></div></div>
+            </div>
+
+
+            <!-- КАТЕГОРИЯ: ВЕРОЯТНОСТИ -->
+            <h3 class="cat-header" data-cat="prob">Вероятности и стереотипы</h3>
+
+            <div class="bias-card" data-cat="prob" data-search="эффект неоднозначности неизвестная вероятность избегание вариантов действий">
+                <div class="bias-header" onclick="toggleBias(this)">
+                    <div class="bias-icon prob">📊</div>
+                    <div class="bias-name">Эффект неоднозначности</div>
+                    <span class="bias-tag-mini prob">вероятности</span>
+                    <div class="bias-toggle">+</div>
+                </div>
+                <div class="bias-body"><div class="bias-body-inner"><p>Избегание вариантов действий, в которых отсутствующая информация делает вероятность «неизвестной».</p></div></div>
+            </div>
+
+            <div class="bias-card" data-cat="prob" data-search="эффект привязки численные решения иррациональные смещения ответы число попавшее в сознание">
+                <div class="bias-header" onclick="toggleBias(this)">
+                    <div class="bias-icon prob">📊</div>
+                    <div class="bias-name">Эффект привязки</div>
+                    <span class="bias-tag-mini prob">вероятности</span>
+                    <div class="bias-toggle">+</div>
+                </div>
+                <div class="bias-body"><div class="bias-body-inner"><p>Особенность принятия численных решений человеком, вызывающая иррациональные смещения ответов в сторону числа, попавшего в сознание перед принятием решения.</p></div></div>
+            </div>
+
+            <div class="bias-card" data-cat="prob" data-search="отклонение внимание пренебрежение релевантная информация корреляция ассоциация">
+                <div class="bias-header" onclick="toggleBias(this)">
+                    <div class="bias-icon prob">📊</div>
+                    <div class="bias-name">Отклонение, связанное со вниманием</div>
+                    <span class="bias-tag-mini prob">вероятности</span>
+                    <div class="bias-toggle">+</div>
+                </div>
+                <div class="bias-body"><div class="bias-body-inner"><p>Пренебрежение релевантной информацией при суждении о корреляции или ассоциации.</p></div></div>
+            </div>
+
+            <div class="bias-card" data-cat="prob" data-search="эвристика доступности доступно памяти вероятного яркого необычного эмоционально заряженного">
+                <div class="bias-header" onclick="toggleBias(this)">
+                    <div class="bias-icon prob">📊</div>
+                    <div class="bias-name">Эвристика доступности</div>
+                    <span class="bias-tag-mini prob">вероятности</span>
+                    <div class="bias-toggle">+</div>
+                </div>
+                <div class="bias-body"><div class="bias-body-inner"><p>Оценка как более вероятного того, что более доступно в памяти, то есть уклонение в сторону более яркого, необычного или эмоционально заряженного.</p></div></div>
+            </div>
+
+            <div class="bias-card" data-cat="prob" data-search="каскад доступной информации самоусиливающийся коллективная вера повторение публичный дискурс правда">
+                <div class="bias-header" onclick="toggleBias(this)">
+                    <div class="bias-icon prob">📊</div>
+                    <div class="bias-name">Каскад доступной информации</div>
+                    <span class="bias-tag-mini prob">вероятности</span>
+                    <div class="bias-toggle">+</div>
+                </div>
+                <div class="bias-body"><div class="bias-body-inner"><p>Самоусиливающийся процесс, в ходе которого коллективная вера во что-то становится всё более убедительной за счёт нарастающего повторения в публичном дискурсе («повторяйте нечто достаточно долго и это станет правдой»).</p></div></div>
+            </div>
+
+            <div class="bias-card" data-cat="prob" data-search="иллюзия кластеризации паттерны тенденция видеть закономерности случайность">
+                <div class="bias-header" onclick="toggleBias(this)">
+                    <div class="bias-icon prob">📊</div>
+                    <div class="bias-name">Иллюзия кластеризации</div>
+                    <span class="bias-tag-mini prob">вероятности</span>
+                    <div class="bias-toggle">+</div>
+                </div>
+                <div class="bias-body"><div class="bias-body-inner"><p>Тенденция видеть паттерны там, где их на самом деле нет.</p></div></div>
+            </div>
+
+            <div class="bias-card" data-cat="prob" data-search="ошибка полноты распределения среднее значение распределение набор данных узкое">
+                <div class="bias-header" onclick="toggleBias(this)">
+                    <div class="bias-icon prob">📊</div>
+                    <div class="bias-name">Ошибка полноты распределения</div>
+                    <span class="bias-tag-mini prob">вероятности</span>
+                    <div class="bias-toggle">+</div>
+                </div>
+                <div class="bias-body"><div class="bias-body-inner"><p>Тенденция верить, что чем ближе среднее значение к заданному, тем уже распределение набора данных.</p></div></div>
+            </div>
+
+            <div class="bias-card" data-cat="prob" data-search="ошибка совпадений специальные случаи вероятные частные">
+                <div class="bias-header" onclick="toggleBias(this)">
+                    <div class="bias-icon prob">📊</div>
+                    <div class="bias-name">Ошибка совпадений</div>
+                    <span class="bias-tag-mini prob">вероятности</span>
+                    <div class="bias-toggle">+</div>
+                </div>
+                <div class="bias-body"><div class="bias-body-inner"><p>Тенденция полагать, что более специальные случаи являются более вероятными, чем более частные.</p></div></div>
+            </div>
+
+            <div class="bias-card" data-cat="prob" data-search="ошибка игрока случайные события влияние предыдущих">
+                <div class="bias-header" onclick="toggleBias(this)">
+                    <div class="bias-icon prob">📊</div>
+                    <div class="bias-name">Ошибка игрока</div>
+                    <span class="bias-tag-mini prob">вероятности</span>
+                    <div class="bias-toggle">+</div>
+                </div>
+                <div class="bias-body"><div class="bias-body-inner"><p>Тенденция полагать, что отдельные случайные события испытывают влияние предыдущих случайных событий.</p></div></div>
+            </div>
+
+            <div class="bias-card" data-cat="prob" data-search="ошибка обоснования оценки априорная информация специфика случая">
+                <div class="bias-header" onclick="toggleBias(this)">
+                    <div class="bias-icon prob">📊</div>
+                    <div class="bias-name">Ошибка обоснования оценки</div>
+                    <span class="bias-tag-mini prob">вероятности</span>
+                    <div class="bias-toggle">+</div>
+                </div>
+                <div class="bias-body"><div class="bias-body-inner"><p>Игнорирование или недостаточное использование основной априорной информации под влиянием специфики рассматриваемого случая.</p></div></div>
+            </div>
+
+            <div class="bias-card" data-cat="prob" data-search="хоторнский эффект наблюдаемые исследование поведение производительность труда завода комиссия">
+                <div class="bias-header" onclick="toggleBias(this)">
+                    <div class="bias-icon prob">📊</div>
+                    <div class="bias-name">Хоторнский эффект</div>
+                    <span class="bias-tag-mini prob">вероятности</span>
+                    <div class="bias-toggle">+</div>
+                </div>
+                <div class="bias-body"><div class="bias-body-inner"><p>Феномен, состоящий в том, что люди, наблюдаемые в ходе исследования, временно изменяют своё поведение или производительность. Пример: повышение производительности труда на заводе, когда приезжает комиссия по исследованию.</p></div></div>
+            </div>
+
+            <div class="bias-card" data-cat="prob" data-search="эффект знания задним числом я так знал предсказуемыми прошлые события говорила">
+                <div class="bias-header" onclick="toggleBias(this)">
+                    <div class="bias-icon prob">📊</div>
+                    <div class="bias-name">Эффект знания задним числом</div>
+                    <span class="bias-tag-mini prob">вероятности</span>
+                    <div class="bias-toggle">+</div>
+                </div>
+                <div class="bias-body"><div class="bias-body-inner"><p>«Я так и знал, что так будет» – склонность воспринимать прошлые события предсказуемыми.</p></div></div>
+            </div>
+
+            <div class="bias-card" data-cat="prob" data-search="иллюзия корреляции ошибочная вера взаимосвязь действия результаты">
+                <div class="bias-header" onclick="toggleBias(this)">
+                    <div class="bias-icon prob">📊</div>
+                    <div class="bias-name">Иллюзия корреляции</div>
+                    <span class="bias-tag-mini prob">вероятности</span>
+                    <div class="bias-toggle">+</div>
+                </div>
+                <div class="bias-body"><div class="bias-body-inner"><p>Ошибочная вера во взаимосвязь определённых действий и результатов.</p></div></div>
+            </div>
+
+            <div class="bias-card" data-cat="prob" data-search="ошибочность игры анализ шансы выпадение узкий набор игр">
+                <div class="bias-header" onclick="toggleBias(this)">
+                    <div class="bias-icon prob">📊</div>
+                    <div class="bias-name">Ошибочность, связанная с играми</div>
+                    <span class="bias-tag-mini prob">вероятности</span>
+                    <div class="bias-toggle">+</div>
+                </div>
+                <div class="bias-body"><div class="bias-body-inner"><p>Анализ проблем, связанных с выпадением шансов, с помощью узкого набора игр.</p></div></div>
+            </div>
+
+            <div class="bias-card" data-cat="prob" data-search="эффект ожидания наблюдателя исследователь ожидает результат манипулирует эксперимент интерпретирует данные">
+                <div class="bias-header" onclick="toggleBias(this)">
+                    <div class="bias-icon prob">📊</div>
+                    <div class="bias-name">Эффект ожидания наблюдателя</div>
+                    <span class="bias-tag-mini prob">вероятности</span>
+                    <div class="bias-toggle">+</div>
+                </div>
+                <div class="bias-body"><div class="bias-body-inner"><p>Эффект возникает, когда исследователь ожидает определённого результата и бессознательно манипулирует ходом эксперимента или неправильно интерпретирует данные, чтобы обнаружить этот результат.</p></div></div>
+            </div>
+
+            <div class="bias-card" data-cat="prob" data-search="отклонение оптимизм систематически переоценивать сверхоптимистичный шансы успеха планируемых действий">
+                <div class="bias-header" onclick="toggleBias(this)">
+                    <div class="bias-icon prob">📊</div>
+                    <div class="bias-name">Отклонение в сторону оптимизма</div>
+                    <span class="bias-tag-mini prob">вероятности</span>
+                    <div class="bias-toggle">+</div>
+                </div>
+                <div class="bias-body"><div class="bias-body-inner"><p>Тенденция систематически переоценивать и быть сверхоптимистичным относительно шансов успеха планируемых действий.</p></div></div>
+            </div>
+
+            <div class="bias-card" data-cat="prob" data-search="эффект сверхуверенности переоценивать собственные способности">
+                <div class="bias-header" onclick="toggleBias(this)">
+                    <div class="bias-icon prob">📊</div>
+                    <div class="bias-name">Эффект сверхуверенности</div>
+                    <span class="bias-tag-mini prob">вероятности</span>
+                    <div class="bias-toggle">+</div>
+                </div>
+                <div class="bias-body"><div class="bias-body-inner"><p>Тенденция переоценивать свои собственные способности.</p></div></div>
+            </div>
+
+            <div class="bias-card" data-cat="prob" data-search="отклонение позитивный исход предсказание вероятность хорошие вещи">
+                <div class="bias-header" onclick="toggleBias(this)">
+                    <div class="bias-icon prob">📊</div>
+                    <div class="bias-name">Отклонение в сторону позитивного исхода</div>
+                    <span class="bias-tag-mini prob">вероятности</span>
+                    <div class="bias-toggle">+</div>
+                </div>
+                <div class="bias-body"><div class="bias-body-inner"><p>Тенденция переоценивать при предсказании вероятность хороших вещей.</p></div></div>
+            </div>
+
+            <div class="bias-card" data-cat="prob" data-search="эффект первенства изначальные события последующие переоценка">
+                <div class="bias-header" onclick="toggleBias(this)">
+                    <div class="bias-icon prob">📊</div>
+                    <div class="bias-name">Эффект первенства</div>
+                    <span class="bias-tag-mini prob">вероятности</span>
+                    <div class="bias-toggle">+</div>
+                </div>
+                <div class="bias-body"><div class="bias-body-inner"><p>Тенденция переоценивать изначальные события более, чем последующие события.</p></div></div>
+            </div>
+
+            <div class="bias-card" data-cat="prob" data-search="эффект недавнего недавние события более ранние оценивать выше">
+                <div class="bias-header" onclick="toggleBias(this)">
+                    <div class="bias-icon prob">📊</div>
+                    <div class="bias-name">Эффект недавнего</div>
+                    <span class="bias-tag-mini prob">вероятности</span>
+                    <div class="bias-toggle">+</div>
+                </div>
+                <div class="bias-body"><div class="bias-body-inner"><p>Тенденция оценивать значение недавних событий выше, чем более ранних событий.</p></div></div>
+            </div>
+
+            <div class="bias-card" data-cat="prob" data-search="недооценка возвращения среднему значению экстраординарное поведение системы продолжится">
+                <div class="bias-header" onclick="toggleBias(this)">
+                    <div class="bias-icon prob">📊</div>
+                    <div class="bias-name">Недооценка возвращения к среднему</div>
+                    <span class="bias-tag-mini prob">вероятности</span>
+                    <div class="bias-toggle">+</div>
+                </div>
+                <div class="bias-body"><div class="bias-body-inner"><p>Тенденция ожидать, что экстраординарное поведение системы продолжится.</p></div></div>
+            </div>
+
+            <div class="bias-card" data-cat="prob" data-search="эффект воспоминаний помнят больше событий молодости жизненных периодов">
+                <div class="bias-header" onclick="toggleBias(this)">
+                    <div class="bias-icon prob">📊</div>
+                    <div class="bias-name">Эффект воспоминаний</div>
+                    <span class="bias-tag-mini prob">вероятности</span>
+                    <div class="bias-toggle">+</div>
+                </div>
+                <div class="bias-body"><div class="bias-body-inner"><p>Эффект, состоящий в том, что люди помнят больше событий из своей молодости, чем из других жизненных периодов.</p></div></div>
+            </div>
+
+            <div class="bias-card" data-cat="prob" data-search="приукрашивание прошлого позитивно воспринимались происходили тенденция">
+                <div class="bias-header" onclick="toggleBias(this)">
+                    <div class="bias-icon prob">📊</div>
+                    <div class="bias-name">Приукрашивание прошлого</div>
+                    <span class="bias-tag-mini prob">вероятности</span>
+                    <div class="bias-toggle">+</div>
+                </div>
+                <div class="bias-body"><div class="bias-body-inner"><p>Тенденция оценивать прошлые события более позитивно, чем они воспринимались в тот момент, когда на самом деле происходили.</p></div></div>
+            </div>
+
+            <div class="bias-card" data-cat="prob" data-search="искажение селекция экспериментальные данные собраны метод сбора">
+                <div class="bias-header" onclick="toggleBias(this)">
+                    <div class="bias-icon prob">📊</div>
+                    <div class="bias-name">Искажение, связанное с селекцией</div>
+                    <span class="bias-tag-mini prob">вероятности</span>
+                    <div class="bias-toggle">+</div>
+                </div>
+                <div class="bias-body"><div class="bias-body-inner"><p>Искажение в экспериментальных данных, которое связано с тем, каким образом данные были собраны.</p></div></div>
+            </div>
+
+            <div class="bias-card" data-cat="prob" data-search="ошибка выжившего survivorship bias недооценивать уязвимость выживание вероятность естественный отбор">
+                <div class="bias-header" onclick="toggleBias(this)">
+                    <div class="bias-icon prob">📊</div>
+                    <div class="bias-name">Ошибка выжившего</div>
+                    <span class="bias-tag-mini prob">вероятности</span>
+                    <div class="bias-toggle">+</div>
+                </div>
+                <div class="bias-body"><div class="bias-body-inner"><p>Возможность недооценивать свою уязвимость на основании своего выживания в тех или иных ситуациях, в действительности объясняющегося лишь законами вероятности и естественным отбором.</p></div></div>
+            </div>
+
+            <div class="bias-card" data-cat="prob" data-search="стереотипизация ожидание член группы характеристики индивидуальность">
+                <div class="bias-header" onclick="toggleBias(this)">
+                    <div class="bias-icon prob">📊</div>
+                    <div class="bias-name">Стереотипизация</div>
+                    <span class="bias-tag-mini prob">вероятности</span>
+                    <div class="bias-toggle">+</div>
+                </div>
+                <div class="bias-body"><div class="bias-body-inner"><p>Ожидание от члена группы определённых характеристик, без знания какой-либо дополнительной информации о его индивидуальности.</p></div></div>
+            </div>
+
+            <div class="bias-card" data-cat="prob" data-search="эффект субаддитивности вероятность целого меньшая вероятности составляющих частей">
+                <div class="bias-header" onclick="toggleBias(this)">
+                    <div class="bias-icon prob">📊</div>
+                    <div class="bias-name">Эффект субаддитивности</div>
+                    <span class="bias-tag-mini prob">вероятности</span>
+                    <div class="bias-toggle">+</div>
+                </div>
+                <div class="bias-body"><div class="bias-body-inner"><p>Тенденция оценивать вероятность целого в качестве меньшей, чем вероятности составляющих его частей.</p></div></div>
+            </div>
+
+            <div class="bias-card" data-cat="prob" data-search="субъективное придание значимости истинное верования субъекта совпадения взаимосвязь">
+                <div class="bias-header" onclick="toggleBias(this)">
+                    <div class="bias-icon prob">📊</div>
+                    <div class="bias-name">Субъективное придание значимости</div>
+                    <span class="bias-tag-mini prob">вероятности</span>
+                    <div class="bias-toggle">+</div>
+                </div>
+                <div class="bias-body"><div class="bias-body-inner"><p>Восприятие чего-либо как истинного, если верования субъекта требуют, чтобы это было истинным. Сюда также входит восприятие совпадений как взаимосвязи.</p></div></div>
+            </div>
+
+            <div class="bias-card" data-cat="prob" data-search="эффект телескопа недавние события далёкие близкие во времени">
+                <div class="bias-header" onclick="toggleBias(this)">
+                    <div class="bias-icon prob">📊</div>
+                    <div class="bias-name">Эффект телескопа</div>
+                    <span class="bias-tag-mini prob">вероятности</span>
+                    <div class="bias-toggle">+</div>
+                </div>
+                <div class="bias-body"><div class="bias-body-inner"><p>Недавние события кажутся более отдалёнными, а более дальние события – более близкими во времени.</p></div></div>
+            </div>
+
+            <div class="bias-card" data-cat="prob" data-search="ошибочность меткий стрелок техаса гипотеза данные собраны проверить честно подстройка">
+                <div class="bias-header" onclick="toggleBias(this)">
+                    <div class="bias-icon prob">📊</div>
+                    <div class="bias-name">Ошибочность меткого стрелка из Техаса</div>
+                    <span class="bias-tag-mini prob">вероятности</span>
+                    <div class="bias-toggle">+</div>
+                </div>
+                <div class="bias-body"><div class="bias-body-inner"><p>Выбор или подстройка гипотезы после того, как данные собраны, что делает невозможным проверить гипотезу честно.</p></div></div>
+            </div>
+
+
+            <!-- КАТЕГОРИЯ: СОЦИАЛЬНЫЕ -->
+            <h3 class="cat-header" data-cat="social">Социально обусловленные искажения</h3>
+
+            <div class="bias-card" data-cat="social" data-search="искажение оценке роли субъекта действия профессиональные качества ситуация фундаментальная ошибка атрибуции">
+                <div class="bias-header" onclick="toggleBias(this)">
+                    <div class="bias-icon social">👥</div>
+                    <div class="bias-name">Искажение оценки роли субъекта действия</div>
+                    <span class="bias-tag-mini social">социальные</span>
+                    <div class="bias-toggle">+</div>
+                </div>
+                <div class="bias-body"><div class="bias-body-inner"><p>Тенденция при объяснении поведения других людей чрезмерно подчёркивать влияние их профессиональных качеств и недооценивать влияние ситуации. Парной к этому искажению является противоположная тенденция при оценке собственных поступков, при которой люди переоценивают влияние на них ситуации и недооценивают влияние своих собственных качеств.</p></div></div>
+            </div>
+
+            <div class="bias-card" data-cat="social" data-search="эффект даннинга крюгера некомпетентные стратегии ошибочные заключения неудачные выборы осознать">
+                <div class="bias-header" onclick="toggleBias(this)">
+                    <div class="bias-icon social">👥</div>
+                    <div class="bias-name">Эффект Даннинга-Крюгера</div>
+                    <span class="bias-tag-mini social">социальные</span>
+                    <div class="bias-toggle">+</div>
+                </div>
+                <div class="bias-body"><div class="bias-body-inner"><p>Когда люди некомпетентны в выбранных ими стратегиях достижения успеха, они терпят двойной удар: они не только приходят к ошибочным заключениям и делают неудачные выборы, но также их некомпетентность лишает их возможности осознать это. Вместо этого они остаются с ошибочным впечатлением, что всё в порядке.</p></div></div>
+            </div>
+
+            <div class="bias-card" data-cat="social" data-search="эффект эгоцентричности ответственные коллективные действия внешний наблюдатель">
+                <div class="bias-header" onclick="toggleBias(this)">
+                    <div class="bias-icon social">👥</div>
+                    <div class="bias-name">Эффект эгоцентричности</div>
+                    <span class="bias-tag-mini social">социальные</span>
+                    <div class="bias-toggle">+</div>
+                </div>
+                <div class="bias-body"><div class="bias-body-inner"><p>Эффект имеет место, когда люди считают себя более ответственными за результат неких коллективных действий, чем это находит внешний наблюдатель.</p></div></div>
+            </div>
+
+            <div class="bias-card" data-cat="social" data-search="эффект форера барнума гороскопы точность описания личности общие описания">
+                <div class="bias-header" onclick="toggleBias(this)">
+                    <div class="bias-icon social">👥</div>
+                    <div class="bias-name">Эффект Форера (эффект Барнума)</div>
+                    <span class="bias-tag-mini social">социальные</span>
+                    <div class="bias-toggle">+</div>
+                </div>
+                <div class="bias-body"><div class="bias-body-inner"><p>Тенденция высоко оценивать точность описаний своей личности, как если бы они были нарочно выкованы специально для них, но которые в действительности являются достаточно общими, чтобы их можно было приложить к очень большому числу людей. Например, гороскопы.</p></div></div>
+            </div>
+
+            <div class="bias-card" data-cat="social" data-search="эффект фальшивого консенсуса переоценивать степень соглашаются другие люди">
+                <div class="bias-header" onclick="toggleBias(this)">
+                    <div class="bias-icon social">👥</div>
+                    <div class="bias-name">Эффект фальшивого консенсуса</div>
+                    <span class="bias-tag-mini social">социальные</span>
+                    <div class="bias-toggle">+</div>
+                </div>
+                <div class="bias-body"><div class="bias-body-inner"><p>Тенденция людей переоценивать ту степень, в которой другие люди соглашаются с ними.</p></div></div>
+            </div>
+
+            <div class="bias-card" data-cat="social" data-search="фундаментальная ошибка атрибуции переоценивать личностные качества недооценивать ситуационные влияния поведение">
+                <div class="bias-header" onclick="toggleBias(this)">
+                    <div class="bias-icon social">👥</div>
+                    <div class="bias-name">Фундаментальная ошибка атрибуции</div>
+                    <span class="bias-tag-mini social">социальные</span>
+                    <div class="bias-toggle">+</div>
+                </div>
+                <div class="bias-body"><div class="bias-body-inner"><p>Тенденция людей переоценивать объяснения поведения других людей, основанные на их личностных качествах, и в то же время недооценивать роль и силу ситуационных влияний на то же самое поведение.</p></div></div>
+            </div>
+
+            <div class="bias-card" data-cat="social" data-search="эффект ореола позитивные негативные черты перетекают область личности привлекательность">
+                <div class="bias-header" onclick="toggleBias(this)">
+                    <div class="bias-icon social">👥</div>
+                    <div class="bias-name">Эффект ореола</div>
+                    <span class="bias-tag-mini social">социальные</span>
+                    <div class="bias-toggle">+</div>
+                </div>
+                <div class="bias-body"><div class="bias-body-inner"><p>При восприятии одного человека другим позитивные и негативные черты человека «перетекают» из одной области его личности в другую. См. также стереотип физической привлекательности.</p></div></div>
+            </div>
+
+            <div class="bias-card" data-cat="social" data-search="стадный инстинкт тенденция мнения большинство безопасность конфликты">
+                <div class="bias-header" onclick="toggleBias(this)">
+                    <div class="bias-icon social">👥</div>
+                    <div class="bias-name">Стадный инстинкт</div>
+                    <span class="bias-tag-mini social">социальные</span>
+                    <div class="bias-toggle">+</div>
+                </div>
+                <div class="bias-body"><div class="bias-body-inner"><p>Распространённая тенденция принимать мнения и следовать за поведением большинства, чтобы чувствовать себя в безопасности и избегать конфликтов.</p></div></div>
+            </div>
+
+            <div class="bias-card" data-cat="social" data-search="эффект победившей стороны избиратели мнение победившая сторона выборы">
+                <div class="bias-header" onclick="toggleBias(this)">
+                    <div class="bias-icon social">👥</div>
+                    <div class="bias-name">Эффект победившей стороны</div>
+                    <span class="bias-tag-mini social">социальные</span>
+                    <div class="bias-toggle">+</div>
+                </div>
+                <div class="bias-body"><div class="bias-body-inner"><p>Склонность избирателей изменять своё мнение в пользу победившей на выборах стороны.</p></div></div>
+            </div>
+
+            <div class="bias-card" data-cat="social" data-search="иллюзия асимметричной проницательности знание о близких превосходит знание о нём">
+                <div class="bias-header" onclick="toggleBias(this)">
+                    <div class="bias-icon social">👥</div>
+                    <div class="bias-name">Иллюзия асимметричной проницательности</div>
+                    <span class="bias-tag-mini social">социальные</span>
+                    <div class="bias-toggle">+</div>
+                </div>
+                <div class="bias-body"><div class="bias-body-inner"><p>Человеку кажется, что его знание о своих близких превосходит их знание о нём.</p></div></div>
+            </div>
+
+            <div class="bias-card" data-cat="social" data-search="иллюзия прозрачности переоценивать способность других понимать их способность понимать других">
+                <div class="bias-header" onclick="toggleBias(this)">
+                    <div class="bias-icon social">👥</div>
+                    <div class="bias-name">Иллюзия прозрачности</div>
+                    <span class="bias-tag-mini social">социальные</span>
+                    <div class="bias-toggle">+</div>
+                </div>
+                <div class="bias-body"><div class="bias-body-inner"><p>Люди переоценивают способность других понимать их, и они также переоценивают свою способность понимать других.</p></div></div>
+            </div>
+
+            <div class="bias-card" data-cat="social" data-search="искажение в пользу своей группы предпочтение члены собственной группы">
+                <div class="bias-header" onclick="toggleBias(this)">
+                    <div class="bias-icon social">👥</div>
+                    <div class="bias-name">Искажение в пользу своей группы</div>
+                    <span class="bias-tag-mini social">социальные</span>
+                    <div class="bias-toggle">+</div>
+                </div>
+                <div class="bias-body"><div class="bias-body-inner"><p>Тенденция людей отдавать предпочтение тем, кого они считают членом своей собственной группы.</p></div></div>
+            </div>
+
+            <div class="bias-card" data-cat="social" data-search="справедливый мир верят мир справедлив люди получают заслуживают">
+                <div class="bias-header" onclick="toggleBias(this)">
+                    <div class="bias-icon social">👥</div>
+                    <div class="bias-name">Феномен «справедливого мира»</div>
+                    <span class="bias-tag-mini social">социальные</span>
+                    <div class="bias-toggle">+</div>
+                </div>
+                <div class="bias-body"><div class="bias-body-inner"><p>Тенденция людей верить, что мир «справедлив» и следовательно люди получают «то, что они заслуживают».</p></div></div>
+            </div>
+
+            <div class="bias-card" data-cat="social" data-search="эффект озера вобегон льстивые верования себя выше среднего">
+                <div class="bias-header" onclick="toggleBias(this)">
+                    <div class="bias-icon social">👥</div>
+                    <div class="bias-name">Эффект озера Вобегон</div>
+                    <span class="bias-tag-mini social">социальные</span>
+                    <div class="bias-toggle">+</div>
+                </div>
+                <div class="bias-body"><div class="bias-body-inner"><p>Человеческая тенденция распространять льстивые верования о себе и считать себя выше среднего.</p></div></div>
+            </div>
+
+            <div class="bias-card" data-cat="social" data-search="искажение формулировка закона математическая формула иллюзия реального существования">
+                <div class="bias-header" onclick="toggleBias(this)">
+                    <div class="bias-icon social">👥</div>
+                    <div class="bias-name">Искажение в связи с формулировкой закона</div>
+                    <span class="bias-tag-mini social">социальные</span>
+                    <div class="bias-toggle">+</div>
+                </div>
+                <div class="bias-body"><div class="bias-body-inner"><p>Эта форма культурного искажения связана с тем, что запись некого закона в виде математической формулы создаёт иллюзию его реального существования.</p></div></div>
+            </div>
+
+            <div class="bias-card" data-cat="social" data-search="искажение оценке гомогенности членов другой группы разнообразных воспринимают">
+                <div class="bias-header" onclick="toggleBias(this)">
+                    <div class="bias-icon social">👥</div>
+                    <div class="bias-name">Искажение гомогенности чужой группы</div>
+                    <span class="bias-tag-mini social">социальные</span>
+                    <div class="bias-toggle">+</div>
+                </div>
+                <div class="bias-body"><div class="bias-body-inner"><p>Люди воспринимают членов своей группы как относительно более разнообразных, чем члены других групп.</p></div></div>
+            </div>
+
+            <div class="bias-card" data-cat="social" data-search="искажение проекция бессознательно полагать другие люди разделяют мысли верования ценности позиции">
+                <div class="bias-header" onclick="toggleBias(this)">
+                    <div class="bias-icon social">👥</div>
+                    <div class="bias-name">Искажение в связи с проекцией</div>
+                    <span class="bias-tag-mini social">социальные</span>
+                    <div class="bias-toggle">+</div>
+                </div>
+                <div class="bias-body"><div class="bias-body-inner"><p>Тенденция бессознательно полагать, что другие люди разделяют те же, что и субъект, мысли, верования, ценности и позиции.</p></div></div>
+            </div>
+
+            <div class="bias-card" data-cat="social" data-search="искажение собственную пользу самовозвеличение ответственность успехи поражения двусмысленная информация">
+                <div class="bias-header" onclick="toggleBias(this)">
+                    <div class="bias-icon social">👥</div>
+                    <div class="bias-name">Искажение самовозвеличения</div>
+                    <span class="bias-tag-mini social">социальные</span>
+                    <div class="bias-toggle">+</div>
+                </div>
+                <div class="bias-body"><div class="bias-body-inner"><p>Тенденция признавать большую ответственность за успехи, чем за поражения. Это может проявляться также как тенденция людей преподносить двусмысленную информацию благоприятным для себя образом.</p></div></div>
+            </div>
+
+            <div class="bias-card" data-cat="social" data-search="самосбывающееся пророчество вовлекаться деятельность результаты подтвердят верования">
+                <div class="bias-header" onclick="toggleBias(this)">
+                    <div class="bias-icon social">👥</div>
+                    <div class="bias-name">Самосбывающееся пророчество</div>
+                    <span class="bias-tag-mini social">социальные</span>
+                    <div class="bias-toggle">+</div>
+                </div>
+                <div class="bias-body"><div class="bias-body-inner"><p>Тенденция вовлекаться в те виды деятельности, которые приведут к результатам, которые (сознательно или нет) подтвердят наши верования.</p></div></div>
+            </div>
+
+            <div class="bias-card" data-cat="social" data-search="оправдание системы защищать поддерживать статус кво существующее социальное политическое экономическое устройство">
+                <div class="bias-header" onclick="toggleBias(this)">
+                    <div class="bias-icon social">👥</div>
+                    <div class="bias-name">Оправдание системы</div>
+                    <span class="bias-tag-mini social">социальные</span>
+                    <div class="bias-toggle">+</div>
+                </div>
+                <div class="bias-body"><div class="bias-body-inner"><p>Тенденция защищать и поддерживать статус кво, то есть тенденция предпочитать существующие социальное, политическое и экономическое устройство, и отрицать перемены даже ценой жертвования индивидуальными и коллективными интересами.</p></div></div>
+            </div>
+
+            <div class="bias-card" data-cat="social" data-search="искажение при описании черт характера воспринимать себя изменчивых других предсказуемых">
+                <div class="bias-header" onclick="toggleBias(this)">
+                    <div class="bias-icon social">👥</div>
+                    <div class="bias-name">Искажение при описании черт характера</div>
+                    <span class="bias-tag-mini social">социальные</span>
+                    <div class="bias-toggle">+</div>
+                </div>
+                <div class="bias-body"><div class="bias-body-inner"><p>Тенденция людей воспринимать себя как относительно изменчивых в отношении личных качеств, поведения и настроения, одновременно воспринимая других как гораздо более предсказуемых.</p></div></div>
+            </div>
+
+            <div class="bias-card" data-cat="social" data-search="эффект первого впечатления мнение о человеке первые минуты первая встреча дальнейшая оценка деятельность личность">
+                <div class="bias-header" onclick="toggleBias(this)">
+                    <div class="bias-icon social">👥</div>
+                    <div class="bias-name">Эффект первого впечатления</div>
+                    <span class="bias-tag-mini social">социальные</span>
+                    <div class="bias-toggle">+</div>
+                </div>
+                <div class="bias-body"><div class="bias-body-inner"><p>Влияние мнения о человеке, которое сформировалось у субъекта в первые минуты при первой встрече, на дальнейшую оценку деятельности и личности этого человека.</p></div></div>
+            </div>
+
+
+            <!-- КАТЕГОРИЯ: ПАМЯТЬ -->
+            <h3 class="cat-header" data-cat="memory">Ошибки памяти</h3>
+
+            <div class="bias-card" data-cat="memory" data-search="благодетель ответственный желательные исходы нежелательные гринвальд самовозвеличение">
+                <div class="bias-header" onclick="toggleBias(this)">
+                    <div class="bias-icon memory">🧠</div>
+                    <div class="bias-name">Благодетель</div>
+                    <span class="bias-tag-mini memory">память</span>
+                    <div class="bias-toggle">+</div>
+                </div>
+                <div class="bias-body"><div class="bias-body-inner"><p>Восприятие себя как ответственного за желательные исходы, но не ответственного за нежелательные.</p></div></div>
+            </div>
+
+            <div class="bias-card" data-cat="memory" data-search="кажущееся постоянство неправильное воспоминание прошлые позиции поведение теперешние">
+                <div class="bias-header" onclick="toggleBias(this)">
+                    <div class="bias-icon memory">🧠</div>
+                    <div class="bias-name">Кажущееся постоянство</div>
+                    <span class="bias-tag-mini memory">память</span>
+                    <div class="bias-toggle">+</div>
+                </div>
+                <div class="bias-body"><div class="bias-body-inner"><p>Неправильное воспоминание чьих-либо прошлых позиций и поведения как напоминающих теперешние позиции и поведение.</p></div></div>
+            </div>
+
+            <div class="bias-card" data-cat="memory" data-search="криптомнезия авторство воспоминание воображение анекдот слышал вспомнил">
+                <div class="bias-header" onclick="toggleBias(this)">
+                    <div class="bias-icon memory">🧠</div>
+                    <div class="bias-name">Криптомнезия</div>
+                    <span class="bias-tag-mini memory">память</span>
+                    <div class="bias-toggle">+</div>
+                </div>
+                <div class="bias-body"><div class="bias-body-inner"><p>Форма неправильного установления авторства, когда воспоминание ошибочно принимается за результат воображения. Человеку может казаться, что он сам сочинил анекдот, тогда как он его уже слышал и просто вспомнил.</p></div></div>
+            </div>
+
+            <div class="bias-card" data-cat="memory" data-search="эгоцентрическое искажение самовозвеличивающая манера экзаменационные оценки лучшими пойманная рыба большей">
+                <div class="bias-header" onclick="toggleBias(this)">
+                    <div class="bias-icon memory">🧠</div>
+                    <div class="bias-name">Эгоцентрическое искажение</div>
+                    <span class="bias-tag-mini memory">память</span>
+                    <div class="bias-toggle">+</div>
+                </div>
+                <div class="bias-body"><div class="bias-body-inner"><p>Воспоминание прошлого в самовозвеличивающей манере, например, воспоминание экзаменационных оценок лучшими, чем они были, а пойманной рыбы – большей, чем она была.</p></div></div>
+            </div>
+
+            <div class="bias-card" data-cat="memory" data-search="ложная память принятие неизвестного известное">
+                <div class="bias-header" onclick="toggleBias(this)">
+                    <div class="bias-icon memory">🧠</div>
+                    <div class="bias-name">Ложная память</div>
+                    <span class="bias-tag-mini memory">память</span>
+                    <div class="bias-toggle">+</div>
+                </div>
+                <div class="bias-body"><div class="bias-body-inner"><p>Принятие неизвестного за известное.</p></div></div>
+            </div>
+
+            <div class="bias-card" data-cat="memory" data-search="ретроспективное искажение фильтрация памяти прошлые события теперешнее знание предсказуемыми я всё это знал">
+                <div class="bias-header" onclick="toggleBias(this)">
+                    <div class="bias-icon memory">🧠</div>
+                    <div class="bias-name">Ретроспективное искажение</div>
+                    <span class="bias-tag-mini memory">память</span>
+                    <div class="bias-toggle">+</div>
+                </div>
+                <div class="bias-body"><div class="bias-body-inner"><p>Фильтрация памяти о прошлых событиях сквозь теперешнее знание. При этом события выглядят более предсказуемыми, чем они были в действительности. Известно также как «эффект Я-всё-это-знал».</p></div></div>
+            </div>
+
+            <div class="bias-card" data-cat="memory" data-search="внушаемость авторство намекнул спрашивающий неверно воспринимаются вспомненные">
+                <div class="bias-header" onclick="toggleBias(this)">
+                    <div class="bias-icon memory">🧠</div>
+                    <div class="bias-name">Внушаемость</div>
+                    <span class="bias-tag-mini memory">память</span>
+                    <div class="bias-toggle">+</div>
+                </div>
+                <div class="bias-body"><div class="bias-body-inner"><p>Форма неправильного установления авторства, когда идеи, на которые намекнул спрашивающий, неверно воспринимаются как вспомненные.</p></div></div>
+            </div>
+
+        </section>
+
+        <!-- 04 ПРИМЕРЫ -->
+        <section class="section" id="sec-examples">
+            <div class="section-number">04</div>
+            <h2>Примеры из жизни</h2>
+
+            <div class="scenario-card" style="border-top-color:var(--amber)">
+                <h4>Ситуация: Покупка в магазине</h4>
+                <p>Вы видите кроссовки за 5000₽. Продавец говорит: «Сегодня скидка – были 8000₽!». Вы покупаете их, хотя не планировали.</p>
+                <ul>
+                    <li><strong>Эффект привязки:</strong> цифра 8000₽ стала «якорем», и 5000₽ кажутся дешевле</li>
+                    <li><strong>Рационализация после покупки:</strong> вы убеждаете себя, что «сэкономили»</li>
+                    <li><strong>Неприятие потери:</strong> страх «потерять скидку» сильнее радости от покупки</li>
+                </ul>
+            </div>
+
+            <div class="scenario-card" style="border-top-color:var(--blue)">
+                <h4>Ситуация: Работа в команде</h4>
+                <p>Проект удался, и вы говорите: «Это благодаря моей идее». Проект провалился, и вы говорите: «Это из-за плохих условий».</p>
+                <ul>
+                    <li><strong>Искажение самовозвеличения:</strong> успех – мой, провал – обстоятельств</li>
+                    <li><strong>Искажение оценки роли субъекта:</strong> другие – некомпетентны, я – жертва обстоятельств</li>
+                </ul>
+            </div>
+
+            <div class="scenario-card" style="border-top-color:var(--green)">
+                <h4>Ситуация: Чтение новостей</h4>
+                <p>Вы читаете о крушении самолёта и решаете больше не летать, хотя статистика показывает, что это самый безопасный вид транспорта.</p>
+                <ul>
+                    <li><strong>Эвристика доступности:</strong> яркое событие легче вспомнить, чем скучную статистику</li>
+                    <li><strong>Ошибка частных примеров:</strong> один случай перекрывает данные</li>
+                    <li><strong>Предпочтение нулевого риска:</strong> хотите убрать один конкретный риск</li>
+                </ul>
+            </div>
+
+            <div class="scenario-card" style="border-top-color:var(--accent)">
+                <h4>Ситуация: Общение с другом</h4>
+                <p>Друг говорит: «Я вообще-то не злой, просто у меня тяжёлый день». Вы думаете: «Ну он всегда таким бывает».</p>
+                <ul>
+                    <li><strong>Искажение гомогенности:</strong> других воспринимаем как более предсказуемых</li>
+                    <li><strong>Фундаментальная ошибка атрибуции:</strong> приписываем поведение характеру, а не ситуации</li>
+                    <li><strong>Эффект ореола:</strong> одна черта «перетекает» на все остальные</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- 05 ПРОВЕРКА -->
+        <section class="section" id="sec-selfcheck">
+            <div class="section-number">05</div>
+            <h2>Самопроверка</h2>
+            <p>Отметьте, какие искажения вы замечали за собой в последнее время:</p>
+
+            <div class="checklist">
+                <div class="check-item" onclick="this.classList.toggle('checked')"><div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div><div class="check-label"><strong>Предвзятость подтверждения</strong> – искали информацию, которая подтверждала вашу точку зрения</div></div>
+                <div class="check-item" onclick="this.classList.toggle('checked')"><div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div><div class="check-label"><strong>Эффект повального увлечения</strong> – делали что-то, потому что «все так делают»</div></div>
+                <div class="check-item" onclick="this.classList.toggle('checked')"><div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div><div class="check-label"><strong>Ошибка планирования</strong> – недооценивали время выполнения задач</div></div>
+                <div class="check-item" onclick="this.classList.toggle('checked')"><div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div><div class="check-label"><strong>Эффект Даннинга-Крюгера</strong> – переоценивали свои способности в чём-то</div></div>
+                <div class="check-item" onclick="this.classList.toggle('checked')"><div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div><div class="check-label"><strong>Неприятие потери</strong> – сильнее переживали потерю, чем радовались приобретению</div></div>
+                <div class="check-item" onclick="this.classList.toggle('checked')"><div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div><div class="check-label"><strong>Иллюзия контроля</strong> – верили, что можете контролировать результат, который от вас не зависит</div></div>
+                <div class="check-item" onclick="this.classList.toggle('checked')"><div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div><div class="check-label"><strong>Эффект ореола</strong> – оценивали человека по одной яркой черте</div></div>
+                <div class="check-item" onclick="this.classList.toggle('checked')"><div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div><div class="check-label"><strong>Искажение самовозвеличения</strong> – приписывали успех себе, а провал – обстоятельствам</div></div>
+                <div class="check-item" onclick="this.classList.toggle('checked')"><div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div><div class="check-label"><strong>Эффект знания задним числом</strong> – думали «я так и знал»</div></div>
+                <div class="check-item" onclick="this.classList.toggle('checked')"><div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div><div class="check-label"><strong>Иллюзия прозрачности</strong> – думали, что другие понимают вас лучше, чем есть на самом деле</div></div>
+            </div>
+        </section>
+
+        <!-- 06 УПРАЖНЕНИЯ -->
+        <section class="section" id="sec-exercise">
+            <div class="section-number">06</div>
+            <h2>Упражнения</h2>
+
+            <h3>Упражнение 1: Дневник искажений</h3>
+            <div class="highlight" style="border-left-color:var(--warm)">
+                <p>На протяжении недели записывайте ситуации, когда вы обнаруживали у себя когнитивные искажения. Указывайте: ситуацию, искажение, альтернативный взгляд.</p>
+            </div>
+
+            <h3>Упражнение 2: Игра «Найди искажение»</h3>
+            <p>Прочитайте любое новостное сообщение и найдите в нём минимум 2 когнитивных искажения. Какие механизмы использованы для формирования мнения читателя?</p>
+
+            <h3>Упражнение 3: Конвертер решений</h3>
+            <p>Перед важным решением напишите 3 аргумента «за» и 3 аргумента «против». Затем спросите себя:</p>
+            <ul class="list">
+                <li>Ищу ли я информацию, которая просто подтверждает моё желание? (предвзятость подтверждения)</li>
+                <li>Не переоцениваю ли я свои шансы? (сверхуверенность)</li>
+                <li>Не боюсь ли я потерять то, что ещё не имею? (неприятие потери)</li>
+                <li>Неужели все вокруг правы, а я нет? (стадный инстинкт)</li>
+            </ul>
+
+            <div class="open-q"><label>Какое когнитивное искажение вы обнаружили за собой чаще всего?</label><textarea placeholder="Напиши здесь..."></textarea></div>
+            <div class="open-q"><label>В какой ситуации в ближайшее время вы сможете применить знания об искажениях?</label><textarea placeholder="Напиши здесь..."></textarea></div>
+        </section>
+
+        <!-- 07 ВЫВОДЫ -->
+        <section class="section" id="sec-summary">
+            <div class="section-number">07</div>
+            <h2>Выводы</h2>
+
+            <ul class="list">
+                <li>Когнитивные искажения – <strong>нормальные особенности</strong> работы мозга, а не признак слабости.</li>
+                <li>Они делятся на <strong>4 категории</strong>: решения, вероятности, социальные, память.</li>
+                <li>Многие искажения выполняют <strong>адаптивную функцию</strong> – помогают принимать быстрые решения.</li>
+                <li>Осознанность – <strong>первый шаг</strong> к снижению их влияния.</li>
+                <li>Ключевые стратегии: <strong>медленное мышление</strong>, проверка альтернатив, поиск контраргументов.</li>
+                <li>Даже осознание не защищает на 100%, но <strong>значительно снижает</strong> частоту ошибок.</li>
+            </ul>
+
+            <div class="divider">· · ·</div>
+
+            <div class="final-quote">
+                <p>Мы не можем полностью избавиться от когнитивных искажений – но мы можем научиться их замечать. А замечать – значит выбирать иначе.</p>
+            </div>
+        </section>
+
+    
+        <!-- Topic Pagination Navigation -->
+        <nav class="topic-pagination" aria-label="Навигация по темам тетради">
+            <div class="pagination-inner">
+            <a href="topic4-ontogenesis.html" class="page-nav-btn prev">
+                <span class="nav-arrow-icon">←</span>
+                <span class="nav-text">
+                    <span class="nav-sub">Назад</span>
+                    <span class="nav-title">Тема 4: Онтогенез</span>
+                </span>
+            </a>
+            <div class="pagination-status">
+                <span class="status-badge">Тема 5 из 5 (Завершение)</span>
+                <div class="progress-bar-wrap">
+                    <div class="progress-bar-fill" style="width: 100%;"></div>
+                </div>
+            </div>
+            <a href="introduction.html" class="page-nav-btn next finish">
+                <span class="nav-text">
+                    <span class="nav-sub">Завершить тетрадь</span>
+                    <span class="nav-title">В начало тетради ↺</span>
+                </span>
+                <span class="nav-arrow-icon">↺</span>
+            </a>
+            </div>
+        </nav>
+
+    </main>
+
+    <footer class="footer">Тема 5 · Когнитивные искажения</footer>
+
+    <script>
+        function scrollNav(dir){document.getElementById('navScroll').scrollBy({left:dir*160,behavior:'smooth'})}
+        document.querySelectorAll('.nav-btn').forEach(b=>{b.addEventListener('click',()=>{const t=document.getElementById(b.dataset.section);if(t)t.scrollIntoView({behavior:'smooth',block:'start'})})});
+        const secs=document.querySelectorAll('.section'),nBtns=document.querySelectorAll('.nav-btn');
+        window.addEventListener('scroll',()=>{let c='';secs.forEach(s=>{if(s.getBoundingClientRect().top<=120)c=s.id});nBtns.forEach(b=>{b.classList.toggle('active',b.dataset.section===c);if(b.dataset.section===c)b.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'})})});
+
+        function toggleBias(h){h.parentElement.classList.toggle('open')}
+
+        let currentFilter='all';
+        function setFilter(cat){
+            currentFilter=cat;
+            document.querySelectorAll('.filter-tag').forEach(t=>t.classList.toggle('active',t.dataset.cat===cat));
+            filterBiases();
+        }
+        function filterBiases(){
+            const q=document.getElementById('searchInput').value.toLowerCase();
+            const cards=document.querySelectorAll('.bias-card');
+            const headers=document.querySelectorAll('.cat-header');
+            let shown=0;
+            cards.forEach(c=>{
+                const matchCat=currentFilter==='all'||c.dataset.cat===currentFilter;
+                const data=(c.dataset.search+' '+c.querySelector('.bias-name').textContent).toLowerCase();
+                const matchQ=!q||data.includes(q);
+                const show=matchCat&&matchQ;
+                c.style.display=show?'':'none';
+                if(show)shown++;
+            });
+            headers.forEach(h=>{
+                const cat=h.dataset.cat;
+                const matchCat=currentFilter==='all'||cat===currentFilter;
+                if(!matchCat){h.style.display='none';return}
+                const hasVisible=[...cards].some(c=>c.dataset.cat===cat&&c.style.display!=='none');
+                h.style.display=hasVisible?'':'none';
+            });
+            document.getElementById('resultCount').innerHTML='Показано: <span>'+shown+'</span> из '+cards.length;
+        }
+        filterBiases();
+    
+        // ===================== WORKBOOK AUTOSAVE =====================
+        (function() {
+            const pageKey = 'wb_' + window.location.pathname.split('/').pop().replace('.html','');
+            
+            function saveState() {
+                try {
+                    const data = {};
+                    document.querySelectorAll('input:not([type="button"]):not([type="submit"]), textarea, select').forEach((el, i) => {
+                        const id = el.id || ('input_' + i);
+                        if (el.type === 'checkbox') {
+                            data[id] = el.checked;
+                        } else if (el.type === 'radio') {
+                            if (el.checked) data[el.name] = el.value;
+                        } else {
+                            data[id] = el.value;
+                        }
+                    });
+                    
+                    const activeElements = [];
+                    document.querySelectorAll('.emotion-card.selected, .rating-item.selected, .signal-item.checked, .diary-emotion-btn.active').forEach(el => {
+                        const parentId = el.closest('section')?.id || 'sec';
+                        const text = el.textContent.trim().slice(0, 30);
+                        activeElements.push(parentId + '::' + text);
+                    });
+                    data['__active_elements'] = activeElements;
+                    
+                    localStorage.setItem(pageKey, JSON.stringify(data));
+                } catch(e) {}
+            }
+
+            function restoreState() {
+                try {
+                    const raw = localStorage.getItem(pageKey);
+                    if (!raw) return;
+                    const data = JSON.parse(raw);
+                    
+                    document.querySelectorAll('input:not([type="button"]):not([type="submit"]), textarea, select').forEach((el, i) => {
+                        const id = el.id || ('input_' + i);
+                        if (data[id] !== undefined) {
+                            if (el.type === 'checkbox') {
+                                el.checked = data[id];
+                                const signalItem = el.closest('.signal-item');
+                                if (signalItem) signalItem.classList.toggle('checked', el.checked);
+                            } else if (el.type === 'radio') {
+                                if (el.value === data[el.name]) el.checked = true;
+                            } else {
+                                el.value = data[id];
+                                if (el.type === 'range') {
+                                    const valEl = el.nextElementSibling;
+                                    if (valEl && (valEl.classList.contains('slider-value') || valEl.classList.contains('intensity-val') || valEl.id === 'ageNum')) {
+                                        valEl.textContent = el.value;
+                                    }
+                                }
+                            }
+                            el.dispatchEvent(new Event('input', { bubbles: true }));
+                        }
+                    });
+
+                    if (data['__active_elements'] && Array.isArray(data['__active_elements'])) {
+                        const set = new Set(data['__active_elements']);
+                        document.querySelectorAll('.emotion-card, .rating-item, .signal-item, .diary-emotion-btn').forEach(el => {
+                            const parentId = el.closest('section')?.id || 'sec';
+                            const text = el.textContent.trim().slice(0, 30);
+                            if (set.has(parentId + '::' + text)) {
+                                if (el.classList.contains('emotion-card')) el.classList.add('selected');
+                                if (el.classList.contains('rating-item')) el.classList.add('selected');
+                                if (el.classList.contains('signal-item')) {
+                                    el.classList.add('checked');
+                                    const cb = el.querySelector('input[type="checkbox"]');
+                                    if (cb) cb.checked = true;
+                                }
+                                if (el.classList.contains('diary-emotion-btn')) el.classList.add('active');
+                            }
+                        });
+                    }
+                } catch(e) {}
+            }
+
+            if (document.readyState === 'loading') {
+                window.addEventListener('DOMContentLoaded', restoreState);
+            } else {
+                restoreState();
+            }
+            document.addEventListener('input', saveState);
+            document.addEventListener('change', saveState);
+            document.addEventListener('click', (e) => {
+                if (e.target.closest('.emotion-card, .rating-item, .signal-item, .diary-emotion-btn')) {
+                    setTimeout(saveState, 50);
+                }
+            });
+        })();
+
+    </script>
+</body>
+</html>

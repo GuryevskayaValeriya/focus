@@ -1,0 +1,1721 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Рабочая тетрадь – Введение</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap');
+
+        :root {
+            --bg: #faf8f5;
+            --card: #ffffff;
+            --text: #2c2c2c;
+            --text-secondary: #6b6b6b;
+            --accent: #b8a9c9;
+            --accent-light: #e8e0f0;
+            --accent-dark: #8b7aad;
+            --warm: #e8d5c4;
+            --warm-light: #f5ede4;
+            --green: #a8c5a0;
+            --green-light: #e4f0e1;
+            --border: #e8e4df;
+            --shadow: 0 2px 20px rgba(0,0,0,0.04);
+            --shadow-hover: 0 4px 30px rgba(0,0,0,0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            font-weight: 300;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, #f5ede4 0%, #e8e0f0 50%, #e4f0e1 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(184,169,201,0.15) 0%, transparent 70%);
+            top: -100px;
+            right: -100px;
+            border-radius: 50%;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(168,197,160,0.12) 0%, transparent 70%);
+            bottom: -80px;
+            left: -80px;
+            border-radius: 50%;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 650px;
+        }
+
+        .hero-label {
+            font-size: 0.75rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--accent-dark);
+            margin-bottom: 24px;
+            font-weight: 500;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.2rem, 5vw, 3.5rem);
+            font-weight: 400;
+            line-height: 1.3;
+            margin-bottom: 20px;
+            color: var(--text);
+        }
+
+        .hero h1 em {
+            font-style: italic;
+            color: var(--accent-dark);
+        }
+
+        .hero-subtitle {
+            font-size: 1.05rem;
+            color: var(--text-secondary);
+            max-width: 480px;
+            margin: 0 auto 40px;
+        }
+
+        .scroll-hint {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.8rem;
+            color: var(--accent-dark);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            animation: bounce 2s infinite;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .scroll-hint svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(6px); }
+            60% { transform: translateY(3px); }
+        }
+
+        /* Main Content */
+        .content {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 80px 24px 120px;
+        }
+
+        /* Section Navigation */
+        .section-nav {
+            position: sticky;
+            top: 0;
+            background: rgba(250,248,245,0.9);
+            backdrop-filter: blur(12px);
+            z-index: 100;
+            padding: 16px 0;
+            margin-bottom: 60px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-inner {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-scroll {
+            flex: 1;
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            scrollbar-width: none;
+            scroll-behavior: smooth;
+        }
+
+        .nav-scroll::-webkit-scrollbar { display: none; }
+
+        .nav-arrow {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            border: 1px solid var(--border);
+            background: var(--card);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            flex-shrink: 0;
+            transition: all 0.25s ease;
+            color: var(--text-secondary);
+        }
+
+        .nav-arrow:hover {
+            background: var(--accent-light);
+            border-color: var(--accent);
+            color: var(--accent-dark);
+        }
+
+        .nav-arrow:active {
+            transform: scale(0.92);
+        }
+
+        .nav-arrow svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .nav-btn {
+            padding: 8px 16px;
+            border: 1px solid var(--border);
+            background: var(--card);
+            border-radius: 20px;
+            font-size: 0.78rem;
+            font-family: 'Inter', sans-serif;
+            color: var(--text-secondary);
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.25s ease;
+            flex-shrink: 0;
+        }
+
+        .nav-btn:hover, .nav-btn.active {
+            background: var(--accent-light);
+            border-color: var(--accent);
+            color: var(--accent-dark);
+        }
+
+        /* Sections */
+        .section {
+            margin-bottom: 80px;
+            animation: fadeIn 0.6s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            color: var(--accent-light);
+            font-weight: 600;
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+
+        .section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 400;
+            margin-bottom: 32px;
+            color: var(--text);
+        }
+
+        .section p {
+            margin-bottom: 20px;
+            color: var(--text);
+        }
+
+        .section strong {
+            font-weight: 500;
+        }
+
+        /* Highlight Block */
+        .highlight {
+            background: var(--card);
+            border-left: 3px solid var(--accent);
+            padding: 24px 28px;
+            border-radius: 0 12px 12px 0;
+            margin: 32px 0;
+            box-shadow: var(--shadow);
+        }
+
+        .highlight p {
+            margin-bottom: 8px;
+        }
+
+        .highlight p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Quote */
+        .quote {
+            text-align: center;
+            padding: 48px 32px;
+            margin: 48px 0;
+            background: linear-gradient(135deg, var(--accent-light) 0%, var(--warm-light) 100%);
+            border-radius: 20px;
+        }
+
+        .quote p {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-style: italic;
+            color: var(--accent-dark);
+            line-height: 1.6;
+        }
+
+        /* Divider */
+        .divider {
+            text-align: center;
+            margin: 60px 0;
+            color: var(--border);
+            font-size: 1.5rem;
+            letter-spacing: 12px;
+        }
+
+        /* Card */
+        .card {
+            background: var(--card);
+            border-radius: 16px;
+            padding: 32px;
+            margin: 24px 0;
+            box-shadow: var(--shadow);
+            transition: box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            box-shadow: var(--shadow-hover);
+        }
+
+        .card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            font-weight: 400;
+            margin-bottom: 16px;
+            color: var(--accent-dark);
+        }
+
+        .card p {
+            font-size: 0.95rem;
+        }
+
+        /* Scenario Block */
+        .scenario {
+            background: var(--warm-light);
+            border-radius: 16px;
+            padding: 32px;
+            margin: 32px 0;
+        }
+
+        .scenario p {
+            font-style: italic;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+        }
+
+        .scenario p:last-child {
+            margin-bottom: 0;
+        }
+
+        .scenario .arrow {
+            display: block;
+            text-align: center;
+            font-style: normal;
+            color: var(--accent-dark);
+            font-size: 1.5rem;
+            margin: 12px 0;
+        }
+
+        /* Connected Tags */
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 16px 0;
+        }
+
+        .tag {
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .tag-purple { background: var(--accent-light); color: var(--accent-dark); }
+        .tag-warm { background: var(--warm); color: #8b6f56; }
+        .tag-green { background: var(--green-light); color: #5a7d52; }
+
+        /* Examples List */
+        .examples {
+            list-style: none;
+            margin: 20px 0;
+        }
+
+        .examples li {
+            padding: 14px 20px;
+            background: var(--card);
+            border-radius: 12px;
+            margin-bottom: 8px;
+            box-shadow: var(--shadow);
+            font-size: 0.95rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .examples li::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+            flex-shrink: 0;
+            margin-top: 8px;
+        }
+
+        /* Collapsible Rules */
+        .rule {
+            background: var(--card);
+            border-radius: 16px;
+            margin-bottom: 12px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+
+        .rule-header {
+            padding: 20px 24px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            transition: background 0.2s;
+        }
+
+        .rule-header:hover {
+            background: rgba(184,169,201,0.05);
+        }
+
+        .rule-icon {
+            width: 36px;
+            height: 36px;
+            background: var(--accent-light);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 0.85rem;
+            color: var(--accent-dark);
+            font-weight: 600;
+        }
+
+        .rule-title {
+            font-weight: 500;
+            font-size: 0.95rem;
+            flex: 1;
+        }
+
+        .rule-toggle {
+            color: var(--accent);
+            transition: transform 0.3s;
+            font-size: 1.2rem;
+        }
+
+        .rule.open .rule-toggle {
+            transform: rotate(45deg);
+        }
+
+        .rule-body {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, padding 0.3s;
+        }
+
+        .rule.open .rule-body {
+            max-height: 600px;
+            padding: 0 24px 24px;
+        }
+
+        .rule-body p {
+            font-size: 0.93rem;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+        }
+
+        .rule-body p:last-child {
+            margin-bottom: 0;
+        }
+
+        .rule-body strong {
+            color: var(--text);
+        }
+
+        /* Table */
+        .scale-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin: 32px 0;
+            background: var(--card);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .scale-table thead th {
+            background: var(--accent-light);
+            color: var(--accent-dark);
+            padding: 16px 20px;
+            font-weight: 500;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .scale-table thead th:first-child {
+            text-align: left;
+        }
+
+        .scale-table thead th:nth-child(2),
+        .scale-table thead th:nth-child(3) {
+            text-align: center;
+            width: 140px;
+        }
+
+        .scale-table tbody td {
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.9rem;
+        }
+
+        .scale-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .scale-table tbody td:first-child {
+            color: var(--text);
+        }
+
+        .scale-table tbody td:nth-child(2),
+        .scale-table tbody td:nth-child(3) {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.82rem;
+        }
+
+        .scale-table tbody tr:hover {
+            background: rgba(184,169,201,0.04);
+        }
+
+        /* Slider */
+        .slider-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 16px 0;
+        }
+
+        .slider-row label {
+            flex: 1;
+            font-size: 0.9rem;
+        }
+
+        .slider-row input[type="range"] {
+            -webkit-appearance: none;
+            width: 160px;
+            height: 4px;
+            background: var(--border);
+            border-radius: 2px;
+            outline: none;
+        }
+
+        .slider-row input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            background: var(--accent);
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 2px 6px rgba(139,122,173,0.3);
+        }
+
+        .slider-value {
+            width: 28px;
+            text-align: center;
+            font-weight: 500;
+            color: var(--accent-dark);
+            font-size: 0.9rem;
+        }
+
+        /* Text Inputs */
+        .open-question {
+            margin: 24px 0;
+        }
+
+        .open-question label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 10px;
+            color: var(--text);
+        }
+
+        .open-question textarea {
+            width: 100%;
+            min-height: 80px;
+            padding: 16px 20px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 300;
+            color: var(--text);
+            background: var(--card);
+            resize: vertical;
+            transition: border-color 0.2s;
+            line-height: 1.6;
+        }
+
+        .open-question textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .open-question textarea::placeholder {
+            color: #c0b8b0;
+        }
+
+        /* Emotion Cards */
+        .emotion-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 12px;
+            margin: 24px 0;
+        }
+
+        .emotion-card {
+            background: var(--card);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            cursor: pointer;
+            transition: all 0.25s;
+            border: 2px solid transparent;
+        }
+
+        .emotion-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .emotion-card.selected {
+            border-color: var(--accent);
+            background: var(--accent-light);
+        }
+
+        .emotion-emoji {
+            font-size: 2rem;
+            margin-bottom: 8px;
+        }
+
+        .emotion-name {
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        /* Process Flow */
+        .flow {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            margin: 24px 0;
+        }
+
+        .flow-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .flow-bubble {
+            background: var(--accent-light);
+            color: var(--accent-dark);
+            padding: 12px 20px;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            min-width: 180px;
+            text-align: center;
+        }
+
+        .flow-arrow {
+            color: var(--accent);
+            font-size: 1.2rem;
+        }
+
+        .flow-text {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        /* Final Quote */
+        .final-quote {
+            text-align: center;
+            padding: 60px 40px;
+            margin-top: 80px;
+            background: linear-gradient(135deg, var(--accent-light) 0%, var(--warm-light) 50%, var(--green-light) 100%);
+            border-radius: 24px;
+        }
+
+        .final-quote p {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            font-style: italic;
+            color: var(--accent-dark);
+            line-height: 1.7;
+            max-width: 520px;
+            margin: 0 auto;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 40px 24px;
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 640px) {
+            .content {
+                padding: 60px 20px 80px;
+            }
+
+            .section h2 {
+                font-size: 1.5rem;
+            }
+
+            .card {
+                padding: 24px;
+            }
+
+            .scale-table thead th:nth-child(2),
+            .scale-table thead th:nth-child(3) {
+                width: auto;
+            }
+
+            .emotion-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .flow-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .flow-arrow {
+                transform: rotate(90deg);
+                margin-left: 80px;
+            }
+
+            .nav-arrow {
+                width: 30px;
+                height: 30px;
+            }
+        }
+    
+        /* ===================== WORKBOOK GLOBAL NAVIGATION & PAGINATION ===================== */
+        :root {
+            --topbar-height: 54px;
+            --accent-l: var(--accent-light, #e8e0f0);
+            --accent-d: var(--accent-dark, #8b7aad);
+            --text-s: var(--text-secondary, #6b6b6b);
+        }
+
+        .section {
+            scroll-margin-top: 125px;
+        }
+
+        .workbook-topbar {
+            position: sticky;
+            top: 0;
+            z-index: 300;
+            background: rgba(250, 248, 245, 0.95);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border-bottom: 1px solid var(--border);
+            height: var(--topbar-height);
+            display: flex;
+            align-items: center;
+        }
+
+        .topbar-inner {
+            max-width: 960px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+        }
+
+        .topbar-brand {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            font-size: 0.9rem;
+            white-space: nowrap;
+            flex-shrink: 0;
+            transition: opacity 0.2s;
+        }
+
+        .topbar-brand:hover {
+            opacity: 0.8;
+        }
+
+        .topbar-tabs {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            overflow-x: auto;
+            scrollbar-width: none;
+            -webkit-overflow-scrolling: touch;
+            padding: 4px 0;
+        }
+
+        .topbar-tabs::-webkit-scrollbar {
+            display: none;
+        }
+
+        .tab-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 6px 13px;
+            border-radius: 16px;
+            font-size: 0.77rem;
+            font-weight: 500;
+            color: var(--text-s);
+            text-decoration: none;
+            background: transparent;
+            border: 1px solid transparent;
+            white-space: nowrap;
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+        }
+
+        .tab-link:hover {
+            background: rgba(184, 169, 201, 0.14);
+            color: var(--accent-d);
+        }
+
+        .tab-link.active {
+            background: var(--accent-l);
+            border-color: var(--accent);
+            color: var(--accent-d);
+            font-weight: 600;
+        }
+
+        .section-nav {
+            position: sticky;
+            top: var(--topbar-height) !important;
+            z-index: 150;
+        }
+
+        /* Pagination & CTA buttons */
+        .topic-pagination {
+            margin: 60px 0 20px;
+            padding-top: 40px;
+            border-top: 1px solid var(--border);
+        }
+
+        .pagination-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .page-nav-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 22px;
+            background: var(--card);
+            border: 1.5px solid var(--border);
+            border-radius: 16px;
+            text-decoration: none;
+            color: var(--text);
+            box-shadow: var(--shadow);
+            transition: all 0.25s ease;
+            min-width: 210px;
+        }
+
+        .page-nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 25px rgba(0,0,0,0.08);
+            border-color: var(--accent);
+        }
+
+        .page-nav-btn.next {
+            margin-left: auto;
+            background: linear-gradient(135deg, #ffffff 0%, var(--accent-l) 100%);
+            border-color: var(--accent);
+            text-align: right;
+            justify-content: flex-end;
+        }
+
+        .page-nav-btn.finish {
+            background: linear-gradient(135deg, #ffffff 0%, var(--green-light, var(--green-l, #e4f0e1)) 100%);
+            border-color: var(--green);
+        }
+
+        .page-nav-btn.primary-start {
+            display: inline-flex;
+            padding: 16px 36px;
+            font-size: 0.98rem;
+            font-weight: 500;
+            background: linear-gradient(135deg, var(--accent-d) 0%, #6f5f8f 100%);
+            color: #ffffff !important;
+            border: none;
+            border-radius: 30px;
+            box-shadow: 0 4px 20px rgba(139, 122, 173, 0.35);
+            text-align: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: all 0.25s ease;
+        }
+
+        .page-nav-btn.primary-start:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 6px 25px rgba(139, 122, 173, 0.45);
+        }
+
+        .nav-arrow-icon {
+            font-size: 1.3rem;
+            line-height: 1;
+            color: var(--accent-d);
+            transition: transform 0.2s;
+        }
+
+        .page-nav-btn:hover .nav-arrow-icon {
+            transform: translateX(4px);
+        }
+        .page-nav-btn.prev:hover .nav-arrow-icon {
+            transform: translateX(-4px);
+        }
+
+        .nav-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .nav-sub {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-s);
+            margin-bottom: 2px;
+        }
+
+        .nav-title {
+            font-weight: 500;
+            font-size: 0.9rem;
+            color: var(--text);
+        }
+
+        .page-nav-btn.next .nav-title {
+            color: var(--accent-d);
+            font-weight: 600;
+        }
+
+        .pagination-status {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            text-align: center;
+            min-width: 140px;
+        }
+
+        .status-badge {
+            font-size: 0.76rem;
+            font-weight: 500;
+            color: var(--text-s);
+        }
+
+        .progress-bar-wrap {
+            width: 130px;
+            height: 6px;
+            background: var(--border);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: var(--accent);
+            border-radius: 3px;
+            transition: width 0.3s ease;
+        }
+
+        .start-topic-cta {
+            text-align: center;
+            margin: 48px 0 24px;
+            padding: 36px 24px;
+            background: linear-gradient(135deg, var(--accent-l) 0%, var(--warm-light, #f5ede4) 100%);
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+        }
+
+        .start-topic-cta .cta-subtitle {
+            font-size: 0.95rem;
+            color: var(--text-s);
+            margin-bottom: 20px;
+            font-weight: 400;
+        }
+
+        @media (max-width: 640px) {
+            .pagination-inner {
+                flex-direction: column;
+            }
+            .page-nav-btn {
+                width: 100%;
+                min-width: auto;
+            }
+            .page-nav-btn.next {
+                text-align: left;
+                justify-content: space-between;
+            }
+            .page-nav-btn.prev {
+                justify-content: flex-start;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Global Workbook Topbar -->
+    <header class="workbook-topbar">
+        <div class="topbar-inner">
+            <a href="introduction.html" class="topbar-brand">
+                <span>📖</span>
+                <span>Рабочая тетрадь</span>
+            </a>
+            <nav class="topbar-tabs" aria-label="Разделы тетради">
+            <a href="introduction.html" class="tab-link active">Введение</a>
+            <a href="topic1-emotions.html" class="tab-link">1. Эмоции</a>
+            <a href="topic2-crises.html" class="tab-link">2. Кризисы</a>
+            <a href="topic3-boundaries.html" class="tab-link">3. Границы</a>
+            <a href="topic4-ontogenesis.html" class="tab-link">4. Онтогенез</a>
+            <a href="topic5-cognitive-biases.html" class="tab-link">5. Искажения</a>
+            </nav>
+        </div>
+    </header>
+
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-label">Рабочая тетрадь</div>
+            <h1>Введение в <em>понимание себя</em></h1>
+            <p class="hero-subtitle">Эмоции и чувства · Возрастные кризисы · Личные границы · Онтогенез личности · Когнитивные искажения</p>
+            <a href="#start" class="scroll-hint">
+                Начать
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 5v14M5 12l7 7 7-7"/>
+                </svg>
+            </a>
+        </div>
+    </section>
+
+    <!-- Navigation -->
+    <nav class="section-nav" id="nav">
+        <div class="nav-inner">
+            <button class="nav-arrow" id="navLeft" onclick="scrollNav(-1)">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+            </button>
+            <div class="nav-scroll" id="navScroll">
+                <button class="nav-btn active" data-section="sec-1">Приветствие</button>
+                <button class="nav-btn" data-section="sec-2">Зачем</button>
+                <button class="nav-btn" data-section="sec-3">О чём</button>
+                <button class="nav-btn" data-section="sec-4">Эмоции</button>
+                <button class="nav-btn" data-section="sec-5">Кризисы</button>
+                <button class="nav-btn" data-section="sec-6">Границы</button>
+                <button class="nav-btn" data-section="sec-7">Правила</button>
+                <button class="nav-btn" data-section="sec-8">Упражнения</button>
+                <button class="nav-btn" data-section="sec-9">Важное</button>
+                <button class="nav-btn" data-section="sec-10">Старт</button>
+            </div>
+            <button class="nav-arrow" id="navRight" onclick="scrollNav(1)">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+            </button>
+        </div>
+    </nav>
+
+    <main class="content" id="start">
+
+        <!-- Section 1: Приветствие -->
+        <section class="section" id="sec-1">
+            <div class="section-number">01</div>
+            <h2>Приветствие</h2>
+
+            <div class="highlight">
+                <p><strong>Эта рабочая тетрадь – про тебя.</strong></p>
+                <p>Про то, что ты чувствуешь, о чём думаешь, чего хочешь, что тебя тревожит, злит или расстраивает. Про отношения с собой и другими людьми. Про изменения, которые происходят с нами на разных этапах жизни, и про то, как научиться лучше понимать себя в эти моменты.</p>
+            </div>
+
+            <p>Иногда нам кажется, что с нами что-то не так.</p>
+
+            <p>Мы можем слишком сильно злиться, обижаться на то, что другим кажется мелочью, не понимать, почему хочется плакать, чувствовать тревогу без очевидной причины или испытывать вину за то, что сказали «нет».</p>
+
+            <p>Иногда мы замечаем, что сильно изменились. То, что раньше было важным, больше не радует. Появляются новые желания, сомнения, вопросы о будущем и о себе.</p>
+
+            <p>А иногда мы просто не понимаем, где заканчиваются желания других людей и начинаются наши собственные.</p>
+
+            <div class="highlight">
+                <p><strong>Эта тетрадь создана для того, чтобы постепенно разобраться во всём этом.</strong></p>
+            </div>
+
+            <p>Здесь не нужно быть «правильным». Не нужно давать красивые ответы. Не нужно знать о себе всё заранее.</p>
+
+            <p><strong>Главное – быть честным с собой настолько, насколько тебе комфортно.</strong></p>
+        </section>
+
+        <!-- Section 2: Зачем нужна тетрадь -->
+        <section class="section" id="sec-2">
+            <div class="section-number">02</div>
+            <h2>Зачем нужна эта тетрадь?</h2>
+
+            <p>Мы каждый день что-то чувствуем, принимаем решения, общаемся с людьми, сталкиваемся с конфликтами и изменениями. Но этому редко учат специально.</p>
+
+            <p>Нас учат читать, считать, сдавать экзамены, выполнять работу. Но гораздо реже объясняют:</p>
+
+            <ul class="examples">
+                <li>как понять, что именно ты чувствуешь</li>
+                <li>почему одна и та же ситуация может вызывать разные эмоции</li>
+                <li>как отличить свою потребность от чужого ожидания</li>
+                <li>почему иногда так сложно сказать «нет»</li>
+                <li>как понять, что твои границы нарушают</li>
+                <li>почему в определённые периоды жизни становится особенно трудно</li>
+                <li>как переживать изменения</li>
+                <li>как говорить о своих чувствах, не обвиняя другого человека</li>
+                <li>как лучше понимать самого себя</li>
+            </ul>
+
+            <p>Из-за этого мы часто учимся всему методом проб и ошибок.</p>
+
+            <p>Иногда этот опыт оказывается полезным. А иногда мы годами повторяем одни и те же сценарии, даже не понимая, почему это происходит.</p>
+
+            <div class="highlight">
+                <p><strong>Рабочая тетрадь – это возможность остановиться и посмотреть на себя внимательнее.</strong></p>
+                <p>Не для того, чтобы найти в себе недостатки.</p>
+                <p>А для того, чтобы лучше понять:</p>
+            </div>
+
+            <div class="quote">
+                <p>«Что со мной происходит?»</p>
+                <p>«Почему я так чувствую?»</p>
+                <p>«Чего я хочу?»</p>
+                <p>«Что для меня важно?»</p>
+                <p>«Что я могу сделать по-другому?»</p>
+            </div>
+        </section>
+
+        <!-- Section 3: О чём тетрадь -->
+        <section class="section" id="sec-3">
+            <div class="section-number">03</div>
+            <h2>О чём эта рабочая тетрадь?</h2>
+
+            <p>В ней ключевые взаимосвязанные темы самопознания и психологической зрелости:</p>
+
+            <div class="tags">
+                <span class="tag tag-purple">эмоции и чувства</span>
+                <span class="tag tag-warm">возрастные кризисы</span>
+                <span class="tag tag-green">личные границы</span>
+                <span class="tag tag-purple">онтогенез развития</span>
+                <span class="tag tag-warm">когнитивные искажения</span>
+            </div>
+
+            <p>Представь такую ситуацию.</p>
+
+            <div class="scenario">
+                <p>Кто-то попросил тебя сделать то, чего тебе совершенно не хочется.</p>
+                <p>Ты соглашаешься, хотя внутри появляется раздражение.</p>
+                <p>Потом начинаешь злиться.</p>
+                <p>Но вместо того чтобы сказать «нет», продолжаешь терпеть.</p>
+                <p>После этого можешь почувствовать обиду на другого человека:</p>
+                <p><strong>«Почему он постоянно мной пользуется?»</strong></p>
+                <p>Но одновременно может появиться и чувство вины:</p>
+                <p><strong>«Наверное, я плохой человек, если не хочу помочь».</strong></p>
+            </div>
+
+            <p>Здесь одновременно появляются:</p>
+
+            <div class="flow">
+                <div class="flow-item">
+                    <span class="flow-bubble">эмоции</span>
+                    <span class="flow-arrow">→</span>
+                    <span class="flow-text">раздражение, злость, обида, вина</span>
+                </div>
+                <div class="flow-item">
+                    <span class="flow-bubble">потребности</span>
+                    <span class="flow-arrow">→</span>
+                    <span class="flow-text">свобода выбора, уважение</span>
+                </div>
+                <div class="flow-item">
+                    <span class="flow-bubble">границы</span>
+                    <span class="flow-arrow">→</span>
+                    <span class="flow-text">нарушена личная территория</span>
+                </div>
+                <div class="flow-item">
+                    <span class="flow-bubble">отношения</span>
+                    <span class="flow-arrow">→</span>
+                    <span class="flow-text">ожидания, конфликт, вина</span>
+                </div>
+            </div>
+
+            <p>А если ты находишься в периоде серьёзных жизненных изменений, к этому могут добавиться вопросы:</p>
+
+            <div class="highlight">
+                <p>«А чего я вообще хочу?»</p>
+                <p>«Почему я больше не хочу того, чего хотел раньше?»</p>
+                <p>«Кем я становлюсь?»</p>
+            </div>
+
+            <p><strong>Поэтому эти темы лучше рассматривать не отдельно, а как части одной большой системы – понимания себя.</strong></p>
+        </section>
+
+        <!-- Section 4: Эмоции -->
+        <section class="section" id="sec-4">
+            <div class="section-number">04</div>
+            <h2>Эмоции и чувства: первый шаг к пониманию себя</h2>
+
+            <p>Эмоции сопровождают нас постоянно. Даже если мы не обращаем на них внимания.</p>
+
+            <p>Мы можем испытывать радость, грусть, страх, злость, раздражение, вину, стыд, интерес, спокойствие, тревогу и множество других состояний.</p>
+
+            <p>Иногда мы хорошо понимаем, что с нами происходит:</p>
+
+            <div class="quote">
+                <p>«Я злюсь, потому что со мной поступили несправедливо».</p>
+            </div>
+
+            <p>А иногда можем сказать только:</p>
+
+            <div class="quote">
+                <p>«Мне почему-то плохо».</p>
+            </div>
+
+            <p><strong>Научиться замечать и называть свои чувства – уже важный навык.</strong></p>
+
+            <p>Потому что пока мы не понимаем, что с нами происходит, нам гораздо сложнее понять, <strong>что нам нужно.</strong></p>
+
+            <p>Например:</p>
+
+            <div class="emotion-grid">
+                <div class="emotion-card">
+                    <div class="emotion-emoji">😠</div>
+                    <div class="emotion-name">«Я злюсь»</div>
+                    <div style="font-size:0.78rem; color:var(--text-secondary); margin-top:6px;">Мои границы нарушили</div>
+                </div>
+                <div class="emotion-card">
+                    <div class="emotion-emoji">😢</div>
+                    <div class="emotion-name">«Мне грустно»</div>
+                    <div style="font-size:0.78rem; color:var(--text-secondary); margin-top:6px;">Не хватает близости</div>
+                </div>
+                <div class="emotion-card">
+                    <div class="emotion-emoji">😰</div>
+                    <div class="emotion-name">«Я тревожусь»</div>
+                    <div style="font-size:0.78rem; color:var(--text-secondary); margin-top:6px;">Нужна определённость</div>
+                </div>
+            </div>
+
+            <div class="highlight" style="border-left-color: var(--green);">
+                <p><strong>Нет эмоций, которые делают тебя плохим человеком.</strong></p>
+                <p>Злость не делает тебя агрессивным. Страх не делает тебя слабым. Грусть не делает тебя неудачником. Зависть не означает, что ты плохой.</p>
+                <p><strong>Эмоция – это сигнал.</strong></p>
+                <p>А вот то, что мы делаем с этим сигналом, уже имеет значение.</p>
+            </div>
+        </section>
+
+        <!-- Section 5: Возрастные кризисы -->
+        <section class="section" id="sec-5">
+            <div class="section-number">05</div>
+            <h2>Возрастные кризисы: когда внутри всё меняется</h2>
+
+            <p>Слово <strong>«кризис»</strong> часто воспринимается как что-то страшное.</p>
+
+            <p>Но в психологии кризис – это не обязательно катастрофа.</p>
+
+            <p>Кризис можно представить как <strong>период перехода от одного состояния к другому.</strong></p>
+
+            <p>Мы меняемся. Меняется наше тело, мышление, отношения с другими людьми, ценности, желания и представления о себе.</p>
+
+            <p>И иногда старая версия нашей жизни уже перестаёт подходить, а новая ещё не сформировалась.</p>
+
+            <div class="quote">
+                <p>«Я не понимаю, что со мной происходит».</p>
+            </div>
+
+            <p><strong>И это не обязательно означает, что с тобой что-то не так.</strong></p>
+
+            <p><strong>Иногда это означает, что ты меняешься.</strong></p>
+
+            <p>В этой части тетради мы будем говорить о возрастных переходах, идентичности, ожиданиях, изменениях и вопросах, которые могут появляться на разных этапах жизни.</p>
+        </section>
+
+        <!-- Section 6: Личные границы -->
+        <section class="section" id="sec-6">
+            <div class="section-number">06</div>
+            <h2>Личные границы: где заканчиваюсь я</h2>
+
+            <p>Границы – это не стены вокруг человека. И не способ заставить окружающих вести себя так, как хочется нам.</p>
+
+            <p>Границы – это понимание:</p>
+
+            <div class="card">
+                <h3>Что для меня приемлемо, а что нет</h3>
+                <p>Что я готов делать, а что не готов. Что я чувствую. Чего я хочу. За что отвечаю я, а за что отвечает другой человек.</p>
+            </div>
+
+            <p>Например:</p>
+
+            <ul class="examples">
+                <li>«Я не хочу сейчас обсуждать эту тему»</li>
+                <li>«Мне неприятно, когда со мной разговаривают таким тоном»</li>
+                <li>«Я не могу помочь сегодня»</li>
+                <li>«Я хочу побыть один/одна»</li>
+                <li>«Мне нужно немного времени, чтобы подумать»</li>
+            </ul>
+
+            <p><strong>Это не обязательно грубость. Это может быть способом заботиться о себе.</strong></p>
+
+            <p>Но устанавливать границы бывает очень сложно. Особенно если мы боимся:</p>
+
+            <div class="emotion-grid">
+                <div class="emotion-card">
+                    <div class="emotion-emoji">😔</div>
+                    <div class="emotion-name">обидеть другого</div>
+                </div>
+                <div class="emotion-card">
+                    <div class="emotion-emoji">🙈</div>
+                    <div class="emotion-name">показаться эгоистом</div>
+                </div>
+                <div class="emotion-card">
+                    <div class="emotion-emoji">💔</div>
+                    <div class="emotion-name">потерять отношения</div>
+                </div>
+                <div class="emotion-card">
+                    <div class="emotion-emoji">⚡</div>
+                    <div class="emotion-name">столкнуться с конфликтом</div>
+                </div>
+            </div>
+
+            <p>Поэтому в этой части мы будем не только разбираться в том, <strong>что такое границы</strong>, но и постепенно учиться замечать свои границы и говорить о них.</p>
+        </section>
+
+        <!-- Section 7: Как работать -->
+        <section class="section" id="sec-7">
+            <div class="section-number">07</div>
+            <h2>Как работать с тетрадью</h2>
+
+            <div class="rule open">
+                <div class="rule-header" onclick="toggleRule(this)">
+                    <div class="rule-icon">1</div>
+                    <div class="rule-title">Здесь нет правильных ответов</div>
+                    <div class="rule-toggle">+</div>
+                </div>
+                <div class="rule-body">
+                    <p>Если упражнение спрашивает: <strong>«Что ты сейчас чувствуешь?»</strong> – не существует ответа, который будет правильнее другого.</p>
+                    <p>Можно написать: <strong>«Не знаю».</strong> Это тоже ответ.</p>
+                    <p>Иногда мы сначала можем только заметить: «Мне неприятно». И только позже понять, что за этим стоит злость, страх или обида.</p>
+                </div>
+            </div>
+
+            <div class="rule">
+                <div class="rule-header" onclick="toggleRule(this)">
+                    <div class="rule-icon">2</div>
+                    <div class="rule-title">Отвечай честно, а не красиво</div>
+                    <div class="rule-toggle">+</div>
+                </div>
+                <div class="rule-body">
+                    <p>Эта тетрадь не проверяется на грамотность, интеллект или «правильность».</p>
+                    <p>Тебе не нужно писать то, что, как тебе кажется, <strong>следует чувствовать.</strong></p>
+                    <p>У человека может быть <strong>несколько чувств одновременно.</strong> И это абсолютно нормально.</p>
+                </div>
+            </div>
+
+            <div class="rule">
+                <div class="rule-header" onclick="toggleRule(this)">
+                    <div class="rule-icon">3</div>
+                    <div class="rule-title">Не обязательно отвечать на всё</div>
+                    <div class="rule-toggle">+</div>
+                </div>
+                <div class="rule-body">
+                    <p>Некоторые вопросы могут оказаться неприятными или слишком личными.</p>
+                    <p>Ты можешь: пропустить упражнение, вернуться к нему позже, написать несколько слов вместо большого ответа, остановиться, если чувствуешь, что тебе становится слишком тяжело.</p>
+                    <p><strong>Эта тетрадь должна помогать тебе, а не заставлять тебя делать то, к чему ты не готов.</strong></p>
+                </div>
+            </div>
+
+            <div class="rule">
+                <div class="rule-header" onclick="toggleRule(this)">
+                    <div class="rule-icon">4</div>
+                    <div class="rule-title">Не торопись</div>
+                    <div class="rule-toggle">+</div>
+                </div>
+                <div class="rule-body">
+                    <p>Необязательно пройти всю тетрадь за один вечер.</p>
+                    <p>Некоторые упражнения можно выполнять несколько дней. Иногда полезно ответить на вопрос, отложить тетрадь, а потом вернуться к нему через неделю.</p>
+                    <p>Ты можешь обнаружить, что твой ответ изменился. И это нормально. Потому что <strong>ты тоже меняешься.</strong></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 8: Как выполнять упражнения -->
+        <section class="section" id="sec-8">
+            <div class="section-number">08</div>
+            <h2>Как лучше выполнять упражнения</h2>
+
+            <div class="card" style="border-left: 3px solid var(--warm);">
+                <h3>Перед упражнением</h3>
+                <p>Остановись на несколько секунд и спроси себя:</p>
+                <p><strong>«Что я сейчас чувствую?»</strong><br>
+                <strong>«О чём я думаю?»</strong><br>
+                <strong>«Чего мне хочется?»</strong><br>
+                <strong>«Что происходит со мной прямо сейчас?»</strong></p>
+            </div>
+
+            <div class="card" style="border-left: 3px solid var(--accent);">
+                <h3>Во время упражнения</h3>
+                <p>Не пытайся сразу найти идеальный ответ. Записывай первое, что приходит в голову.</p>
+                <p>Если сложно – начинай с простого: <strong>«Я не знаю, но мне кажется…»</strong></p>
+            </div>
+
+            <div class="card" style="border-left: 3px solid var(--green);">
+                <h3>После упражнения</h3>
+                <p>Спроси себя: <strong>«Что нового я узнал(а) о себе?»</strong></p>
+                <p>Даже если ответ: «Ничего». Это тоже нормально.</p>
+                <p>Иногда осознание приходит позже.</p>
+            </div>
+        </section>
+
+        <!-- Section 9: Важное напоминание -->
+        <section class="section" id="sec-9">
+            <div class="section-number">09</div>
+            <h2>Важное напоминание</h2>
+
+            <div class="highlight" style="border-left-color: var(--warm);">
+                <p>Эта тетрадь может помочь тебе лучше понять себя, свои эмоции, реакции и отношения с другими людьми.</p>
+                <p><strong>Но она не заменяет психолога, психотерапевта или врача</strong>, если человеку нужна профессиональная помощь.</p>
+            </div>
+
+            <p>Если во время работы с тетрадью ты сталкиваешься с переживаниями, которые кажутся тебе слишком тяжёлыми, не обязательно справляться с ними самостоятельно.</p>
+
+            <p><strong>Обратиться за помощью – не признак слабости.</strong></p>
+
+            <p>Иногда самостоятельная рефлексия полезна. А иногда гораздо безопаснее и эффективнее проходить сложный период вместе со специалистом.</p>
+        </section>
+
+        <div class="divider">· · ·</div>
+
+        <!-- Section 10: Самопроверка -->
+        <section class="section" id="sec-10">
+            <div class="section-number">10</div>
+            <h2>С чего я начинаю?</h2>
+
+            <p>Поставь оценку от <strong>0 до 10</strong> для каждого утверждения:</p>
+
+            <div style="margin: 32px 0;">
+                <div class="slider-row">
+                    <label>Понимаю свои эмоции</label>
+                    <input type="range" min="0" max="10" value="5" oninput="this.nextElementSibling.textContent=this.value">
+                    <span class="slider-value">5</span>
+                </div>
+                <div class="slider-row">
+                    <label>Могу назвать то, что чувствую</label>
+                    <input type="range" min="0" max="10" value="5" oninput="this.nextElementSibling.textContent=this.value">
+                    <span class="slider-value">5</span>
+                </div>
+                <div class="slider-row">
+                    <label>Понимаю, чего хочу</label>
+                    <input type="range" min="0" max="10" value="5" oninput="this.nextElementSibling.textContent=this.value">
+                    <span class="slider-value">5</span>
+                </div>
+                <div class="slider-row">
+                    <label>Умею говорить «нет»</label>
+                    <input type="range" min="0" max="10" value="5" oninput="this.nextElementSibling.textContent=this.value">
+                    <span class="slider-value">5</span>
+                </div>
+                <div class="slider-row">
+                    <label>Могу говорить о своих чувствах</label>
+                    <input type="range" min="0" max="10" value="5" oninput="this.nextElementSibling.textContent=this.value">
+                    <span class="slider-value">5</span>
+                </div>
+                <div class="slider-row">
+                    <label>Понимаю свои личные границы</label>
+                    <input type="range" min="0" max="10" value="5" oninput="this.nextElementSibling.textContent=this.value">
+                    <span class="slider-value">5</span>
+                </div>
+                <div class="slider-row">
+                    <label>Умею защищать свои границы</label>
+                    <input type="range" min="0" max="10" value="5" oninput="this.nextElementSibling.textContent=this.value">
+                    <span class="slider-value">5</span>
+                </div>
+                <div class="slider-row">
+                    <label>Понимаю, что сейчас происходит в моей жизни</label>
+                    <input type="range" min="0" max="10" value="5" oninput="this.nextElementSibling.textContent=this.value">
+                    <span class="slider-value">5</span>
+                </div>
+                <div class="slider-row">
+                    <label>Принимаю свои изменения</label>
+                    <input type="range" min="0" max="10" value="5" oninput="this.nextElementSibling.textContent=this.value">
+                    <span class="slider-value">5</span>
+                </div>
+            </div>
+
+            <p style="margin-top: 48px;"><strong>Что я хочу получить от этой тетради?</strong></p>
+            <div class="open-question">
+                <textarea placeholder="Напиши здесь..."></textarea>
+            </div>
+
+            <p><strong>Что сейчас беспокоит меня больше всего?</strong></p>
+            <div class="open-question">
+                <textarea placeholder="Напиши здесь..."></textarea>
+            </div>
+
+            <p><strong>Что я хотел(а) бы лучше понять в себе?</strong></p>
+            <div class="open-question">
+                <textarea placeholder="Напиши здесь..."></textarea>
+            </div>
+
+            <p><strong>Какой вопрос о себе я давно хочу разобрать?</strong></p>
+            <div class="open-question">
+                <textarea placeholder="Напиши здесь..."></textarea>
+            </div>
+
+            <p><strong>Что я надеюсь изменить после прохождения этой тетради?</strong></p>
+            <div class="open-question">
+                <textarea placeholder="Напиши здесь..."></textarea>
+            </div>
+
+            <div class="final-quote">
+                <p>Не обязательно знать себя полностью, чтобы начать себя понимать. Иногда достаточно просто остановиться и впервые честно спросить себя: «А как мне на самом деле?»</p>
+            </div>
+        
+            <div class="start-topic-cta">
+                <h3 style="font-family:'Playfair Display',serif; font-size:1.4rem; margin-bottom:8px; color:var(--accent-dark);">Готовы сделать первый шаг?</h3>
+                <p class="cta-subtitle">Переходите к первому практическому модулю рабочей тетради</p>
+                <a href="topic1-emotions.html" class="page-nav-btn primary-start">
+                    Начать Тему 1: Эмоции и чувства →
+                </a>
+            </div>
+        </section>
+
+    
+                <!-- Topic Pagination Navigation -->
+        <nav class="topic-pagination" aria-label="Навигация по темам тетради">
+            <div class="pagination-inner">
+                <div style="min-width:180px;"></div>
+                <div class="pagination-status">
+                    <span class="status-badge">Старт тетради</span>
+                    <div class="progress-bar-wrap">
+                        <div class="progress-bar-fill" style="width: 10%;"></div>
+                    </div>
+                </div>
+                <a href="topic1-emotions.html" class="page-nav-btn next">
+                    <span class="nav-text">
+                        <span class="nav-sub">Начать тетрадь</span>
+                        <span class="nav-title">Тема 1: Эмоции и чувства</span>
+                    </span>
+                    <span class="nav-arrow-icon">→</span>
+                </a>
+            </div>
+        </nav>
+
+    </main>
+
+    <footer class="footer">
+        Рабочая тетрадь · Введение
+    </footer>
+
+    <script>
+        const navScroll = document.getElementById('navScroll');
+
+        // Scroll arrows
+        function scrollNav(dir) {
+            const scrollAmount = 160;
+            navScroll.scrollBy({ left: dir * scrollAmount, behavior: 'smooth' });
+        }
+
+        // Scroll to section on btn click
+        document.querySelectorAll('.nav-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const target = document.getElementById(btn.dataset.section);
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Active nav on scroll
+        const sections = document.querySelectorAll('.section');
+        const navBtns = document.querySelectorAll('.nav-btn');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(sec => {
+                const rect = sec.getBoundingClientRect();
+                if (rect.top <= 120) {
+                    current = sec.id;
+                }
+            });
+            navBtns.forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.dataset.section === current) {
+                    btn.classList.add('active');
+                    // Scroll active btn into view
+                    btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+                }
+            });
+        });
+
+        // Toggle collapsible rules
+        function toggleRule(header) {
+            const rule = header.parentElement;
+            rule.classList.toggle('open');
+        }
+    
+        // ===================== WORKBOOK AUTOSAVE =====================
+        (function() {
+            const pageKey = 'wb_' + window.location.pathname.split('/').pop().replace('.html','');
+            
+            function saveState() {
+                try {
+                    const data = {};
+                    document.querySelectorAll('input:not([type="button"]):not([type="submit"]), textarea, select').forEach((el, i) => {
+                        const id = el.id || ('input_' + i);
+                        if (el.type === 'checkbox') {
+                            data[id] = el.checked;
+                        } else if (el.type === 'radio') {
+                            if (el.checked) data[el.name] = el.value;
+                        } else {
+                            data[id] = el.value;
+                        }
+                    });
+                    
+                    const activeElements = [];
+                    document.querySelectorAll('.emotion-card.selected, .rating-item.selected, .signal-item.checked, .diary-emotion-btn.active').forEach(el => {
+                        const parentId = el.closest('section')?.id || 'sec';
+                        const text = el.textContent.trim().slice(0, 30);
+                        activeElements.push(parentId + '::' + text);
+                    });
+                    data['__active_elements'] = activeElements;
+                    
+                    localStorage.setItem(pageKey, JSON.stringify(data));
+                } catch(e) {}
+            }
+
+            function restoreState() {
+                try {
+                    const raw = localStorage.getItem(pageKey);
+                    if (!raw) return;
+                    const data = JSON.parse(raw);
+                    
+                    document.querySelectorAll('input:not([type="button"]):not([type="submit"]), textarea, select').forEach((el, i) => {
+                        const id = el.id || ('input_' + i);
+                        if (data[id] !== undefined) {
+                            if (el.type === 'checkbox') {
+                                el.checked = data[id];
+                                const signalItem = el.closest('.signal-item');
+                                if (signalItem) signalItem.classList.toggle('checked', el.checked);
+                            } else if (el.type === 'radio') {
+                                if (el.value === data[el.name]) el.checked = true;
+                            } else {
+                                el.value = data[id];
+                                if (el.type === 'range') {
+                                    const valEl = el.nextElementSibling;
+                                    if (valEl && (valEl.classList.contains('slider-value') || valEl.classList.contains('intensity-val') || valEl.id === 'ageNum')) {
+                                        valEl.textContent = el.value;
+                                    }
+                                }
+                            }
+                            el.dispatchEvent(new Event('input', { bubbles: true }));
+                        }
+                    });
+
+                    if (data['__active_elements'] && Array.isArray(data['__active_elements'])) {
+                        const set = new Set(data['__active_elements']);
+                        document.querySelectorAll('.emotion-card, .rating-item, .signal-item, .diary-emotion-btn').forEach(el => {
+                            const parentId = el.closest('section')?.id || 'sec';
+                            const text = el.textContent.trim().slice(0, 30);
+                            if (set.has(parentId + '::' + text)) {
+                                if (el.classList.contains('emotion-card')) el.classList.add('selected');
+                                if (el.classList.contains('rating-item')) el.classList.add('selected');
+                                if (el.classList.contains('signal-item')) {
+                                    el.classList.add('checked');
+                                    const cb = el.querySelector('input[type="checkbox"]');
+                                    if (cb) cb.checked = true;
+                                }
+                                if (el.classList.contains('diary-emotion-btn')) el.classList.add('active');
+                            }
+                        });
+                    }
+                } catch(e) {}
+            }
+
+            if (document.readyState === 'loading') {
+                window.addEventListener('DOMContentLoaded', restoreState);
+            } else {
+                restoreState();
+            }
+            document.addEventListener('input', saveState);
+            document.addEventListener('change', saveState);
+            document.addEventListener('click', (e) => {
+                if (e.target.closest('.emotion-card, .rating-item, .signal-item, .diary-emotion-btn')) {
+                    setTimeout(saveState, 50);
+                }
+            });
+        })();
+
+    </script>
+
+</body>
+</html>

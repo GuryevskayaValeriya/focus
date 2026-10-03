@@ -1,0 +1,1059 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тема 3 – Личные границы</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap');
+        :root {
+            --bg:#faf8f5;--card:#fff;--text:#2c2c2c;--text-s:#6b6b6b;
+            --accent:#b8a9c9;--accent-l:#e8e0f0;--accent-d:#8b7aad;
+            --warm:#e8d5c4;--warm-l:#f5ede4;
+            --green:#a8c5a0;--green-l:#e4f0e1;
+            --blue:#a0b8c5;--blue-l:#dde9ef;
+            --rose:#c5a0b0;--rose-l:#f0dde5;
+            --border:#e8e4df;
+            --shadow:0 2px 20px rgba(0,0,0,.04);
+            --shadow-h:0 4px 30px rgba(0,0,0,.08);
+        }
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;font-weight:300}
+
+        /* Hero */
+        .hero{min-height:80vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:60px 20px;background:linear-gradient(135deg,#f0dde5 0%,#e8e0f0 50%,#e4f0e1 100%);position:relative;overflow:hidden}
+        .hero::before{content:'';position:absolute;width:600px;height:600px;background:radial-gradient(circle,rgba(197,160,176,.12) 0%,transparent 70%);top:-150px;right:-150px;border-radius:50%}
+        .hero-content{position:relative;z-index:1;max-width:700px}
+        .hero-label{font-size:.7rem;letter-spacing:3px;text-transform:uppercase;color:var(--accent-d);margin-bottom:20px;font-weight:500}
+        .hero h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,4.5vw,3.2rem);font-weight:400;line-height:1.3;margin-bottom:16px}
+        .hero h1 em{font-style:italic;color:var(--accent-d)}
+        .hero-subtitle{font-size:1rem;color:var(--text-s);max-width:520px;margin:0 auto 32px}
+        .hero-tags{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+        .hero-tag{padding:6px 14px;border-radius:20px;font-size:.75rem;font-weight:500;background:rgba(255,255,255,.6);color:var(--accent-d)}
+        .scroll-hint{display:inline-flex;align-items:center;gap:8px;font-size:.75rem;color:var(--accent-d);letter-spacing:1px;text-transform:uppercase;animation:bounce 2s infinite;cursor:pointer;text-decoration:none;margin-top:32px}
+        .scroll-hint svg{width:16px;height:16px}
+        @keyframes bounce{0%,20%,50%,80%,100%{transform:translateY(0)}40%{transform:translateY(6px)}60%{transform:translateY(3px)}}
+
+        /* Nav */
+        .section-nav{position:sticky;top:0;background:rgba(250,248,245,.92);backdrop-filter:blur(12px);z-index:100;padding:14px 0;border-bottom:1px solid var(--border);margin-bottom:60px}
+        .nav-inner{max-width:900px;margin:0 auto;padding:0 20px;display:flex;align-items:center;gap:6px}
+        .nav-scroll{flex:1;display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;scroll-behavior:smooth}
+        .nav-scroll::-webkit-scrollbar{display:none}
+        .nav-arrow{width:32px;height:32px;border-radius:50%;border:1px solid var(--border);background:var(--card);display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;transition:all .25s;color:var(--text-s)}
+        .nav-arrow:hover{background:var(--accent-l);border-color:var(--accent);color:var(--accent-d)}
+        .nav-arrow svg{width:14px;height:14px}
+        .nav-btn{padding:7px 14px;border:1px solid var(--border);background:var(--card);border-radius:18px;font-size:.72rem;font-family:'Inter',sans-serif;color:var(--text-s);cursor:pointer;white-space:nowrap;transition:all .25s;flex-shrink:0}
+        .nav-btn:hover,.nav-btn.active{background:var(--accent-l);border-color:var(--accent);color:var(--accent-d)}
+
+        /* Content */
+        .content{max-width:820px;margin:0 auto;padding:60px 24px 120px}
+        .section{margin-bottom:80px;animation:fadeIn .5s ease}
+        @keyframes fadeIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+        .section-number{font-family:'Playfair Display',serif;font-size:2.8rem;color:var(--accent-l);font-weight:600;line-height:1;margin-bottom:6px}
+        .section h2{font-family:'Playfair Display',serif;font-size:1.7rem;font-weight:400;margin-bottom:28px}
+        .section h3{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:400;margin:28px 0 14px;color:var(--accent-d)}
+        .section p{margin-bottom:16px}
+        .section strong{font-weight:500}
+
+        .highlight{background:var(--card);border-left:3px solid var(--accent);padding:22px 26px;border-radius:0 12px 12px 0;margin:28px 0;box-shadow:var(--shadow)}
+        .highlight p:last-child{margin-bottom:0}
+        .quote{text-align:center;padding:36px 28px;margin:36px 0;background:linear-gradient(135deg,var(--accent-l) 0%,var(--warm-l) 100%);border-radius:18px}
+        .quote p{font-family:'Playfair Display',serif;font-size:1.15rem;font-style:italic;color:var(--accent-d);line-height:1.6}
+        .divider{text-align:center;margin:50px 0;color:var(--border);font-size:1.4rem;letter-spacing:10px}
+
+        .card{background:var(--card);border-radius:14px;padding:28px;margin:20px 0;box-shadow:var(--shadow);transition:box-shadow .3s}
+        .card:hover{box-shadow:var(--shadow-h)}
+        .card h4{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:400;margin-bottom:12px;color:var(--accent-d)}
+
+        .tbl{width:100%;border-collapse:separate;border-spacing:0;margin:24px 0;background:var(--card);border-radius:14px;overflow:hidden;box-shadow:var(--shadow)}
+        .tbl thead th{background:var(--accent-l);color:var(--accent-d);padding:14px 18px;font-weight:500;font-size:.78rem;letter-spacing:.5px;text-align:left}
+        .tbl tbody td{padding:13px 18px;border-bottom:1px solid var(--border);font-size:.88rem;vertical-align:top}
+        .tbl tbody tr:last-child td{border-bottom:none}
+        .tbl tbody tr:hover{background:rgba(184,169,201,.03)}
+
+        /* Collapsible */
+        .collapse{background:var(--card);border-radius:14px;margin-bottom:10px;box-shadow:var(--shadow);overflow:hidden}
+        .collapse-header{padding:18px 22px;cursor:pointer;display:flex;align-items:center;gap:14px;transition:background .2s}
+        .collapse-header:hover{background:rgba(184,169,201,.04)}
+        .collapse-num{width:34px;height:34px;background:var(--accent-l);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:.8rem;color:var(--accent-d);font-weight:600}
+        .collapse-title{font-weight:500;font-size:.92rem;flex:1}
+        .collapse-toggle{color:var(--accent);transition:transform .3s;font-size:1.2rem}
+        .collapse.open .collapse-toggle{transform:rotate(45deg)}
+        .collapse-body{max-height:0;overflow:hidden;transition:max-height .5s ease}
+        .collapse.open .collapse-body{max-height:4000px}
+        .collapse-body-inner{padding:0 22px 22px}
+        .collapse-body-inner p{font-size:.9rem;margin-bottom:12px}
+        .collapse-body-inner p:last-child{margin-bottom:0}
+
+        .list{list-style:none;margin:16px 0;counter-reset:concl}
+        .list li{position:relative;padding:16px 22px 16px 52px;background:var(--card);border-radius:12px;margin-bottom:10px;box-shadow:var(--shadow);font-size:.95rem;line-height:1.65}
+        .list li::before{counter-increment:concl;content:counter(concl);position:absolute;left:16px;top:16px;width:24px;height:24px;background:var(--accent-l);color:var(--accent-d);border-radius:50%;font-size:.78rem;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+
+        .tags{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0}
+        .tag{padding:5px 12px;border-radius:16px;font-size:.75rem;font-weight:500}
+        .tag-purple{background:var(--accent-l);color:var(--accent-d)}
+        .tag-warm{background:var(--warm);color:#8b6f56}
+        .tag-green{background:var(--green-l);color:#5a7d52}
+        .tag-blue{background:var(--blue-l);color:#4a6b7d}
+        .tag-rose{background:var(--rose-l);color:#8b5a6b}
+
+        /* House SVG */
+        .house-wrap{display:flex;gap:32px;margin:32px 0;align-items:flex-start;flex-wrap:wrap}
+        .house-svg-wrap{flex:0 0 280px;background:var(--card);border-radius:16px;padding:24px;box-shadow:var(--shadow);text-align:center}
+        .house-svg-wrap svg{width:240px;height:280px}
+        .house-svg-wrap svg rect,.house-svg-wrap svg polygon,.house-svg-wrap svg path{cursor:pointer;transition:opacity .2s}
+        .house-svg-wrap svg .roof{fill:var(--rose);stroke:#8b5a6b;stroke-width:1.5}
+        .house-svg-wrap svg .wall{fill:var(--accent-l);stroke:var(--accent);stroke-width:1.5}
+        .house-svg-wrap svg .door{fill:var(--warm);stroke:#8b6f56;stroke-width:1.5}
+        .house-svg-wrap svg .window{fill:var(--blue-l);stroke:var(--blue);stroke-width:1.5}
+        .house-svg-wrap svg .foundation{fill:var(--green-l);stroke:var(--green);stroke-width:1.5}
+        .house-svg-wrap svg .fence{fill:none;stroke:var(--border);stroke-width:2;stroke-dasharray:4 3}
+        .house-svg-wrap svg text{font-family:'Inter',sans-serif;font-size:8px;fill:var(--text-s);pointer-events:none}
+        .house-info{flex:1;min-width:280px}
+        .house-detail{background:var(--card);border-radius:12px;padding:18px 20px;margin-bottom:10px;box-shadow:var(--shadow);transition:all .2s}
+        .house-detail.active{background:var(--accent-l);border-left:3px solid var(--accent)}
+        .house-detail .hd-name{font-weight:500;font-size:.9rem;margin-bottom:4px}
+        .house-detail .hd-desc{font-size:.82rem;color:var(--text-s);line-height:1.5}
+
+        /* Action cards */
+        .action-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;margin:24px 0}
+        .action-card{background:var(--card);border-radius:14px;padding:22px;box-shadow:var(--shadow);transition:all .25s;border-top:3px solid var(--green)}
+        .action-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-h)}
+        .action-card .ac-icon{font-size:1.6rem;margin-bottom:8px}
+        .action-card .ac-title{font-weight:500;font-size:.92rem;margin-bottom:6px}
+        .action-card .ac-desc{font-size:.82rem;color:var(--text-s);line-height:1.55}
+
+        /* Signal checker */
+        .signal-section{margin:20px 0}
+        .signal-section h4{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:400;margin-bottom:14px;color:var(--accent-d)}
+        .signal-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:8px}
+        .signal-item{display:flex;align-items:center;gap:10px;padding:12px 16px;background:var(--card);border-radius:10px;box-shadow:var(--shadow);cursor:pointer;transition:all .2s;border:2px solid transparent}
+        .signal-item:hover{background:var(--accent-l)}
+        .signal-item.checked{border-color:var(--accent);background:var(--accent-l)}
+        .signal-item input[type="checkbox"]{display:none}
+        .signal-check{width:20px;height:20px;border:2px solid var(--border);border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s;color:#fff;font-size:.7rem}
+        .signal-item.checked .signal-check{background:var(--accent);border-color:var(--accent)}
+        .signal-item span{font-size:.88rem}
+
+        /* I-message form */
+        .imsg-form{background:var(--card);border-radius:16px;padding:28px;margin:28px 0;box-shadow:var(--shadow)}
+        .imsg-form h3{margin-top:0;margin-bottom:18px}
+        .imsg-row{margin-bottom:14px}
+        .imsg-row label{display:block;font-size:.82rem;font-weight:500;margin-bottom:6px;color:var(--text-s)}
+        .imsg-row input,.imsg-row textarea{width:100%;padding:12px 16px;border:1px solid var(--border);border-radius:10px;font-family:'Inter',sans-serif;font-size:.88rem;font-weight:300;color:var(--text);background:var(--bg);transition:border-color .2s}
+        .imsg-row textarea{min-height:60px;resize:vertical;line-height:1.6}
+        .imsg-row input:focus,.imsg-row textarea:focus{outline:none;border-color:var(--accent)}
+        .imsg-row input::placeholder,.imsg-row textarea::placeholder{color:#c0b8b0}
+        .imsg-result{background:var(--accent-l);border-radius:12px;padding:20px;margin-top:18px;font-size:.92rem;line-height:1.65;color:var(--accent-d);min-height:40px;transition:all .3s}
+        .imsg-result.empty{color:#c0b8b0;font-style:italic}
+
+        /* Strategy cards */
+        .strategy-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin:24px 0}
+        .strategy-card{background:var(--card);border-radius:14px;padding:22px;box-shadow:var(--shadow);border-left:4px solid var(--accent);transition:all .25s}
+        .strategy-card:hover{box-shadow:var(--shadow-h)}
+        .strategy-card .sc-type{font-weight:600;font-size:.82rem;color:var(--accent-d);letter-spacing:.5px;margin-bottom:6px}
+        .strategy-card .sc-strat{font-size:.88rem;line-height:1.55}
+
+        .open-q{margin:24px 0}
+        .open-q label{display:block;font-size:.88rem;font-weight:500;margin-bottom:10px}
+        .open-q textarea{width:100%;min-height:80px;padding:16px 20px;border:1px solid var(--border);border-radius:12px;font-family:'Inter',sans-serif;font-size:.88rem;font-weight:300;color:var(--text);background:var(--card);resize:vertical;transition:border-color .2s;line-height:1.6}
+        .open-q textarea:focus{outline:none;border-color:var(--accent)}
+        .open-q textarea::placeholder{color:#c0b8b0}
+
+        .final-quote{text-align:center;padding:50px 36px;margin-top:70px;background:linear-gradient(135deg,var(--rose-l) 0%,var(--accent-l) 50%,var(--green-l) 100%);border-radius:22px}
+        .final-quote p{font-family:'Playfair Display',serif;font-size:1.15rem;font-style:italic;color:var(--accent-d);line-height:1.7;max-width:500px;margin:0 auto}
+        .footer{text-align:center;padding:36px 24px;color:var(--text-s);font-size:.78rem}
+
+        @media(max-width:700px){
+            .house-wrap{flex-direction:column;align-items:center}
+            .strategy-grid{grid-template-columns:1fr}
+            .signal-list{grid-template-columns:1fr}
+            .action-grid{grid-template-columns:1fr}
+        }
+    
+        /* ===================== WORKBOOK GLOBAL NAVIGATION & PAGINATION ===================== */
+        :root {
+            --topbar-height: 54px;
+            --accent-l: var(--accent-light, #e8e0f0);
+            --accent-d: var(--accent-dark, #8b7aad);
+            --text-s: var(--text-secondary, #6b6b6b);
+        }
+
+        .section {
+            scroll-margin-top: 125px;
+        }
+
+        .workbook-topbar {
+            position: sticky;
+            top: 0;
+            z-index: 300;
+            background: rgba(250, 248, 245, 0.95);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border-bottom: 1px solid var(--border);
+            height: var(--topbar-height);
+            display: flex;
+            align-items: center;
+        }
+
+        .topbar-inner {
+            max-width: 960px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+        }
+
+        .topbar-brand {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            font-size: 0.9rem;
+            white-space: nowrap;
+            flex-shrink: 0;
+            transition: opacity 0.2s;
+        }
+
+        .topbar-brand:hover {
+            opacity: 0.8;
+        }
+
+        .topbar-tabs {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            overflow-x: auto;
+            scrollbar-width: none;
+            -webkit-overflow-scrolling: touch;
+            padding: 4px 0;
+        }
+
+        .topbar-tabs::-webkit-scrollbar {
+            display: none;
+        }
+
+        .tab-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 6px 13px;
+            border-radius: 16px;
+            font-size: 0.77rem;
+            font-weight: 500;
+            color: var(--text-s);
+            text-decoration: none;
+            background: transparent;
+            border: 1px solid transparent;
+            white-space: nowrap;
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+        }
+
+        .tab-link:hover {
+            background: rgba(184, 169, 201, 0.14);
+            color: var(--accent-d);
+        }
+
+        .tab-link.active {
+            background: var(--accent-l);
+            border-color: var(--accent);
+            color: var(--accent-d);
+            font-weight: 600;
+        }
+
+        .section-nav {
+            position: sticky;
+            top: var(--topbar-height) !important;
+            z-index: 150;
+        }
+
+        /* Pagination & CTA buttons */
+        .topic-pagination {
+            margin: 60px 0 20px;
+            padding-top: 40px;
+            border-top: 1px solid var(--border);
+        }
+
+        .pagination-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .page-nav-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 22px;
+            background: var(--card);
+            border: 1.5px solid var(--border);
+            border-radius: 16px;
+            text-decoration: none;
+            color: var(--text);
+            box-shadow: var(--shadow);
+            transition: all 0.25s ease;
+            min-width: 210px;
+        }
+
+        .page-nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 25px rgba(0,0,0,0.08);
+            border-color: var(--accent);
+        }
+
+        .page-nav-btn.next {
+            margin-left: auto;
+            background: linear-gradient(135deg, #ffffff 0%, var(--accent-l) 100%);
+            border-color: var(--accent);
+            text-align: right;
+            justify-content: flex-end;
+        }
+
+        .page-nav-btn.finish {
+            background: linear-gradient(135deg, #ffffff 0%, var(--green-light, var(--green-l, #e4f0e1)) 100%);
+            border-color: var(--green);
+        }
+
+        .page-nav-btn.primary-start {
+            display: inline-flex;
+            padding: 16px 36px;
+            font-size: 0.98rem;
+            font-weight: 500;
+            background: linear-gradient(135deg, var(--accent-d) 0%, #6f5f8f 100%);
+            color: #ffffff !important;
+            border: none;
+            border-radius: 30px;
+            box-shadow: 0 4px 20px rgba(139, 122, 173, 0.35);
+            text-align: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: all 0.25s ease;
+        }
+
+        .page-nav-btn.primary-start:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 6px 25px rgba(139, 122, 173, 0.45);
+        }
+
+        .nav-arrow-icon {
+            font-size: 1.3rem;
+            line-height: 1;
+            color: var(--accent-d);
+            transition: transform 0.2s;
+        }
+
+        .page-nav-btn:hover .nav-arrow-icon {
+            transform: translateX(4px);
+        }
+        .page-nav-btn.prev:hover .nav-arrow-icon {
+            transform: translateX(-4px);
+        }
+
+        .nav-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .nav-sub {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-s);
+            margin-bottom: 2px;
+        }
+
+        .nav-title {
+            font-weight: 500;
+            font-size: 0.9rem;
+            color: var(--text);
+        }
+
+        .page-nav-btn.next .nav-title {
+            color: var(--accent-d);
+            font-weight: 600;
+        }
+
+        .pagination-status {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            text-align: center;
+            min-width: 140px;
+        }
+
+        .status-badge {
+            font-size: 0.76rem;
+            font-weight: 500;
+            color: var(--text-s);
+        }
+
+        .progress-bar-wrap {
+            width: 130px;
+            height: 6px;
+            background: var(--border);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: var(--accent);
+            border-radius: 3px;
+            transition: width 0.3s ease;
+        }
+
+        .start-topic-cta {
+            text-align: center;
+            margin: 48px 0 24px;
+            padding: 36px 24px;
+            background: linear-gradient(135deg, var(--accent-l) 0%, var(--warm-light, #f5ede4) 100%);
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+        }
+
+        .start-topic-cta .cta-subtitle {
+            font-size: 0.95rem;
+            color: var(--text-s);
+            margin-bottom: 20px;
+            font-weight: 400;
+        }
+
+        @media (max-width: 640px) {
+            .pagination-inner {
+                flex-direction: column;
+            }
+            .page-nav-btn {
+                width: 100%;
+                min-width: auto;
+            }
+            .page-nav-btn.next {
+                text-align: left;
+                justify-content: space-between;
+            }
+            .page-nav-btn.prev {
+                justify-content: flex-start;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Global Workbook Topbar -->
+    <header class="workbook-topbar">
+        <div class="topbar-inner">
+            <a href="introduction.html" class="topbar-brand">
+                <span>📖</span>
+                <span>Рабочая тетрадь</span>
+            </a>
+            <nav class="topbar-tabs" aria-label="Разделы тетради">
+            <a href="introduction.html" class="tab-link">Введение</a>
+            <a href="topic1-emotions.html" class="tab-link">1. Эмоции</a>
+            <a href="topic2-crises.html" class="tab-link">2. Кризисы</a>
+            <a href="topic3-boundaries.html" class="tab-link active">3. Границы</a>
+            <a href="topic4-ontogenesis.html" class="tab-link">4. Онтогенез</a>
+            <a href="topic5-cognitive-biases.html" class="tab-link">5. Искажения</a>
+            </nav>
+        </div>
+    </header>
+
+
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-label">Тема 3</div>
+            <h1>Личные <em>границы</em></h1>
+            <p class="hero-subtitle">Невидимая архитектура вашей души. Как понимать, защищать и уважать свои рубежи.</p>
+            <div class="hero-tags">
+                <span class="hero-tag">метафора дома</span>
+                <span class="hero-tag">виды границ</span>
+                <span class="hero-tag">сигналы</span>
+                <span class="hero-tag">практика</span>
+            </div>
+            <a href="#start" class="scroll-hint">
+                Начать
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+            </a>
+        </div>
+    </section>
+
+    <nav class="section-nav">
+        <div class="nav-inner">
+            <button class="nav-arrow" onclick="scrollNav(-1)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg></button>
+            <div class="nav-scroll" id="navScroll">
+                <button class="nav-btn active" data-section="sec-metaphor">Дом</button>
+                <button class="nav-btn" data-section="sec-why">Зачем</button>
+                <button class="nav-btn" data-section="sec-types">Виды</button>
+                <button class="nav-btn" data-section="sec-mature">Зрелые</button>
+                <button class="nav-btn" data-section="sec-signals">Сигналы</button>
+                <button class="nav-btn" data-section="sec-defend">Отстаивание</button>
+                <button class="nav-btn" data-section="sec-myths">Мифы</button>
+                <button class="nav-btn" data-section="sec-strategies">Стратегии</button>
+                <button class="nav-btn" data-section="sec-practice">Практика</button>
+                <button class="nav-btn" data-section="sec-summary">Выводы</button>
+            </div>
+            <button class="nav-arrow" onclick="scrollNav(1)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></button>
+        </div>
+    </nav>
+
+    <main class="content" id="start">
+
+        <!-- ===================== МЕТАФОРА ДОМА ===================== -->
+        <section class="section" id="sec-metaphor">
+            <div class="section-number">01</div>
+            <h2>Метафора: Дом вашей личности</h2>
+
+            <p>Представьте, что ваша личность – это <strong>дом</strong>.</p>
+
+            <div class="house-wrap">
+                <div class="house-svg-wrap">
+                    <svg viewBox="0 0 260 300">
+                        <!-- Fence -->
+                        <rect class="fence" x="10" y="55" width="240" height="235" rx="8"/>
+                        <!-- Foundation -->
+                        <rect class="foundation" x="40" y="240" width="180" height="30" rx="4"/>
+                        <text x="130" y="260" text-anchor="middle">Фундамент</text>
+                        <!-- Walls -->
+                        <rect class="wall" x="50" y="110" width="160" height="130" rx="4"/>
+                        <text x="130" y="180" text-anchor="middle">Стены</text>
+                        <!-- Roof -->
+                        <polygon class="roof" points="40,115 130,45 220,115"/>
+                        <text x="130" y="85" text-anchor="middle">Забор / Крыша</text>
+                        <!-- Door -->
+                        <rect class="door" x="110" y="185" width="40" height="55" rx="4"/>
+                        <text x="130" y="218" text-anchor="middle" fill="#8b6f56">Дверь</text>
+                        <!-- Windows -->
+                        <rect class="window" x="60" y="130" width="35" height="30" rx="4"/>
+                        <rect class="window" x="165" y="130" width="35" height="30" rx="4"/>
+                        <text x="182" y="150" text-anchor="middle">Комнаты</text>
+                    </svg>
+                    <p style="font-size:.72rem;color:var(--text-s);margin-top:12px;">Нажмите на элемент дома</p>
+                </div>
+
+                <div class="house-info">
+                    <div class="house-detail active" data-part="foundation">
+                        <div class="hd-name">Фундамент</div>
+                        <div class="hd-desc">Ваши ценности и базовые потребности. То, на чём вы стоите, и что не подлежит торгу.</div>
+                    </div>
+                    <div class="house-detail" data-part="wall">
+                        <div class="hd-name">Стены</div>
+                        <div class="hd-desc">Личные границы. Крепкие, но не бетонные – они держат, но пропускают воздух.</div>
+                    </div>
+                    <div class="house-detail" data-part="door">
+                        <div class="hd-name">Дверь</div>
+                        <div class="hd-desc">Вы решаете, кого впустить, а кого попросить подождать. Ключ – у вас.</div>
+                    </div>
+                    <div class="house-detail" data-part="window">
+                        <div class="hd-name">Внутренние комнаты</div>
+                        <div class="hd-desc">Самые уязвимые места: ваша боль, секреты, страх. Не для всех.</div>
+                    </div>
+                    <div class="house-detail" data-part="fence">
+                        <div class="hd-name">Забор</div>
+                        <div class="hd-desc">Внешние границы, которые видят все. Вы уважаете заборы соседей – и свои.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="highlight" style="border-left-color:var(--green);">
+                <p><strong>Здоровый дом:</strong> стены крепкие, но не бетонные. Дверь есть, и она открывается по вашему желанию. Вы знаете, кто и когда может войти.</p>
+            </div>
+            <div class="highlight" style="border-left-color:var(--rose);">
+                <p><strong>Больной дом:</strong> стены либо рушатся (слияние), либо превратились в крепость (изоляция). Дверь либо всегда открыта, либо заколочена наглухо.</p>
+            </div>
+        </section>
+
+        <!-- ===================== ЗАЧЕМ НУЖНЫ ===================== -->
+        <section class="section" id="sec-why">
+            <div class="section-number">02</div>
+            <h2>Зачем нужны границы?</h2>
+
+            <table class="tbl">
+                <thead><tr><th>Функция</th><th>Что это значит</th><th>Без границ</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>Защита</strong></td><td>Охраняют безопасность, время и энергию</td><td>Вы истощены, потому что отдаёте всем всё</td></tr>
+                    <tr><td><strong>Идентичность</strong></td><td>Помогают понять, кто вы и в чем ваши ценности</td><td>Вы теряете себя, становитесь хамелеоном</td></tr>
+                    <tr><td><strong>Регуляция близости</strong></td><td>Определяют, насколько близко вы подпускаете людей</td><td>Либо слияние, либо одиночество</td></tr>
+                    <tr><td><strong>Ответственность</strong></td><td>Позволяют различать: что ваше, а что чужое</td><td>Вы чувствуете вину за чужие проблемы</td></tr>
+                    <tr><td><strong>Самоуважение</strong></td><td>Говорят миру: «Мои потребности имеют значение»</td><td>Вы чувствуете, что не важны</td></tr>
+                    <tr><td><strong>Свобода</strong></td><td>Дают право выбирать, с кем и как взаимодействовать</td><td>Вы становитесь заложником чужих ожиданий</td></tr>
+                </tbody>
+            </table>
+
+            <div class="highlight" style="border-left-color:var(--warm);">
+                <p><strong>Ключевая истина:</strong> Границы – это не про отгораживание от людей. Это про ответственное управление своей жизнью. Это акт <strong>любви к себе</strong>, а не акт агрессии.</p>
+            </div>
+        </section>
+
+        <!-- ===================== ВИДЫ ===================== -->
+        <section class="section" id="sec-types">
+            <div class="section-number">03</div>
+            <h2>Виды личных границ</h2>
+
+            <!-- По объекту -->
+            <div class="collapse open">
+                <div class="collapse-header" onclick="toggleCollapse(this)">
+                    <div class="collapse-num">1</div>
+                    <div class="collapse-title">По объекту защиты</div>
+                    <div class="collapse-toggle">+</div>
+                </div>
+                <div class="collapse-body">
+                    <div class="collapse-body-inner">
+                        <table class="tbl">
+                            <thead><tr><th>Вид</th><th>Что защищает</th><th>Пример здоровой границы</th></tr></thead>
+                            <tbody>
+                                <tr><td><strong>Физические</strong></td><td>Тело, личное пространство, прикосновения</td><td>«Я не хочу обниматься прямо сейчас»</td></tr>
+                                <tr><td><strong>Эмоциональные</strong></td><td>Чувства, эмоциональная энергия</td><td>«У меня сейчас нет ресурса выслушивать это»</td></tr>
+                                <tr><td><strong>Временные</strong></td><td>Ваше время</td><td>«Я могу уделить 15 минут, потом мне нужно уйти»</td></tr>
+                                <tr><td><strong>Интеллектуальные</strong></td><td>Мысли, идеи, убеждения</td><td>«Я не согласен с тобой, и это нормально»</td></tr>
+                                <tr><td><strong>Материальные</strong></td><td>Вещи, деньги, ресурсы</td><td>«Пожалуйста, спрашивай разрешение, прежде чем брать мои вещи»</td></tr>
+                                <tr><td><strong>Ценностные</strong></td><td>Убеждения, верования, принципы</td><td>«Я ценю твоё мнение, но моё остаётся прежним»</td></tr>
+                                <tr><td><strong>Сексуальные</strong></td><td>Сексуальность, интимные предпочтения</td><td>«Нет – это нет. Мне не нужно объяснять причины»</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- По структуре -->
+            <div class="collapse">
+                <div class="collapse-header" onclick="toggleCollapse(this)">
+                    <div class="collapse-num">2</div>
+                    <div class="collapse-title">По степени проницаемости</div>
+                    <div class="collapse-toggle">+</div>
+                </div>
+                <div class="collapse-body">
+                    <div class="collapse-body-inner">
+                        <table class="tbl">
+                            <thead><tr><th>Тип</th><th>Описание</th><th>Проблема</th></tr></thead>
+                            <tbody>
+                                <tr><td><strong>Жёсткие (глухая стена)</strong></td><td>Полная изоляция, никого не пускают</td><td>Одиночество, холодность, отсутствие близости</td></tr>
+                                <tr><td><strong>Здоровые (гибкие)</strong></td><td>Знаете, что важно, и можете договариваться</td><td>Адаптивность, умение быть уязвимым, когда безопасно</td></tr>
+                                <tr><td><strong>Размытые (аморфные)</strong></td><td>Нет чёткого «где я, а где другой»</td><td>Слияние, жертвенность, потеря себя</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===================== ЗРЕЛЫЕ ГРАНИЦЫ ===================== -->
+        <section class="section" id="sec-mature">
+            <div class="section-number">04</div>
+            <h2>Зрелые границы: идеальная модель</h2>
+
+            <p>Идеальные границы – это <strong>баланс между гибкостью и твёрдостью</strong>.</p>
+
+            <table class="tbl">
+                <thead><tr><th>Критерий</th><th>Как это выглядит</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>Осознанность</strong></td><td>Я знаю, какие у меня границы, и могу их назвать</td></tr>
+                    <tr><td><strong>Гибкость</strong></td><td>Могу корректировать в зависимости от ситуации и уровня доверия</td></tr>
+                    <tr><td><strong>Устойчивость</strong></td><td>Не «сдаю» границы под давлением, даже когда трудно</td></tr>
+                    <tr><td><strong>Открытость</strong></td><td>Позволяю близким входить, когда я готов</td></tr>
+                    <tr><td><strong>Защита</strong></td><td>Умею сказать «нет» без вины и агрессии</td></tr>
+                    <tr><td><strong>Уважение</strong></td><td>Уважаю границы других так же, как и свои</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- ===================== СИГНАЛЫ ===================== -->
+        <section class="section" id="sec-signals">
+            <div class="section-number">05</div>
+            <h2>Сигналы, что границы нарушены</h2>
+
+            <p>Ваш организм подаёт сигналы. Научитесь их слышать. Отметьте те, которые вам знакомы:</p>
+
+            <div class="signal-section">
+                <h4>Телесные сигналы</h4>
+                <div class="signal-list" id="bodySignals">
+                    <label class="signal-item"><input type="checkbox"><span class="signal-check">✓</span><span>Сжатие челюсти, напряжение в плечах</span></label>
+                    <label class="signal-item"><input type="checkbox"><span class="signal-check">✓</span><span>Чувство комка в горле</span></label>
+                    <label class="signal-item"><input type="checkbox"><span class="signal-check">✓</span><span>Тошнота, дискомфорт в животе</span></label>
+                    <label class="signal-item"><input type="checkbox"><span class="signal-check">✓</span><span>Учащённое сердцебиение</span></label>
+                    <label class="signal-item"><input type="checkbox"><span class="signal-check">✓</span><span>Ощущение «ватных ног» или желание убежать</span></label>
+                </div>
+            </div>
+
+            <div class="signal-section">
+                <h4>Эмоциональные сигналы</h4>
+                <div class="signal-list">
+                    <label class="signal-item"><input type="checkbox"><span class="signal-check">✓</span><span>Раздражение, злость</span></label>
+                    <label class="signal-item"><input type="checkbox"><span class="signal-check">✓</span><span>Вина после согласия на то, чего не хотел</span></label>
+                    <label class="signal-item"><input type="checkbox"><span class="signal-check">✓</span><span>Пустота и опустошение после контакта</span></label>
+                    <label class="signal-item"><input type="checkbox"><span class="signal-check">✓</span><span>Обида на себя или на другого</span></label>
+                    <label class="signal-item"><input type="checkbox"><span class="signal-check">✓</span><span>Тревога без видимой причины</span></label>
+                </div>
+            </div>
+
+            <div class="signal-section">
+                <h4>Мыслительные сигналы</h4>
+                <div class="signal-list">
+                    <label class="signal-item"><input type="checkbox"><span class="signal-check">✓</span><span>«Мне нужно было сказать нет»</span></label>
+                    <label class="signal-item"><input type="checkbox"><span class="signal-check">✓</span><span>«Почему я опять согласился?»</span></label>
+                    <label class="signal-item"><input type="checkbox"><span class="signal-check">✓</span><span>«Я исчезаю, когда мы общаемся»</span></label>
+                    <label class="signal-item"><input type="checkbox"><span class="signal-check">✓</span><span>«Он слишком много от меня требует»</span></label>
+                </div>
+            </div>
+
+            <div class="signal-section">
+                <h4>Поведенческие сигналы</h4>
+                <div class="signal-list">
+                    <label class="signal-item"><input type="checkbox"><span class="signal-check">✓</span><span>Постоянно переписываю планы ради других</span></label>
+                    <label class="signal-item"><input type="checkbox"><span class="signal-check">✓</span><span>Не могу закончить затянувшийся разговор</span></label>
+                    <label class="signal-item"><input type="checkbox"><span class="signal-check">✓</span><span>Откладываю важные дела из-за чужих просьб</span></label>
+                    <label class="signal-item"><input type="checkbox"><span class="signal-check">✓</span><span>Часто чувствую себя обязанным что-то делать</span></label>
+                </div>
+            </div>
+
+            <div class="highlight" style="border-left-color:var(--warm);">
+                <p><strong>Зачем отмечать?</strong> Чем больше вы знаете свои сигналы, тем быстрее замечаете нарушение границ в реальном времени – и можете защититься раньше.</p>
+            </div>
+        </section>
+
+        <!-- ===================== ОТСТАИВАНИЕ ===================== -->
+        <section class="section" id="sec-defend">
+            <div class="section-number">06</div>
+            <h2>Как отстаивать границы</h2>
+
+            <div class="action-grid">
+                <div class="action-card"><div class="ac-icon">🎯</div><div class="ac-title">Шаг 1. Осознайте границу</div><div class="ac-desc">Поймите: что именно не нравится? Какая потребность нарушается? Что хотите вместо этого?</div></div>
+                <div class="action-card"><div class="ac-icon">💬</div><div class="ac-title">Шаг 2. Я-сообщения</div><div class="ac-desc">«Когда ты делаешь X, я чувствую Y, потому что Z. Я бы хотел(а)…»</div></div>
+                <div class="action-card"><div class="ac-icon">🔂</div><div class="ac-title">Шаг 3. Заезженная пластинка</div><div class="ac-desc">Спокойно повторяйте своё «нет» без оправданий и вступления в дискуссию.</div></div>
+                <div class="action-card"><div class="ac-icon">🤝</div><div class="ac-title">Шаг 4. Согласие с частью</div><div class="ac-desc">Признайте чувства собеседника, но отстаивайте свою позицию.</div></div>
+                <div class="action-card"><div class="ac-icon">🥪</div><div class="ac-title">Шаг 5. Сэндвич</div><div class="ac-desc">Позитив → Граница → Позитив. Подходит для начальников и близких.</div></div>
+                <div class="action-card"><div class="ac-icon">🫁</div><div class="ac-title">Шаг 6. Терпите дискомфорт</div><div class="ac-desc">Тревога и вина при новом «нет» – нормально. С каждым разом будет легче.</div></div>
+            </div>
+
+            <h3>Генератор Я-сообщений</h3>
+            <div class="imsg-form">
+                <div class="imsg-row">
+                    <label>Когда ты (конкретное действие человека)</label>
+                    <input type="text" id="imsgAction" placeholder="например: приходишь без звонка" oninput="updateIMsg()">
+                </div>
+                <div class="imsg-row">
+                    <label>я чувствую (эмоция)</label>
+                    <input type="text" id="imsgFeel" placeholder="например: тревогу и раздражение" oninput="updateIMsg()">
+                </div>
+                <div class="imsg-row">
+                    <label>потому что (моя потребность)</label>
+                    <input type="text" id="imsgWhy" placeholder="например: мне нужно планировать своё время" oninput="updateIMsg()">
+                </div>
+                <div class="imsg-row">
+                    <label>Я бы хотел(а) (конкретный запрос)</label>
+                    <input type="text" id="imsgWant" placeholder="например: звонить заранее" oninput="updateIMsg()">
+                </div>
+                <div class="imsg-result empty" id="imsgResult">Ваше Я-сообщение появится здесь...</div>
+            </div>
+
+            <h3>Примеры</h3>
+            <table class="tbl">
+                <thead><tr><th>Плохо (обвинение)</th><th>Хорошо (Я-сообщение)</th></tr></thead>
+                <tbody>
+                    <tr><td>«Ты вечно опаздываешь!»</td><td>«Когда ты опаздываешь на 20 минут, я чувствую тревогу, потому что я планирую своё время. Давай договариваться заранее».</td></tr>
+                    <tr><td>«Ты меня бесишь!»</td><td>«Когда ты критикуешь в общем виде, я чувствую себя неуверенно. Мне важна конкретная обратная связь».</td></tr>
+                    <tr><td>«Ты не уважаешь меня!»</td><td>«Когда ты входишь без стука, я чувствую дискомфорт. Пожалуйста, стучи перед входом».</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- ===================== МИФЫ ===================== -->
+        <section class="section" id="sec-myths">
+            <div class="section-number">07</div>
+            <h2>Распространённые мифы о границах</h2>
+
+            <table class="tbl">
+                <thead><tr><th>Миф</th><th>Правда</th></tr></thead>
+                <tbody>
+                    <tr><td>«Если я устанавливаю границы – я эгоист»</td><td>Границы – ответственность за себя. Эгоист требует за счёт других. Границы уважают и себя, и других</td></tr>
+                    <tr><td>«Если я люблю – должен быть всегда доступен»</td><td>Любовь – не потеря себя. Настоящая любовь уважает потребности обоих</td></tr>
+                    <tr><td>«Границы = сказать "нет"»</td><td>Границы – и сказать «да» тому, что для вас важно. Это про выбор, а не отказ</td></tr>
+                    <tr><td>«Человек уйдёт, если я отстою границу»</td><td>Если уходит из-за «нет» – это был не ваш человек</td></tr>
+                    <tr><td>«Только слабые люди устанавливают границы»</td><td>Наоборот. Сильные знают, что им ценно, и умеют это защищать</td></tr>
+                    <tr><td>«Границы нужны только от плохих людей»</td><td>Границы нужны и в здоровых отношениях, чтобы уважать пространство каждого</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- ===================== СТРАТЕГИИ ===================== -->
+        <section class="section" id="sec-strategies" style="margin-bottom:40px;">
+            <div class="section-number" style="display:none;">07b</div>
+            <h2>Стратегии для разных типов людей</h2>
+
+            <div class="strategy-grid">
+                <div class="strategy-card"><div class="sc-type">Агрессор</div><div class="sc-strat">Чёткое «нет», без объяснений. При необходимости – физический уход и прекращение контакта.</div></div>
+                <div class="strategy-card"><div class="sc-type">Манипулятор</div><div class="sc-strat">Техника «Заезженная пластинка». Не вступайте в дискуссии. Повторяйте «нет» спокойно.</div></div>
+                <div class="strategy-card"><div class="sc-type">Обидчивый</div><div class="sc-strat">«Я вижу, что ты расстроен(а). Моё решение остаётся прежним».</div></div>
+                <div class="strategy-card"><div class="sc-type">Эмоциональный вампир</div><div class="sc-strat">Ограничьте время контакта: «Могу уделить 15 минут». Держите таймер.</div></div>
+                <div class="strategy-card"><div class="sc-type">Близкий, который не понимает</div><div class="sc-strat">Я-сообщения. Дайте время на усвоение. Не наказывайте за непонимание.</div></div>
+            </div>
+        </section>
+
+        <!-- ===================== ПРАКТИКА ===================== -->
+        <section class="section" id="sec-practice">
+            <div class="section-number">08</div>
+            <h2>Практика: Карта моих границ</h2>
+
+            <p>Запишите в каждую зону то, что для вас актуально:</p>
+
+            <div class="action-grid">
+                <div class="card" style="border-top:3px solid var(--rose);"><h4>Святая Святых</h4><p style="font-size:.85rem;color:var(--text-s);margin-bottom:12px;">То, что вы никому не позволяете нарушить.</p><textarea style="width:100%;min-height:60px;border:1px solid var(--border);border-radius:8px;padding:10px 14px;font-family:'Inter',sans-serif;font-size:.85rem;font-weight:300;resize:vertical;" placeholder="Например: время с семьёй, внутренние убеждения..."></textarea></div>
+                <div class="card" style="border-top:3px solid var(--accent);"><h4>Близкие и проверенные</h4><p style="font-size:.85rem;color:var(--text-s);margin-bottom:12px;">То, что вы готовы разделять с доверенными людьми.</p><textarea style="width:100%;min-height:60px;border:1px solid var(--border);border-radius:8px;padding:10px 14px;font-family:'Inter',sans-serif;font-size:.85rem;font-weight:300;resize:vertical;" placeholder="Например: эмоции, переживания, просьбы о помощи..."></textarea></div>
+                <div class="card" style="border-top:3px solid var(--blue);"><h4>Знакомые и коллеги</h4><p style="font-size:.85rem;color:var(--text-s);margin-bottom:12px;">То, что вы делитесь с широким кругом.</p><textarea style="width:100%;min-height:60px;border:1px solid var(--border);border-radius:8px;padding:10px 14px;font-family:'Inter',sans-serif;font-size:.85rem;font-weight:300;resize:vertical;" placeholder="Например: вежливое общение, профессиональные вопросы..."></textarea></div>
+                <div class="card" style="border-top:3px solid var(--green);"><h4>Не переносимо</h4><p style="font-size:.85rem;color:var(--text-s);margin-bottom:12px;">То, что вы не готовы терпеть ни от кого.</p><textarea style="width:100%;min-height:60px;border:1px solid var(--border);border-radius:8px;padding:10px 14px;font-family:'Inter',sans-serif;font-size:.85rem;font-weight:300;resize:vertical;" placeholder="Например: унижение, агрессию, манипуляции..."></textarea></div>
+            </div>
+        </section>
+
+        <!-- ===================== ВЫВОДЫ ===================== -->
+        <section class="section" id="sec-summary">
+            <div class="section-number">09</div>
+            <h2>Главные выводы</h2>
+
+            <ul class="list">
+                <li><strong>Границы – это не стена.</strong> Это дверь, ключ от которой у вас. Вы решаете, кого впустить.</li>
+                <li><strong>Границы – это акт заботы.</strong> Не о себе в одиночестве, а о сохранении себя для других.</li>
+                <li><strong>Границы бывают разными:</strong> физические, эмоциональные, временные, ценностные, интеллектуальные.</li>
+                <li><strong>Здоровые границы – гибкие.</strong> Вы можете договариваться, открываться и закрываться в зависимости от контекста.</li>
+                <li><strong>Отстаивание границ – это навык.</strong> Его можно тренировать. Начните с малого.</li>
+                <li><strong>Дискомфорт – это нормально.</strong> Психика привыкает к новому. Дайте себе время.</li>
+                <li><strong>Границы – это уважение к себе.</strong> Чем больше вы их уважаете, тем более уважительно относятся другие.</li>
+            </ul>
+
+            <div class="divider">· · ·</div>
+
+            <div class="open-q">
+                <label>Какая граница мне сейчас актуальна для отстаивания?</label>
+                <textarea placeholder="Напиши здесь..."></textarea>
+            </div>
+            <div class="open-q">
+                <label>Какой сигнал из чеклиста я чаще всего замечаю у себя?</label>
+                <textarea placeholder="Напиши здесь..."></textarea>
+            </div>
+            <div class="open-q">
+                <label>Какую технику из 6 шагов я хочу попробовать?</label>
+                <textarea placeholder="Напиши здесь..."></textarea>
+            </div>
+            <div class="open-q">
+                <label>Что я чувствую, когда думаю о том, чтобы сказать «нет»?</label>
+                <textarea placeholder="Напиши здесь..."></textarea>
+            </div>
+
+            <div class="final-quote">
+                <p>Ваши границы – самая честная часть вас. Они говорят миру: «Я есть. Я имею ценность. Мои потребности важны. Я уважаю тебя настолько, что говорю правду, даже если она неудобна».</p>
+            </div>
+        </section>
+
+    
+        <!-- Topic Pagination Navigation -->
+        <nav class="topic-pagination" aria-label="Навигация по темам тетради">
+            <div class="pagination-inner">
+            <a href="topic2-crises.html" class="page-nav-btn prev">
+                <span class="nav-arrow-icon">←</span>
+                <span class="nav-text">
+                    <span class="nav-sub">Назад</span>
+                    <span class="nav-title">Тема 2: Возрастные кризисы</span>
+                </span>
+            </a>
+            <div class="pagination-status">
+                <span class="status-badge">Тема 3 из 5</span>
+                <div class="progress-bar-wrap">
+                    <div class="progress-bar-fill" style="width: 60%;"></div>
+                </div>
+            </div>
+            <a href="topic4-ontogenesis.html" class="page-nav-btn next ">
+                <span class="nav-text">
+                    <span class="nav-sub">Далее</span>
+                    <span class="nav-title">Тема 4: Онтогенез личности</span>
+                </span>
+                <span class="nav-arrow-icon">→</span>
+            </a>
+            </div>
+        </nav>
+
+    </main>
+
+    <footer class="footer">Тема 3 · Личные границы</footer>
+
+    <script>
+        function scrollNav(dir){ document.getElementById('navScroll').scrollBy({left:dir*160,behavior:'smooth'}) }
+
+        document.querySelectorAll('.nav-btn').forEach(btn=>{
+            btn.addEventListener('click',()=>{
+                const t=document.getElementById(btn.dataset.section);
+                if(t) t.scrollIntoView({behavior:'smooth',block:'start'});
+            });
+        });
+
+        const sections=document.querySelectorAll('.section');
+        const navBtns=document.querySelectorAll('.nav-btn');
+        const navScroll=document.getElementById('navScroll');
+        window.addEventListener('scroll',()=>{
+            let current='';
+            sections.forEach(sec=>{ if(sec.getBoundingClientRect().top<=120) current=sec.id; });
+            navBtns.forEach(btn=>{
+                btn.classList.toggle('active',btn.dataset.section===current);
+                if(btn.dataset.section===current) btn.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});
+            });
+        });
+
+        function toggleCollapse(h){ h.parentElement.classList.toggle('open') }
+
+        // Checkbox change handler for signal items
+        document.querySelectorAll('.signal-item input[type="checkbox"]').forEach(cb => {
+            cb.addEventListener('change', () => {
+                const item = cb.closest('.signal-item');
+                if (item) item.classList.toggle('checked', cb.checked);
+            });
+        });
+
+        // House interaction
+        const houseDetails = document.querySelectorAll('.house-detail');
+        document.querySelectorAll('.house-svg-wrap svg rect, .house-svg-wrap svg polygon, .house-svg-wrap svg path').forEach(el => {
+            el.addEventListener('click', () => {
+                let part = '';
+                if (el.classList.contains('foundation')) part = 'foundation';
+                else if (el.classList.contains('wall')) part = 'wall';
+                else if (el.classList.contains('door')) part = 'door';
+                else if (el.classList.contains('window')) part = 'window';
+                else if (el.classList.contains('fence') || el.classList.contains('roof')) part = 'fence';
+                if (!part) return;
+                houseDetails.forEach(d => {
+                    const match = d.dataset.part === part;
+                    d.classList.toggle('active', match);
+                    if (match) d.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                });
+            });
+        });
+        houseDetails.forEach(d => {
+            d.addEventListener('click', () => {
+                const part = d.dataset.part;
+                houseDetails.forEach(item => item.classList.toggle('active', item === d));
+                document.querySelectorAll('.house-svg-wrap svg rect, .house-svg-wrap svg polygon').forEach(svgEl => {
+                    if (svgEl.classList.contains(part) || (part === 'fence' && svgEl.classList.contains('roof'))) {
+                        svgEl.style.opacity = '1';
+                        svgEl.style.filter = 'drop-shadow(0 0 6px var(--accent))';
+                        setTimeout(() => { svgEl.style.filter = ''; }, 1000);
+                    }
+                });
+            });
+        });
+
+        // I-message generator
+        function updateIMsg(){
+            const action=document.getElementById('imsgAction').value.trim();
+            const feel=document.getElementById('imsgFeel').value.trim();
+            const why=document.getElementById('imsgWhy').value.trim();
+            const want=document.getElementById('imsgWant').value.trim();
+            const r=document.getElementById('imsgResult');
+            if(!action&&!feel&&!why&&!want){ r.textContent='Ваше Я-сообщение появится здесь...'; r.classList.add('empty'); return; }
+            r.classList.remove('empty');
+            let msg='Когда ';
+            if(action) msg+=action; else msg+='...';
+            if(feel) msg+=', я чувствую '+feel;
+            if(why) msg+=', потому что '+why;
+            if(want) msg+='... Я бы хотел(а), чтобы '+want;
+            else msg+='...';
+            r.textContent=msg;
+        }
+    
+        // ===================== WORKBOOK AUTOSAVE =====================
+        (function() {
+            const pageKey = 'wb_' + window.location.pathname.split('/').pop().replace('.html','');
+            
+            function saveState() {
+                try {
+                    const data = {};
+                    document.querySelectorAll('input:not([type="button"]):not([type="submit"]), textarea, select').forEach((el, i) => {
+                        const id = el.id || ('input_' + i);
+                        if (el.type === 'checkbox') {
+                            data[id] = el.checked;
+                        } else if (el.type === 'radio') {
+                            if (el.checked) data[el.name] = el.value;
+                        } else {
+                            data[id] = el.value;
+                        }
+                    });
+                    
+                    const activeElements = [];
+                    document.querySelectorAll('.emotion-card.selected, .rating-item.selected, .signal-item.checked, .diary-emotion-btn.active').forEach(el => {
+                        const parentId = el.closest('section')?.id || 'sec';
+                        const text = el.textContent.trim().slice(0, 30);
+                        activeElements.push(parentId + '::' + text);
+                    });
+                    data['__active_elements'] = activeElements;
+                    
+                    localStorage.setItem(pageKey, JSON.stringify(data));
+                } catch(e) {}
+            }
+
+            function restoreState() {
+                try {
+                    const raw = localStorage.getItem(pageKey);
+                    if (!raw) return;
+                    const data = JSON.parse(raw);
+                    
+                    document.querySelectorAll('input:not([type="button"]):not([type="submit"]), textarea, select').forEach((el, i) => {
+                        const id = el.id || ('input_' + i);
+                        if (data[id] !== undefined) {
+                            if (el.type === 'checkbox') {
+                                el.checked = data[id];
+                                const signalItem = el.closest('.signal-item');
+                                if (signalItem) signalItem.classList.toggle('checked', el.checked);
+                            } else if (el.type === 'radio') {
+                                if (el.value === data[el.name]) el.checked = true;
+                            } else {
+                                el.value = data[id];
+                                if (el.type === 'range') {
+                                    const valEl = el.nextElementSibling;
+                                    if (valEl && (valEl.classList.contains('slider-value') || valEl.classList.contains('intensity-val') || valEl.id === 'ageNum')) {
+                                        valEl.textContent = el.value;
+                                    }
+                                }
+                            }
+                            el.dispatchEvent(new Event('input', { bubbles: true }));
+                        }
+                    });
+
+                    if (data['__active_elements'] && Array.isArray(data['__active_elements'])) {
+                        const set = new Set(data['__active_elements']);
+                        document.querySelectorAll('.emotion-card, .rating-item, .signal-item, .diary-emotion-btn').forEach(el => {
+                            const parentId = el.closest('section')?.id || 'sec';
+                            const text = el.textContent.trim().slice(0, 30);
+                            if (set.has(parentId + '::' + text)) {
+                                if (el.classList.contains('emotion-card')) el.classList.add('selected');
+                                if (el.classList.contains('rating-item')) el.classList.add('selected');
+                                if (el.classList.contains('signal-item')) {
+                                    el.classList.add('checked');
+                                    const cb = el.querySelector('input[type="checkbox"]');
+                                    if (cb) cb.checked = true;
+                                }
+                                if (el.classList.contains('diary-emotion-btn')) el.classList.add('active');
+                            }
+                        });
+                    }
+                } catch(e) {}
+            }
+
+            if (document.readyState === 'loading') {
+                window.addEventListener('DOMContentLoaded', restoreState);
+            } else {
+                restoreState();
+            }
+            document.addEventListener('input', saveState);
+            document.addEventListener('change', saveState);
+            document.addEventListener('click', (e) => {
+                if (e.target.closest('.emotion-card, .rating-item, .signal-item, .diary-emotion-btn')) {
+                    setTimeout(saveState, 50);
+                }
+            });
+        })();
+
+    </script>
+</body>
+</html>

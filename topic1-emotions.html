@@ -1,0 +1,1843 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тема 1 – Эмоции и чувства</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap');
+
+        :root {
+            --bg: #faf8f5;
+            --card: #ffffff;
+            --text: #2c2c2c;
+            --text-secondary: #6b6b6b;
+            --accent: #b8a9c9;
+            --accent-light: #e8e0f0;
+            --accent-dark: #8b7aad;
+            --warm: #e8d5c4;
+            --warm-light: #f5ede4;
+            --green: #a8c5a0;
+            --green-light: #e4f0e1;
+            --blue: #a0b8c5;
+            --blue-light: #dde9ef;
+            --rose: #c5a0b0;
+            --rose-light: #f0dde5;
+            --border: #e8e4df;
+            --shadow: 0 2px 20px rgba(0,0,0,0.04);
+            --shadow-hover: 0 4px 30px rgba(0,0,0,0.08);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            font-weight: 300;
+        }
+
+        /* Hero */
+        .hero {
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 60px 20px;
+            background: linear-gradient(135deg, #e8e0f0 0%, #dde9ef 50%, #f0dde5 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 600px; height: 600px;
+            background: radial-gradient(circle, rgba(184,169,201,0.12) 0%, transparent 70%);
+            top: -150px; right: -150px;
+            border-radius: 50%;
+        }
+
+        .hero-content { position: relative; z-index: 1; max-width: 700px; }
+
+        .hero-label {
+            font-size: 0.7rem; letter-spacing: 3px;
+            text-transform: uppercase; color: var(--accent-dark);
+            margin-bottom: 20px; font-weight: 500;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 4.5vw, 3.2rem);
+            font-weight: 400; line-height: 1.3; margin-bottom: 16px;
+        }
+
+        .hero h1 em { font-style: italic; color: var(--accent-dark); }
+
+        .hero-subtitle {
+            font-size: 1rem; color: var(--text-secondary);
+            max-width: 520px; margin: 0 auto 32px;
+        }
+
+        .hero-tags { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+
+        .hero-tag {
+            padding: 6px 14px; border-radius: 20px;
+            font-size: 0.75rem; font-weight: 500;
+            background: rgba(255,255,255,0.6); color: var(--accent-dark);
+        }
+
+        .scroll-hint {
+            display: inline-flex; align-items: center; gap: 8px;
+            font-size: 0.75rem; color: var(--accent-dark);
+            letter-spacing: 1px; text-transform: uppercase;
+            animation: bounce 2s infinite; cursor: pointer;
+            text-decoration: none; margin-top: 32px;
+        }
+
+        .scroll-hint svg { width: 16px; height: 16px; }
+
+        @keyframes bounce {
+            0%,20%,50%,80%,100% { transform: translateY(0); }
+            40% { transform: translateY(6px); }
+            60% { transform: translateY(3px); }
+        }
+
+        /* Nav */
+        .section-nav {
+            position: sticky; top: 0;
+            background: rgba(250,248,245,0.92);
+            backdrop-filter: blur(12px); z-index: 100;
+            padding: 14px 0; border-bottom: 1px solid var(--border);
+            margin-bottom: 60px;
+        }
+
+        .nav-inner {
+            max-width: 900px; margin: 0 auto; padding: 0 20px;
+            display: flex; align-items: center; gap: 6px;
+        }
+
+        .nav-scroll {
+            flex: 1; display: flex; gap: 6px;
+            overflow-x: auto; scrollbar-width: none; scroll-behavior: smooth;
+        }
+
+        .nav-scroll::-webkit-scrollbar { display: none; }
+
+        .nav-arrow {
+            width: 32px; height: 32px; border-radius: 50%;
+            border: 1px solid var(--border); background: var(--card);
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; flex-shrink: 0; transition: all 0.25s;
+            color: var(--text-secondary);
+        }
+
+        .nav-arrow:hover { background: var(--accent-light); border-color: var(--accent); color: var(--accent-dark); }
+        .nav-arrow svg { width: 14px; height: 14px; }
+
+        .nav-btn {
+            padding: 7px 14px; border: 1px solid var(--border);
+            background: var(--card); border-radius: 18px;
+            font-size: 0.72rem; font-family: 'Inter', sans-serif;
+            color: var(--text-secondary); cursor: pointer;
+            white-space: nowrap; transition: all 0.25s; flex-shrink: 0;
+        }
+
+        .nav-btn:hover, .nav-btn.active {
+            background: var(--accent-light); border-color: var(--accent); color: var(--accent-dark);
+        }
+
+        /* Content */
+        .content { max-width: 820px; margin: 0 auto; padding: 60px 24px 120px; }
+
+        .section { margin-bottom: 80px; animation: fadeIn 0.5s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+
+        .section-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem; color: var(--accent-light); font-weight: 600; line-height: 1;
+            margin-bottom: 6px;
+        }
+
+        .section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.7rem; font-weight: 400; margin-bottom: 28px;
+        }
+
+        .section h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem; font-weight: 400; margin: 28px 0 14px; color: var(--accent-dark);
+        }
+
+        .section p { margin-bottom: 16px; }
+        .section strong { font-weight: 500; }
+
+        /* Highlight */
+        .highlight {
+            background: var(--card); border-left: 3px solid var(--accent);
+            padding: 22px 26px; border-radius: 0 12px 12px 0;
+            margin: 28px 0; box-shadow: var(--shadow);
+        }
+
+        .highlight p:last-child { margin-bottom: 0; }
+
+        /* Quote */
+        .quote {
+            text-align: center; padding: 36px 28px; margin: 36px 0;
+            background: linear-gradient(135deg, var(--accent-light) 0%, var(--warm-light) 100%);
+            border-radius: 18px;
+        }
+
+        .quote p {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.15rem; font-style: italic; color: var(--accent-dark); line-height: 1.6;
+        }
+
+        /* Divider */
+        .divider { text-align: center; margin: 50px 0; color: var(--border); font-size: 1.4rem; letter-spacing: 10px; }
+
+        /* Card */
+        .card {
+            background: var(--card); border-radius: 14px; padding: 28px;
+            margin: 20px 0; box-shadow: var(--shadow); transition: box-shadow 0.3s;
+        }
+
+        .card:hover { box-shadow: var(--shadow-hover); }
+
+        .card h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.05rem; font-weight: 400; margin-bottom: 12px; color: var(--accent-dark);
+        }
+
+        /* Table */
+        .tbl {
+            width: 100%; border-collapse: separate; border-spacing: 0;
+            margin: 24px 0; background: var(--card); border-radius: 14px;
+            overflow: hidden; box-shadow: var(--shadow);
+        }
+
+        .tbl thead th {
+            background: var(--accent-light); color: var(--accent-dark);
+            padding: 14px 18px; font-weight: 500; font-size: 0.78rem;
+            letter-spacing: 0.5px; text-align: left;
+        }
+
+        .tbl tbody td {
+            padding: 13px 18px; border-bottom: 1px solid var(--border);
+            font-size: 0.88rem; vertical-align: top;
+        }
+
+        .tbl tbody tr:last-child td { border-bottom: none; }
+        .tbl tbody tr:hover { background: rgba(184,169,201,0.03); }
+
+        /* Emotion Cards Grid */
+        .emotion-grid {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 10px; margin: 24px 0;
+        }
+
+        .emotion-card {
+            background: var(--card); border-radius: 12px; padding: 18px 14px;
+            text-align: center; box-shadow: var(--shadow); cursor: pointer;
+            transition: all 0.25s; border: 2px solid transparent; user-select: none;
+        }
+
+        .emotion-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover); }
+        .emotion-card.selected { border-color: var(--accent); background: var(--accent-light); }
+
+        .emotion-emoji { font-size: 1.8rem; margin-bottom: 6px; }
+        .emotion-name { font-size: 0.8rem; font-weight: 500; }
+
+        /* Tags */
+        .tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0; }
+
+        .tag {
+            padding: 5px 12px; border-radius: 16px;
+            font-size: 0.75rem; font-weight: 500;
+        }
+
+        .tag-purple { background: var(--accent-light); color: var(--accent-dark); }
+        .tag-warm { background: var(--warm); color: #8b6f56; }
+        .tag-green { background: var(--green-light); color: #5a7d52; }
+        .tag-blue { background: var(--blue-light); color: #4a6b7d; }
+        .tag-rose { background: var(--rose-light); color: #8b5a6b; }
+
+        /* Collapsible */
+        .collapse {
+            background: var(--card); border-radius: 14px; margin-bottom: 10px;
+            box-shadow: var(--shadow); overflow: hidden;
+        }
+
+        .collapse-header {
+            padding: 18px 22px; cursor: pointer;
+            display: flex; align-items: center; gap: 14px; transition: background 0.2s;
+        }
+
+        .collapse-header:hover { background: rgba(184,169,201,0.04); }
+
+        .collapse-num {
+            width: 34px; height: 34px; background: var(--accent-light);
+            border-radius: 10px; display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0; font-size: 0.8rem; color: var(--accent-dark); font-weight: 600;
+        }
+
+        .collapse-title { font-weight: 500; font-size: 0.92rem; flex: 1; }
+        .collapse-toggle { color: var(--accent); transition: transform 0.3s; font-size: 1.2rem; }
+        .collapse.open .collapse-toggle { transform: rotate(45deg); }
+
+        .collapse-body {
+            max-height: 0; overflow: hidden; transition: max-height 0.5s ease;
+        }
+
+        .collapse.open .collapse-body { max-height: 3000px; }
+        .collapse-body-inner { padding: 0 22px 22px; }
+        .collapse-body-inner p { font-size: 0.9rem; margin-bottom: 12px; }
+        .collapse-body-inner p:last-child { margin-bottom: 0; }
+
+        /* List */
+        .list { list-style: none; margin: 16px 0; counter-reset: concl; }
+        .list li {
+            position: relative;
+            padding: 16px 22px 16px 52px; background: var(--card); border-radius: 12px;
+            margin-bottom: 10px; box-shadow: var(--shadow); font-size: 0.95rem;
+            line-height: 1.65;
+        }
+        .list li::before {
+            counter-increment: concl;
+            content: counter(concl);
+            position: absolute; left: 16px; top: 16px;
+            width: 24px; height: 24px;
+            background: var(--accent-light); color: var(--accent-dark);
+            border-radius: 50%; font-size: 0.78rem; font-weight: 600;
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0;
+        }
+
+        /* Pyramid */
+        .pyramid { display: flex; flex-direction: column; gap: 6px; margin: 28px 0; }
+
+        .pyramid-level {
+            display: flex; align-items: stretch; border-radius: 12px; overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .pyramid-label {
+            padding: 16px 20px; font-weight: 500; font-size: 0.85rem;
+            min-width: 140px; display: flex; align-items: center;
+        }
+
+        .pyramid-content {
+            padding: 16px 20px; font-size: 0.85rem; flex: 1;
+            display: flex; align-items: center;
+        }
+
+        .pyramid-level:nth-child(1) .pyramid-label { background: var(--rose-light); color: #8b5a6b; }
+        .pyramid-level:nth-child(1) .pyramid-content { background: #faf5f8; }
+        .pyramid-level:nth-child(2) .pyramid-label { background: var(--accent-light); color: var(--accent-dark); }
+        .pyramid-level:nth-child(2) .pyramid-content { background: #f8f5fb; }
+        .pyramid-level:nth-child(3) .pyramid-label { background: var(--blue-light); color: #4a6b7d; }
+        .pyramid-level:nth-child(3) .pyramid-content { background: #f4f8fa; }
+        .pyramid-level:nth-child(4) .pyramid-label { background: var(--warm); color: #8b6f56; }
+        .pyramid-level:nth-child(4) .pyramid-content { background: #faf7f3; }
+        .pyramid-level:nth-child(5) .pyramid-label { background: var(--green-light); color: #5a7d52; }
+        .pyramid-level:nth-child(5) .pyramid-content { background: #f5faf4; }
+
+        /* Iceberg */
+        .iceberg { margin: 32px 0; position: relative; }
+
+        .iceberg-layer {
+            padding: 20px 24px; margin-bottom: 4px; border-radius: 12px;
+            cursor: pointer; transition: all 0.3s; position: relative;
+        }
+
+        .iceberg-layer:hover { transform: scale(1.01); }
+
+        .iceberg-layer .layer-label {
+            font-weight: 500; font-size: 0.85rem; margin-bottom: 4px;
+        }
+
+        .iceberg-layer .layer-desc {
+            font-size: 0.82rem; opacity: 0.8;
+        }
+
+        .iceberg-layer.l1 { background: #dde9ef; color: #3a5a6d; }
+        .iceberg-layer.l2 { background: #b8d4e0; color: #2d4a58; }
+        .iceberg-layer.l3 { background: #8bb8cc; color: #1e3a48; }
+        .iceberg-layer.l4 { background: #5a98b3; color: #152d38; }
+        .iceberg-layer.l5 { background: #3a7a96; color: #fff; }
+
+        /* Body Map */
+        .body-map-container {
+            display: flex; gap: 32px; margin: 32px 0; align-items: flex-start;
+            flex-wrap: wrap;
+        }
+
+        .body-svg-wrap {
+            flex: 0 0 220px; background: var(--card); border-radius: 16px;
+            padding: 24px; box-shadow: var(--shadow); text-align: center;
+        }
+
+        .body-svg-wrap svg { width: 160px; height: 320px; }
+
+        .body-svg-wrap svg path,
+        .body-svg-wrap svg circle,
+        .body-svg-wrap svg ellipse {
+            fill: var(--accent-light); stroke: var(--accent); stroke-width: 1.5;
+            cursor: pointer; transition: fill 0.2s;
+        }
+
+        .body-svg-wrap svg .head { fill: #f0dde5; stroke: var(--rose); }
+        .body-svg-wrap svg .chest { fill: #dde9ef; stroke: var(--blue); }
+        .body-svg-wrap svg .stomach { fill: #e4f0e1; stroke: var(--green); }
+        .body-svg-wrap svg .left-arm, .body-svg-wrap svg .right-arm { fill: #f5ede4; stroke: var(--warm); }
+        .body-svg-wrap svg .left-leg, .body-svg-wrap svg .right-leg { fill: #e8e0f0; stroke: var(--accent); }
+
+        .body-legend { flex: 1; min-width: 280px; }
+
+        .body-part-input {
+            background: var(--card); border-radius: 12px; padding: 16px 20px;
+            margin-bottom: 8px; box-shadow: var(--shadow);
+            display: flex; align-items: center; gap: 14px;
+        }
+
+        .body-part-dot {
+            width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0;
+        }
+
+        .body-part-name { font-weight: 500; font-size: 0.85rem; min-width: 80px; }
+
+        .body-part-input input {
+            flex: 1; border: none; background: none; font-family: 'Inter', sans-serif;
+            font-size: 0.85rem; font-weight: 300; color: var(--text); outline: none;
+        }
+
+        .body-part-input input::placeholder { color: #c0b8b0; }
+
+        /* Diary */
+        .diary { margin: 32px 0; }
+
+        .diary-day {
+            background: var(--card); border-radius: 14px; padding: 22px;
+            margin-bottom: 10px; box-shadow: var(--shadow);
+        }
+
+        .diary-day-header {
+            display: flex; align-items: center; justify-content: space-between;
+            margin-bottom: 14px;
+        }
+
+        .diary-day-num {
+            font-weight: 500; font-size: 0.9rem; color: var(--accent-dark);
+        }
+
+        .diary-emotions { display: flex; gap: 6px; flex-wrap: wrap; }
+
+        .diary-emotion-btn {
+            padding: 5px 12px; border-radius: 14px; font-size: 0.72rem;
+            border: 1px solid var(--border); background: var(--bg);
+            cursor: pointer; transition: all 0.2s; font-family: 'Inter', sans-serif;
+        }
+
+        .diary-emotion-btn:hover { background: var(--accent-light); border-color: var(--accent); }
+        .diary-emotion-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+        .diary-row { display: flex; gap: 10px; margin-top: 12px; flex-wrap: wrap; }
+
+        .diary-field { flex: 1; min-width: 200px; }
+
+        .diary-field label {
+            display: block; font-size: 0.75rem; font-weight: 500;
+            margin-bottom: 6px; color: var(--text-secondary);
+        }
+
+        .diary-field input,
+        .diary-field textarea {
+            width: 100%; padding: 10px 14px; border: 1px solid var(--border);
+            border-radius: 10px; font-family: 'Inter', sans-serif;
+            font-size: 0.85rem; font-weight: 300; color: var(--text);
+            background: var(--bg); transition: border-color 0.2s;
+        }
+
+        .diary-field textarea { min-height: 60px; resize: vertical; line-height: 1.6; }
+        .diary-field input:focus, .diary-field textarea:focus { outline: none; border-color: var(--accent); }
+        .diary-field input::placeholder, .diary-field textarea::placeholder { color: #c0b8b0; }
+
+        /* Intensity slider */
+        .intensity-row {
+            display: flex; align-items: center; gap: 10px; margin-top: 10px;
+        }
+
+        .intensity-row label {
+            font-size: 0.75rem; color: var(--text-secondary); min-width: 80px;
+        }
+
+        .intensity-row input[type="range"] {
+            -webkit-appearance: none; flex: 1; height: 4px;
+            background: var(--border); border-radius: 2px; outline: none;
+        }
+
+        .intensity-row input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none; width: 18px; height: 18px;
+            background: var(--accent); border-radius: 50%; cursor: pointer;
+            box-shadow: 0 2px 6px rgba(139,122,173,0.3);
+        }
+
+        .intensity-val {
+            width: 24px; text-align: center; font-weight: 500;
+            color: var(--accent-dark); font-size: 0.85rem;
+        }
+
+        /* Wheel */
+        .wheel-container {
+            display: flex; gap: 32px; margin: 32px 0; align-items: flex-start;
+            flex-wrap: wrap;
+        }
+
+        .wheel-svg-wrap {
+            flex: 0 0 320px; background: var(--card); border-radius: 16px;
+            padding: 24px; box-shadow: var(--shadow); text-align: center;
+        }
+
+        .wheel-svg-wrap svg { width: 280px; height: 280px; }
+
+        .wheel-img {
+            width: 100%; max-width: 280px; height: auto; border-radius: 12px;
+            display: inline-block; box-shadow: var(--shadow);
+        }
+
+        .wheel-svg-wrap svg text {
+            font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 500;
+            pointer-events: none;
+        }
+
+        .wheel-info { flex: 1; min-width: 260px; }
+
+        .wheel-combo {
+            background: var(--card); border-radius: 12px; padding: 16px 20px;
+            margin-bottom: 8px; box-shadow: var(--shadow);
+            display: flex; align-items: center; gap: 12px;
+            cursor: pointer; transition: all 0.2s;
+        }
+
+        .wheel-combo:hover { background: var(--accent-light); }
+
+        .wheel-combo.selected { background: var(--accent-light); border: 1px solid var(--accent); }
+
+        .wheel-combo-from {
+            font-size: 0.8rem; padding: 4px 10px; border-radius: 10px;
+        }
+
+        .wheel-combo-plus { color: var(--text-secondary); font-size: 0.8rem; }
+        .wheel-combo-result { font-weight: 500; font-size: 0.88rem; }
+
+        /* Map columns */
+        .map-grid {
+            display: grid; grid-template-columns: repeat(4, 1fr);
+            gap: 12px; margin: 28px 0;
+        }
+
+        .map-col {
+            background: var(--card); border-radius: 14px; padding: 20px;
+            box-shadow: var(--shadow);
+        }
+
+        .map-col-title {
+            font-weight: 500; font-size: 0.78rem; margin-bottom: 14px;
+            padding-bottom: 10px; border-bottom: 2px solid var(--border);
+        }
+
+        .map-col:nth-child(1) .map-col-title { border-color: var(--green); color: #5a7d52; }
+        .map-col:nth-child(2) .map-col-title { border-color: var(--blue); color: #4a6b7d; }
+        .map-col:nth-child(3) .map-col-title { border-color: var(--rose); color: #8b5a6b; }
+        .map-col:nth-child(4) .map-col-title { border-color: var(--warm); color: #8b6f56; }
+
+        .map-col textarea {
+            width: 100%; min-height: 120px; border: none; background: none;
+            font-family: 'Inter', sans-serif; font-size: 0.82rem;
+            font-weight: 300; color: var(--text); resize: vertical;
+            line-height: 1.6; outline: none;
+        }
+
+        .map-col textarea::placeholder { color: #c0b8b0; }
+
+        /* Open question */
+        .open-q { margin: 24px 0; }
+        .open-q label { display: block; font-size: 0.88rem; font-weight: 500; margin-bottom: 10px; }
+
+        .open-q textarea {
+            width: 100%; min-height: 80px; padding: 16px 20px;
+            border: 1px solid var(--border); border-radius: 12px;
+            font-family: 'Inter', sans-serif; font-size: 0.88rem;
+            font-weight: 300; color: var(--text); background: var(--card);
+            resize: vertical; transition: border-color 0.2s; line-height: 1.6;
+        }
+
+        .open-q textarea:focus { outline: none; border-color: var(--accent); }
+        .open-q textarea::placeholder { color: #c0b8b0; }
+
+        /* Final */
+        .final-quote {
+            text-align: center; padding: 50px 36px; margin-top: 70px;
+            background: linear-gradient(135deg, var(--accent-light) 0%, var(--warm-light) 50%, var(--green-light) 100%);
+            border-radius: 22px;
+        }
+
+        .final-quote p {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.15rem; font-style: italic; color: var(--accent-dark);
+            line-height: 1.7; max-width: 500px; margin: 0 auto;
+        }
+
+        .footer { text-align: center; padding: 36px 24px; color: var(--text-secondary); font-size: 0.78rem; }
+
+        /* Rating (Part 5) */
+        .rating-level {
+            background: var(--card); border-radius: 14px; padding: 24px;
+            margin: 18px 0; box-shadow: var(--shadow); border-left: 4px solid var(--accent);
+        }
+
+        .rating-level.l1 { border-left-color: #c98a8a; }
+        .rating-level.l2 { border-left-color: var(--rose); }
+        .rating-level.l3 { border-left-color: var(--blue); }
+        .rating-level.l4 { border-left-color: var(--warm); }
+        .rating-level.l5 { border-left-color: var(--green); }
+
+        .rating-head {
+            display: flex; align-items: baseline; gap: 12px; margin-bottom: 6px;
+        }
+
+        .rating-level-badge {
+            font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 600;
+            line-height: 1; color: var(--accent-dark);
+        }
+
+        .rating-level.l1 .rating-level-badge { color: #c98a8a; }
+        .rating-level.l2 .rating-level-badge { color: var(--rose); }
+        .rating-level.l3 .rating-level-badge { color: #4a6b7d; }
+        .rating-level.l4 .rating-level-badge { color: #8b6f56; }
+        .rating-level.l5 .rating-level-badge { color: #5a7d52; }
+
+        .rating-level-title { font-weight: 500; font-size: 1.05rem; }
+
+        .rating-level-desc {
+            font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 18px;
+            font-style: italic;
+        }
+
+        .rating-grid {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 10px;
+        }
+
+        .rating-item {
+            background: var(--bg); border-radius: 10px; padding: 14px 16px;
+            cursor: pointer; transition: all 0.2s; border: 2px solid transparent;
+        }
+
+        .rating-item:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+        .rating-item.selected { border-color: var(--accent); background: var(--accent-light); }
+
+        .rating-item-name { font-weight: 500; font-size: 0.85rem; margin-bottom: 4px; }
+        .rating-item-desc { font-size: 0.76rem; color: var(--text-secondary); line-height: 1.45; }
+
+        /* Responsive */
+        @media (max-width: 700px) {
+            .map-grid { grid-template-columns: 1fr 1fr; }
+            .body-map-container { flex-direction: column; align-items: center; }
+            .wheel-container { flex-direction: column; align-items: center; }
+            .pyramid-label { min-width: 100px; font-size: 0.78rem; }
+            .emotion-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+
+        @media (max-width: 480px) {
+            .map-grid { grid-template-columns: 1fr; }
+            .emotion-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+    
+        /* ===================== WORKBOOK GLOBAL NAVIGATION & PAGINATION ===================== */
+        :root {
+            --topbar-height: 54px;
+            --accent-l: var(--accent-light, #e8e0f0);
+            --accent-d: var(--accent-dark, #8b7aad);
+            --text-s: var(--text-secondary, #6b6b6b);
+        }
+
+        .section {
+            scroll-margin-top: 125px;
+        }
+
+        .workbook-topbar {
+            position: sticky;
+            top: 0;
+            z-index: 300;
+            background: rgba(250, 248, 245, 0.95);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border-bottom: 1px solid var(--border);
+            height: var(--topbar-height);
+            display: flex;
+            align-items: center;
+        }
+
+        .topbar-inner {
+            max-width: 960px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+        }
+
+        .topbar-brand {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            font-size: 0.9rem;
+            white-space: nowrap;
+            flex-shrink: 0;
+            transition: opacity 0.2s;
+        }
+
+        .topbar-brand:hover {
+            opacity: 0.8;
+        }
+
+        .topbar-tabs {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            overflow-x: auto;
+            scrollbar-width: none;
+            -webkit-overflow-scrolling: touch;
+            padding: 4px 0;
+        }
+
+        .topbar-tabs::-webkit-scrollbar {
+            display: none;
+        }
+
+        .tab-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 6px 13px;
+            border-radius: 16px;
+            font-size: 0.77rem;
+            font-weight: 500;
+            color: var(--text-s);
+            text-decoration: none;
+            background: transparent;
+            border: 1px solid transparent;
+            white-space: nowrap;
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+        }
+
+        .tab-link:hover {
+            background: rgba(184, 169, 201, 0.14);
+            color: var(--accent-d);
+        }
+
+        .tab-link.active {
+            background: var(--accent-l);
+            border-color: var(--accent);
+            color: var(--accent-d);
+            font-weight: 600;
+        }
+
+        .section-nav {
+            position: sticky;
+            top: var(--topbar-height) !important;
+            z-index: 150;
+        }
+
+        /* Pagination & CTA buttons */
+        .topic-pagination {
+            margin: 60px 0 20px;
+            padding-top: 40px;
+            border-top: 1px solid var(--border);
+        }
+
+        .pagination-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .page-nav-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 22px;
+            background: var(--card);
+            border: 1.5px solid var(--border);
+            border-radius: 16px;
+            text-decoration: none;
+            color: var(--text);
+            box-shadow: var(--shadow);
+            transition: all 0.25s ease;
+            min-width: 210px;
+        }
+
+        .page-nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 25px rgba(0,0,0,0.08);
+            border-color: var(--accent);
+        }
+
+        .page-nav-btn.next {
+            margin-left: auto;
+            background: linear-gradient(135deg, #ffffff 0%, var(--accent-l) 100%);
+            border-color: var(--accent);
+            text-align: right;
+            justify-content: flex-end;
+        }
+
+        .page-nav-btn.finish {
+            background: linear-gradient(135deg, #ffffff 0%, var(--green-light, var(--green-l, #e4f0e1)) 100%);
+            border-color: var(--green);
+        }
+
+        .page-nav-btn.primary-start {
+            display: inline-flex;
+            padding: 16px 36px;
+            font-size: 0.98rem;
+            font-weight: 500;
+            background: linear-gradient(135deg, var(--accent-d) 0%, #6f5f8f 100%);
+            color: #ffffff !important;
+            border: none;
+            border-radius: 30px;
+            box-shadow: 0 4px 20px rgba(139, 122, 173, 0.35);
+            text-align: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: all 0.25s ease;
+        }
+
+        .page-nav-btn.primary-start:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 6px 25px rgba(139, 122, 173, 0.45);
+        }
+
+        .nav-arrow-icon {
+            font-size: 1.3rem;
+            line-height: 1;
+            color: var(--accent-d);
+            transition: transform 0.2s;
+        }
+
+        .page-nav-btn:hover .nav-arrow-icon {
+            transform: translateX(4px);
+        }
+        .page-nav-btn.prev:hover .nav-arrow-icon {
+            transform: translateX(-4px);
+        }
+
+        .nav-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .nav-sub {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-s);
+            margin-bottom: 2px;
+        }
+
+        .nav-title {
+            font-weight: 500;
+            font-size: 0.9rem;
+            color: var(--text);
+        }
+
+        .page-nav-btn.next .nav-title {
+            color: var(--accent-d);
+            font-weight: 600;
+        }
+
+        .pagination-status {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            text-align: center;
+            min-width: 140px;
+        }
+
+        .status-badge {
+            font-size: 0.76rem;
+            font-weight: 500;
+            color: var(--text-s);
+        }
+
+        .progress-bar-wrap {
+            width: 130px;
+            height: 6px;
+            background: var(--border);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: var(--accent);
+            border-radius: 3px;
+            transition: width 0.3s ease;
+        }
+
+        .start-topic-cta {
+            text-align: center;
+            margin: 48px 0 24px;
+            padding: 36px 24px;
+            background: linear-gradient(135deg, var(--accent-l) 0%, var(--warm-light, #f5ede4) 100%);
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+        }
+
+        .start-topic-cta .cta-subtitle {
+            font-size: 0.95rem;
+            color: var(--text-s);
+            margin-bottom: 20px;
+            font-weight: 400;
+        }
+
+        @media (max-width: 640px) {
+            .pagination-inner {
+                flex-direction: column;
+            }
+            .page-nav-btn {
+                width: 100%;
+                min-width: auto;
+            }
+            .page-nav-btn.next {
+                text-align: left;
+                justify-content: space-between;
+            }
+            .page-nav-btn.prev {
+                justify-content: flex-start;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Global Workbook Topbar -->
+    <header class="workbook-topbar">
+        <div class="topbar-inner">
+            <a href="introduction.html" class="topbar-brand">
+                <span>📖</span>
+                <span>Рабочая тетрадь</span>
+            </a>
+            <nav class="topbar-tabs" aria-label="Разделы тетради">
+            <a href="introduction.html" class="tab-link">Введение</a>
+            <a href="topic1-emotions.html" class="tab-link active">1. Эмоции</a>
+            <a href="topic2-crises.html" class="tab-link">2. Кризисы</a>
+            <a href="topic3-boundaries.html" class="tab-link">3. Границы</a>
+            <a href="topic4-ontogenesis.html" class="tab-link">4. Онтогенез</a>
+            <a href="topic5-cognitive-biases.html" class="tab-link">5. Искажения</a>
+            </nav>
+        </div>
+    </header>
+
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-label">Тема 1</div>
+            <h1>Айсберг чувств и <em>эмоций</em></h1>
+            <p class="hero-subtitle">Полная карта нашего внутреннего океана. Разбираем айсберг от вершины до самого дна.</p>
+            <div class="hero-tags">
+                <span class="hero-tag">теория</span>
+                <span class="hero-tag">карта эмоций</span>
+                <span class="hero-tag">дневник</span>
+                <span class="hero-tag">карта тела</span>
+            </div>
+            <a href="#start" class="scroll-hint">
+                Начать
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+            </a>
+        </div>
+    </section>
+
+    <!-- Nav -->
+    <nav class="section-nav">
+        <div class="nav-inner">
+            <button class="nav-arrow" onclick="scrollNav(-1)">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+            </button>
+            <div class="nav-scroll" id="navScroll">
+                <button class="nav-btn active" data-section="sec-lecture">Лекция</button>
+                <button class="nav-btn" data-section="sec-iceberg">Айсберг</button>
+                <button class="nav-btn" data-section="sec-diff">Эмоции vs Чувства</button>
+                <button class="nav-btn" data-section="sec-class">Классификация</button>
+                <button class="nav-btn" data-section="sec-rating">Рейтинг</button>
+                <button class="nav-btn" data-section="sec-pyramid">Пирамида</button>
+                <button class="nav-btn" data-section="sec-wheel">Колесо</button>
+                <button class="nav-btn" data-section="sec-map">Карта чувств</button>
+                <button class="nav-btn" data-section="sec-body">Карта тела</button>
+                <button class="nav-btn" data-section="sec-diary">Дневник</button>
+                <button class="nav-btn" data-section="sec-summary">Выводы</button>
+            </div>
+            <button class="nav-arrow" onclick="scrollNav(1)">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+            </button>
+        </div>
+    </nav>
+
+    <main class="content" id="start">
+
+        <!-- ===================== ЛЕКЦИЯ ===================== -->
+        <section class="section" id="sec-lecture">
+            <div class="section-number">01</div>
+            <h2>Лекция: Айсберг чувств и эмоций</h2>
+
+            <div class="highlight">
+                <p><strong>Эмоции и чувства</strong> – это язык, на котором наша психика говорит с нами. Но мы часто путаем эти понятия, не понимаем их глубины и тонем в этом внутреннем океане без карты.</p>
+            </div>
+
+            <p><strong>Эмоции и чувства</strong> – это язык, на котором наша психика говорит с нами. Но мы часто путаем эти понятия, не понимаем их глубины и тонем в этом внутреннем океане без карты.</p>
+
+            <p>Сегодня мы разберём этот айсберг от вершины до самого дна.</p>
+        </section>
+
+        <!-- ===================== АЙСБЕРГ ===================== -->
+        <section class="section" id="sec-iceberg">
+            <div class="section-number">02</div>
+            <h2>Айсберг: метафора устройства</h2>
+
+            <p>Представьте айсберг в океане.</p>
+
+            <div class="iceberg">
+                <div class="iceberg-layer l1" onclick="this.classList.toggle('expanded')">
+                    <div class="layer-label">Над водой – то, что видят все</div>
+                    <div class="layer-desc">Мимика, жесты, интонации · Быстрые реакции · То, что мы можем контролировать</div>
+                </div>
+                <div class="iceberg-layer l2">
+                    <div class="layer-label">Чуть ниже поверхности</div>
+                    <div class="layer-desc">Осознанные эмоции · «Я злюсь потому что…»</div>
+                </div>
+                <div class="iceberg-layer l3">
+                    <div class="layer-label">Середина</div>
+                    <div class="layer-desc">Смешанные чувства · Неоднозначность · «Я не знаю, что чувствую»</div>
+                </div>
+                <div class="iceberg-layer l4">
+                    <div class="layer-label">Глубже</div>
+                    <div class="layer-desc">Глубинные переживания · Страхи, обиды, потребности</div>
+                </div>
+                <div class="iceberg-layer l5">
+                    <div class="layer-label">Самое дно</div>
+                    <div class="layer-desc">Базовые потребности · «Я хочу быть любимым» · «Мне нужна безопасность»</div>
+                </div>
+            </div>
+
+            <div class="quote">
+                <p>Проблема: Мы часто судим о людях по тому, что <strong>над водой</strong>, не понимая, какая махина скрывается в глубине. И точно так же мы не понимаем себя.</p>
+            </div>
+        </section>
+
+        <!-- ===================== ЭМОЦИИ VS ЧУВСТВА ===================== -->
+        <section class="section" id="sec-diff">
+            <div class="section-number">03</div>
+            <h2>Эмоции vs Чувства</h2>
+
+            <p>В быту мы используем эти слова как синонимы. Но психология их строго разделяет.</p>
+
+            <table class="tbl">
+                <thead>
+                    <tr><th>Критерий</th><th>Эмоции</th><th>Чувства</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><strong>Длительность</strong></td><td>Кратковременные (секунды–минуты)</td><td>Долговременные (годы, десятилетия)</td></tr>
+                    <tr><td><strong>Интенсивность</strong></td><td>Яркие, бурные</td><td>Спокойные, глубокие</td></tr>
+                    <tr><td><strong>Причина</strong></td><td>Конкретная ситуация «здесь и сейчас»</td><td>Сложившиеся отношения, ценности</td></tr>
+                    <tr><td><strong>Осознаваемость</strong></td><td>Часто неосознаваемы</td><td>Могут быть осознаны</td></tr>
+                    <tr><td><strong>Телесность</strong></td><td>Сильные телесные проявления</td><td>Слабая телесная привязка</td></tr>
+                    <tr><td><strong>Пример</strong></td><td>Испуг при резком звуке</td><td>Любовь к матери, которая длится всю жизнь</td></tr>
+                </tbody>
+            </table>
+
+            <div class="highlight">
+                <p><strong>Образ для запоминания:</strong></p>
+                <p>Эмоция – это волна на поверхности океана. Она пришла, накрыла и ушла.</p>
+                <p>Чувство – это само течение океана. Оно всегда есть, но мы его не видим, пока не всмотримся.</p>
+            </div>
+        </section>
+
+        <!-- ===================== КЛАССИФИКАЦИЯ ===================== -->
+        <section class="section" id="sec-class">
+            <div class="section-number">04</div>
+            <h2>Полная классификация</h2>
+
+            <!-- ===== ЧАСТЬ 3 ===== -->
+            <h3 style="font-size:1.35rem; margin-top:40px;">Полная классификация эмоций</h3>
+
+            <div class="collapse open">
+                <div class="collapse-header" onclick="toggleCollapse(this)">
+                    <div class="collapse-num">1</div>
+                    <div class="collapse-title">Базовые (фундаментальные) эмоции – Пол Экман</div>
+                    <div class="collapse-toggle">+</div>
+                </div>
+                <div class="collapse-body">
+                    <div class="collapse-body-inner">
+                        <p>Исследователь Пол Экман выделил <strong>7 базовых эмоций</strong>, которые универсальны для всех культур – они узнаваемы по мимике в любой точке мира:</p>
+
+                        <div class="emotion-grid">
+                            <div class="emotion-card">
+                                <div class="emotion-emoji">😊</div>
+                                <div class="emotion-name">Радость</div>
+                                <div style="font-size:0.74rem; color:var(--text-secondary); margin-top:6px; line-height:1.4;">Чувство удовлетворения, лёгкости, желания делиться. Возникает, когда потребность удовлетворена.</div>
+                            </div>
+                            <div class="emotion-card">
+                                <div class="emotion-emoji">😢</div>
+                                <div class="emotion-name">Грусть (Печаль)</div>
+                                <div style="font-size:0.74rem; color:var(--text-secondary); margin-top:6px; line-height:1.4;">Реакция на потерю, утрату, разочарование. Замедляет, помогает переработать опыт.</div>
+                            </div>
+                            <div class="emotion-card">
+                                <div class="emotion-emoji">😠</div>
+                                <div class="emotion-name">Гнев</div>
+                                <div style="font-size:0.74rem; color:var(--text-secondary); margin-top:6px; line-height:1.4;">Реакция на препятствие, несправедливость, нарушение границ. Даёт энергию защищаться.</div>
+                            </div>
+                            <div class="emotion-card">
+                                <div class="emotion-emoji">😨</div>
+                                <div class="emotion-name">Страх</div>
+                                <div style="font-size:0.74rem; color:var(--text-secondary); margin-top:6px; line-height:1.4;">Реакция на угрозу, опасность, неизвестность. Мобилизует к бегству или замиранию.</div>
+                            </div>
+                            <div class="emotion-card">
+                                <div class="emotion-emoji">🤢</div>
+                                <div class="emotion-name">Отвращение</div>
+                                <div style="font-size:0.74rem; color:var(--text-secondary); margin-top:6px; line-height:1.4;">Реакция на потенциально опасное (токсичное, гнилое). Защищает от того, что может навредить.</div>
+                            </div>
+                            <div class="emotion-card">
+                                <div class="emotion-emoji">😲</div>
+                                <div class="emotion-name">Удивление</div>
+                                <div style="font-size:0.74rem; color:var(--text-secondary); margin-top:6px; line-height:1.4;">Реакция на резкое, неожиданное. Длится секунды, готовит мозг к новой информации.</div>
+                            </div>
+                            <div class="emotion-card">
+                                <div class="emotion-emoji">😏</div>
+                                <div class="emotion-name">Презрение</div>
+                                <div style="font-size:0.74rem; color:var(--text-secondary); margin-top:6px; line-height:1.4;">Чувство превосходства над другим, обесценивание. Смесь гнева и отвращения.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="collapse">
+                <div class="collapse-header" onclick="toggleCollapse(this)">
+                    <div class="collapse-num">2</div>
+                    <div class="collapse-title">Социальные эмоции (возникают в контакте с другими)</div>
+                    <div class="collapse-toggle">+</div>
+                </div>
+                <div class="collapse-body">
+                    <div class="collapse-body-inner">
+                        <p>Эти эмоции появляются только в связи с другими людьми и нашим положением в социуме – их нет у животных без социальной жизни:</p>
+
+                        <div class="emotion-grid">
+                            <div class="emotion-card"><div class="emotion-emoji">😳</div><div class="emotion-name">Стыд</div><div style="font-size:0.74rem; color:var(--text-secondary); margin-top:6px; line-height:1.4;">Ощущение «я плохой», страх быть осуждённым. Бережёт нас от изгнания из группы.</div></div>
+                            <div class="emotion-card"><div class="emotion-emoji">😣</div><div class="emotion-name">Вина</div><div style="font-size:0.74rem; color:var(--text-secondary); margin-top:6px; line-height:1.4;">Осознание, что я причинил вред (даже если никто не узнал). Мотивирует исправить.</div></div>
+                            <div class="emotion-card"><div class="emotion-emoji">😅</div><div class="emotion-name">Смущение</div><div style="font-size:0.74rem; color:var(--text-secondary); margin-top:6px; line-height:1.4;">Лёгкий стыд, неловкость. Сигнал «я случайно нарушил правило».</div></div>
+                            <div class="emotion-card"><div class="emotion-emoji">🦁</div><div class="emotion-name">Гордость</div><div style="font-size:0.74rem; color:var(--text-secondary); margin-top:6px; line-height:1.4;">Чувство собственной значимости, успеха. Подкрепляет достижения.</div></div>
+                            <div class="emotion-card"><div class="emotion-emoji">😒</div><div class="emotion-name">Зависть</div><div style="font-size:0.74rem; color:var(--text-secondary); margin-top:6px; line-height:1.4;">«У другого есть то, чего хочу я, и это несправедливо». Указывает на скрытое желание.</div></div>
+                            <div class="emotion-card"><div class="emotion-emoji">💔</div><div class="emotion-name">Ревность</div><div style="font-size:0.74rem; color:var(--text-secondary); margin-top:6px; line-height:1.4;">Страх потерять важного другого. Защищает близкие привязанности.</div></div>
+                            <div class="emotion-card"><div class="emotion-emoji">🙏</div><div class="emotion-name">Благодарность</div><div style="font-size:0.74rem; color:var(--text-secondary); margin-top:6px; line-height:1.4;">Признание ценности того, что другой дал. Укрепляет связи.</div></div>
+                            <div class="emotion-card"><div class="emotion-emoji">🤩</div><div class="emotion-name">Восхищение</div><div style="font-size:0.74rem; color:var(--text-secondary); margin-top:6px; line-height:1.4;">Признание превосходства другого. Вдохновляет расти.</div></div>
+                            <div class="emotion-card"><div class="emotion-emoji">🤝</div><div class="emotion-name">Симпатия</div><div style="font-size:0.74rem; color:var(--text-secondary); margin-top:6px; line-height:1.4;">Теплота к другому без глубокой привязанности. Притягивает людей.</div></div>
+                            <div class="emotion-card"><div class="emotion-emoji">💞</div><div class="emotion-name">Эмпатия</div><div style="font-size:0.74rem; color:var(--text-secondary); margin-top:6px; line-height:1.4;">Способность чувствовать то же, что другой. Основа понимания и заботы.</div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="divider">· · ·</div>
+
+            <!-- ===== ЧАСТЬ 4 ===== -->
+            <h3 style="font-size:1.35rem; margin-top:40px;">Полная классификация чувств</h3>
+
+            <!-- Моральные -->
+            <div class="collapse open">
+                <div class="collapse-header" onclick="toggleCollapse(this)">
+                    <div class="collapse-num">1</div>
+                    <div class="collapse-title">Моральные (нравственные) чувства</div>
+                    <div class="collapse-toggle">+</div>
+                </div>
+                <div class="collapse-body">
+                    <div class="collapse-body-inner">
+                        <p>Связаны с оценкой поступков с точки зрения добра и зла – формируются через воспитание и культуру:</p>
+                        <table class="tbl">
+                            <thead><tr><th>Чувство</th><th>Суть</th><th>Пример</th></tr></thead>
+                            <tbody>
+                                <tr><td><strong>Совесть</strong></td><td>Внутренний судья, оценивающий соответствие поступков своим ценностям</td><td>«Я поступил неправильно, и меня гложет»</td></tr>
+                                <tr><td><strong>Долг</strong></td><td>Осознание необходимости следовать обязательствам</td><td>«Я должен заботиться о родителях»</td></tr>
+                                <tr><td><strong>Справедливость</strong></td><td>Чувство того, что мир должен быть честным</td><td>«Это нечестно, что он получил больше»</td></tr>
+                                <tr><td><strong>Достоинство</strong></td><td>Чувство собственной ценности, самоуважение</td><td>«Я не позволю себя унижать»</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Интеллектуальные -->
+            <div class="collapse">
+                <div class="collapse-header" onclick="toggleCollapse(this)">
+                    <div class="collapse-num">2</div>
+                    <div class="collapse-title">Интеллектуальные (познавательные) чувства</div>
+                    <div class="collapse-toggle">+</div>
+                </div>
+                <div class="collapse-body">
+                    <div class="collapse-body-inner">
+                        <p>Связаны с процессом познания, поиском истины – сопровождают мышление:</p>
+                        <table class="tbl">
+                            <thead><tr><th>Чувство</th><th>Суть</th><th>Пример</th></tr></thead>
+                            <tbody>
+                                <tr><td><strong>Любопытство</strong></td><td>Желание узнать новое</td><td>«Интересно, а как это устроено?»</td></tr>
+                                <tr><td><strong>Удивление</strong></td><td>Реакция на неожиданное знание</td><td>«Ничего себе, я не знал!»</td></tr>
+                                <tr><td><strong>Сомнение</strong></td><td>Чувство неуверенности в истине</td><td>«А точно ли это правда?»</td></tr>
+                                <tr><td><strong>Уверенность</strong></td><td>Чувство ясности, понимания</td><td>«Да, теперь я это понял»</td></tr>
+                                <tr><td><strong>Озарение (Инсайт)</strong></td><td>Вспышка понимания</td><td>«Эврика! Вот как это работает!»</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Эстетические -->
+            <div class="collapse">
+                <div class="collapse-header" onclick="toggleCollapse(this)">
+                    <div class="collapse-num">3</div>
+                    <div class="collapse-title">Эстетические чувства</div>
+                    <div class="collapse-toggle">+</div>
+                </div>
+                <div class="collapse-body">
+                    <div class="collapse-body-inner">
+                        <p>Связаны с восприятием прекрасного и безобразного – отклик на форму, гармонию, выразительность:</p>
+                        <table class="tbl">
+                            <thead><tr><th>Чувство</th><th>Суть</th><th>Пример</th></tr></thead>
+                            <tbody>
+                                <tr><td><strong>Прекрасное</strong></td><td>Чувство гармонии, совершенства</td><td>Мурашки от музыки, слёзы от картины</td></tr>
+                                <tr><td><strong>Возвышенное</strong></td><td>Чувство величия, бесконечности</td><td>Созерцание звёздного неба, океана</td></tr>
+                                <tr><td><strong>Трагическое</strong></td><td>Чувство от столкновения с судьбой, страданием</td><td>Катарсис в театре</td></tr>
+                                <tr><td><strong>Комическое</strong></td><td>Чувство смешного, нелепого</td><td>Юмор, ирония, сатира</td></tr>
+                                <tr><td><strong>Безобразное</strong></td><td>Чувство отвращения к дисгармонии</td><td>«Это уродливо, это режет глаз»</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===================== РЕЙТИНГ ===================== -->
+        <section class="section" id="sec-rating">
+            <div class="section-number">05</div>
+            <h2>Рейтинг чувств и эмоций</h2>
+
+            <p>Этот рейтинг построен по принципу <strong>«от животного к человеческому»</strong> – от простых врождённых реакций к сложным переживаниям, выходящим за пределы конкретной ситуации.</p>
+
+            <p style="font-size:0.82rem; color:var(--text-secondary);">Нажмите на любое чувство, чтобы выделить его.</p>
+
+            <!-- Уровень 1 -->
+            <div class="rating-level l1">
+                <div class="rating-head">
+                    <div class="rating-level-badge">1</div>
+                    <div class="rating-level-title">Рефлекторные (животные) эмоции</div>
+                </div>
+                <div class="rating-level-desc">Самые быстрые, врождённые, есть у всех млекопитающих.</div>
+                <div class="rating-grid">
+                    <div class="rating-item"><div class="rating-item-name">Испуг</div><div class="rating-item-desc">Мгновенная реакция на резкий стимул</div></div>
+                    <div class="rating-item"><div class="rating-item-name">Ярость</div><div class="rating-item-desc">Неконтролируемый гнев</div></div>
+                    <div class="rating-item"><div class="rating-item-name">Удовольствие</div><div class="rating-item-desc">Реакция на удовлетворение потребности</div></div>
+                    <div class="rating-item"><div class="rating-item-name">Отвращение</div><div class="rating-item-desc">Защита от токсичного</div></div>
+                    <div class="rating-item"><div class="rating-item-name">Голод, жажда, боль</div><div class="rating-item-desc">Телесные сигналы на границе эмоций</div></div>
+                </div>
+            </div>
+
+            <!-- Уровень 2 -->
+            <div class="rating-level l2">
+                <div class="rating-head">
+                    <div class="rating-level-badge">2</div>
+                    <div class="rating-level-title">Ситуативные эмоции</div>
+                </div>
+                <div class="rating-level-desc">Возникают в ответ на конкретные события, но требуют небольшой обработки мозгом.</div>
+                <div class="rating-grid">
+                    <div class="rating-item"><div class="rating-item-name">Радость</div><div class="rating-item-desc">Событие совпало с желанием</div></div>
+                    <div class="rating-item"><div class="rating-item-name">Гнев (злость)</div><div class="rating-item-desc">Препятствие на пути</div></div>
+                    <div class="rating-item"><div class="rating-item-name">Страх</div><div class="rating-item-desc">Предчувствие угрозы</div></div>
+                    <div class="rating-item"><div class="rating-item-name">Печаль</div><div class="rating-item-desc">Осознание потери</div></div>
+                    <div class="rating-item"><div class="rating-item-name">Удивление</div><div class="rating-item-desc">Нарушение ожиданий</div></div>
+                    <div class="rating-item"><div class="rating-item-name">Раздражение</div><div class="rating-item-desc">Слабая форма гнева, накопление</div></div>
+                    <div class="rating-item"><div class="rating-item-name">Тревога</div><div class="rating-item-desc">Страх без конкретного объекта</div></div>
+                    <div class="rating-item"><div class="rating-item-name">Облегчение</div><div class="rating-item-desc">Уход угрозы</div></div>
+                    <div class="rating-item"><div class="rating-item-name">Разочарование</div><div class="rating-item-desc">Несовпадение ожиданий и реальности</div></div>
+                </div>
+            </div>
+
+            <!-- Уровень 3 -->
+            <div class="rating-level l3">
+                <div class="rating-head">
+                    <div class="rating-level-badge">3</div>
+                    <div class="rating-level-title">Социальные эмоции</div>
+                </div>
+                <div class="rating-level-desc">Требуют наличия другого человека и сравнения себя с ним.</div>
+                <div class="rating-grid">
+                    <div class="rating-item"><div class="rating-item-name">Стыд</div><div class="rating-item-desc">Осознание несоответствия нормам, страх осуждения</div></div>
+                    <div class="rating-item"><div class="rating-item-name">Вина</div><div class="rating-item-desc">Осознание, что я причинил вред (даже если никто не узнал)</div></div>
+                    <div class="rating-item"><div class="rating-item-name">Смущение</div><div class="rating-item-desc">Лёгкий стыд, неловкость</div></div>
+                    <div class="rating-item"><div class="rating-item-name">Гордость</div><div class="rating-item-desc">Чувство собственной значимости, успеха</div></div>
+                    <div class="rating-item"><div class="rating-item-name">Зависть</div><div class="rating-item-desc">«У другого есть то, чего хочу я, и это несправедливо»</div></div>
+                    <div class="rating-item"><div class="rating-item-name">Ревность</div><div class="rating-item-desc">Страх потерять важного другого</div></div>
+                    <div class="rating-item"><div class="rating-item-name">Благодарность</div><div class="rating-item-desc">Признание ценности того, что другой дал</div></div>
+                    <div class="rating-item"><div class="rating-item-name">Обида</div><div class="rating-item-desc">«Со мной поступили несправедливо, и я это запомнил»</div></div>
+                    <div class="rating-item"><div class="rating-item-name">Восхищение</div><div class="rating-item-desc">Признание превосходства другого</div></div>
+                    <div class="rating-item"><div class="rating-item-name">Симпатия</div><div class="rating-item-desc">Теплота к другому без глубокой привязанности</div></div>
+                    <div class="rating-item"><div class="rating-item-name">Эмпатия</div><div class="rating-item-desc">Способность чувствовать то же, что другой</div></div>
+                </div>
+            </div>
+
+            <!-- Уровень 4 -->
+            <div class="rating-level l4">
+                <div class="rating-head">
+                    <div class="rating-level-badge">4</div>
+                    <div class="rating-level-title">Моральные чувства</div>
+                </div>
+                <div class="rating-level-desc">Связаны с системой ценностей, представлениями о добре и зле.</div>
+                <div class="rating-grid">
+                    <div class="rating-item"><div class="rating-item-name">Совесть</div><div class="rating-item-desc">Внутренний судья</div></div>
+                    <div class="rating-item"><div class="rating-item-name">Долг</div><div class="rating-item-desc">Обязательство перед собой или другими</div></div>
+                    <div class="rating-item"><div class="rating-item-name">Справедливость</div><div class="rating-item-desc">Требование честности мира</div></div>
+                    <div class="rating-item"><div class="rating-item-name">Достоинство</div><div class="rating-item-desc">Чувство собственной ценности</div></div>
+                    <div class="rating-item"><div class="rating-item-name">Честь</div><div class="rating-item-desc">Соответствие высоким моральным стандартам</div></div>
+                    <div class="rating-item"><div class="rating-item-name">Стыд (экзистенциальный)</div><div class="rating-item-desc">Не за поступок, а за то, «кто я есть»</div></div>
+                </div>
+            </div>
+
+            <!-- Уровень 5 -->
+            <div class="rating-level l5">
+                <div class="rating-head">
+                    <div class="rating-level-badge">5</div>
+                    <div class="rating-level-title">Высшие (экзистенциальные) чувства</div>
+                </div>
+                <div class="rating-level-desc">Выходят за пределы конкретной ситуации, касаются жизни в целом.</div>
+                <div class="rating-grid">
+                    <div class="rating-item"><div class="rating-item-name">Смысл</div><div class="rating-item-desc">Чувство, что жизнь имеет направление и ценность</div></div>
+                    <div class="rating-item"><div class="rating-item-name">Пустота</div><div class="rating-item-desc">Экзистенциальная – отсутствие смысла</div></div>
+                    <div class="rating-item"><div class="rating-item-name">Любовь</div><div class="rating-item-desc">Глубокая связь с другим, принятие, забота</div></div>
+                    <div class="rating-item"><div class="rating-item-name">Счастье</div><div class="rating-item-desc">Не эмоция, а фоновое чувство удовлетворённости жизнью</div></div>
+                    <div class="rating-item"><div class="rating-item-name">Безнадежность</div><div class="rating-item-desc">Отсутствие перспективы</div></div>
+                    <div class="rating-item"><div class="rating-item-name">Вдохновение</div><div class="rating-item-desc">Подъём сил, связанный с высокой целью</div></div>
+                    <div class="rating-item"><div class="rating-item-name">Благоговение</div><div class="rating-item-desc">Трепет перед чем-то великим (природой, искусством, Богом)</div></div>
+                    <div class="rating-item"><div class="rating-item-name">Мудрость</div><div class="rating-item-desc">Спокойное принятие сложности мира</div></div>
+                </div>
+            </div>
+
+            <div class="highlight" style="border-left-color: var(--blue);">
+                <p><strong>Наблюдение:</strong> Чем выше уровень, тем больше в чувстве культуры, личности и осознанности. Но все уровни важны – рефлекторные спасают жизнь, а высшие наполняют её смыслом.</p>
+            </div>
+        </section>
+
+        <!-- ===================== ПИРАМИДА ===================== -->
+        <section class="section" id="sec-pyramid">
+            <div class="section-number">06</div>
+            <h2>Часть 6. Пирамида чувств (по аналогии с Маслоу)</h2>
+
+            <p>Если выстроить чувства в иерархию от базовых к высшим – по той же логике, что пирамиду потребностей Маслоу:</p>
+
+            <div class="pyramid">
+                <div class="pyramid-level">
+                    <div class="pyramid-label">5. Вершина</div>
+                    <div class="pyramid-content">Экзистенциальные: смысл, любовь, счастье · Ценности, философия жизни</div>
+                </div>
+                <div class="pyramid-level">
+                    <div class="pyramid-label">4. Моральные</div>
+                    <div class="pyramid-content">Совесть, долг, справедливость · Внутренние принципы</div>
+                </div>
+                <div class="pyramid-level">
+                    <div class="pyramid-label">3. Социальные</div>
+                    <div class="pyramid-content">Стыд, вина, гордость, зависть · Другие люди, сравнение</div>
+                </div>
+                <div class="pyramid-level">
+                    <div class="pyramid-label">2. Ситуативные</div>
+                    <div class="pyramid-content">Радость, гнев, страх, печаль · События, потребности</div>
+                </div>
+                <div class="pyramid-level">
+                    <div class="pyramid-label">1. Основание</div>
+                    <div class="pyramid-content">Телесные, рефлекторные · Выживание, инстинкты</div>
+                </div>
+            </div>
+
+            <div class="highlight" style="border-left-color: var(--warm);">
+                <p><strong>Важный вывод:</strong> Чтобы испытывать чувства высшего уровня, должны быть удовлетворены (хотя бы минимально) потребности низших. Голодный и замёрзший человек не будет задумываться о смысле жизни.</p>
+            </div>
+        </section>
+
+        <!-- ===================== КОЛЕСО ЭМОЦИЙ ===================== -->
+        <section class="section" id="sec-wheel">
+            <div class="section-number">07</div>
+            <h2>Колесо эмоций (модель Плутчика)</h2>
+
+            <p>Плутчик предложил модель, где эмоции делятся на 8 базовых пар-антагонистов. Сложные эмоции – комбинации базовых.</p>
+
+            <div class="wheel-container">
+                <div class="wheel-svg-wrap">
+                    <img src="wheel-of-emotions.jpg" alt="Колесо эмоций Роберта Плутчика" class="wheel-img">
+                </div>
+
+                <div class="wheel-info">
+                    <h3 style="margin-top:0;">Комбинации эмоций</h3>
+
+                    <div class="wheel-combo">
+                        <span class="wheel-combo-from tag tag-warm">Радость</span>
+                        <span class="wheel-combo-plus">+</span>
+                        <span class="wheel-combo-from tag tag-green">Доверие</span>
+                        <span class="wheel-combo-result" style="margin-left:auto;">= Любовь</span>
+                    </div>
+                    <div class="wheel-combo">
+                        <span class="wheel-combo-from tag tag-warm">Радость</span>
+                        <span class="wheel-combo-plus">+</span>
+                        <span class="wheel-combo-from tag tag-rose">Страх</span>
+                        <span class="wheel-combo-result" style="margin-left:auto;">= Вина</span>
+                    </div>
+                    <div class="wheel-combo">
+                        <span class="wheel-combo-from tag tag-rose">Гнев</span>
+                        <span class="wheel-combo-plus">+</span>
+                        <span class="wheel-combo-from tag tag-blue">Предвкушение</span>
+                        <span class="wheel-combo-result" style="margin-left:auto;">= Агрессия</span>
+                    </div>
+                    <div class="wheel-combo">
+                        <span class="wheel-combo-from tag tag-blue">Печаль</span>
+                        <span class="wheel-combo-plus">+</span>
+                        <span class="wheel-combo-from tag tag-blue">Удивление</span>
+                        <span class="wheel-combo-result" style="margin-left:auto;">= Разочарование</span>
+                    </div>
+                    <div class="wheel-combo">
+                        <span class="wheel-combo-from tag tag-rose">Страх</span>
+                        <span class="wheel-combo-plus">+</span>
+                        <span class="wheel-combo-from tag tag-blue">Удивление</span>
+                        <span class="wheel-combo-result" style="margin-left:auto;">= Тревога</span>
+                    </div>
+                    <div class="wheel-combo">
+                        <span class="wheel-combo-from tag tag-warm">Отвращение</span>
+                        <span class="wheel-combo-plus">+</span>
+                        <span class="wheel-combo-from tag tag-rose">Гнев</span>
+                        <span class="wheel-combo-result" style="margin-left:auto;">= Презрение</span>
+                    </div>
+
+                    <div class="highlight" style="margin-top:20px;">
+                        <p><strong>Вывод:</strong> Наши чувства редко приходят поодиночке. Они смешиваются, как цвета в спектре.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===================== КАРТА ЧУВСТВ ===================== -->
+        <section class="section" id="sec-map">
+            <div class="section-number">08</div>
+            <h2>Упражнение: Карта моих чувств</h2>
+
+            <p>Разделите лист на 4 колонки. Запишите чувства в каждую – это покажет ваши «слепые зоны».</p>
+
+            <div class="map-grid">
+                <div class="map-col">
+                    <div class="map-col-title">Легко проявляю</div>
+                    <textarea placeholder="Какие чувства мне легко показать другим?"></textarea>
+                </div>
+                <div class="map-col">
+                    <div class="map-col-title">Скрываю</div>
+                    <textarea placeholder="Какие чувства я прячу от других?"></textarea>
+                </div>
+                <div class="map-col">
+                    <div class="map-col-title">Стыжусь</div>
+                    <textarea placeholder="Какие чувства вызывают стыд?"></textarea>
+                </div>
+                <div class="map-col">
+                    <div class="map-col-title">Не замечаю</div>
+                    <textarea placeholder="Какие чувства я не осознаю?"></textarea>
+                </div>
+            </div>
+
+            <div class="highlight">
+                <p><strong>Зачем это?</strong> Чувства, которые мы скрываем или не замечаем, всё равно управляют нами из-под воды – как та часть айсберга, которую мы не видим.</p>
+            </div>
+        </section>
+
+        <!-- ===================== КАРТА ТЕЛА ===================== -->
+        <section class="section" id="sec-body">
+            <div class="section-number">08</div>
+            <h2>Упражнение: Карта тела и эмоций</h2>
+
+            <p>Эмоции живут не только в голове – они отражаются в теле. Напишите, где вы чувствуете каждую эмоцию.</p>
+
+            <div class="body-map-container">
+                <div class="body-svg-wrap">
+                    <svg viewBox="0 0 160 340">
+                        <!-- Head -->
+                        <ellipse class="head" cx="80" cy="40" rx="28" ry="32"/>
+                        <!-- Neck -->
+                        <rect x="72" y="70" width="16" height="14" rx="4" fill="#f0dde5" stroke="var(--rose)" stroke-width="1.5"/>
+                        <!-- Torso -->
+                        <rect class="chest" x="45" y="84" width="70" height="80" rx="16"/>
+                        <!-- Stomach -->
+                        <ellipse class="stomach" cx="80" cy="190" rx="32" ry="28"/>
+                        <!-- Left arm -->
+                        <path class="left-arm" d="M45,90 Q20,100 16,140 Q14,160 24,170 Q28,174 32,168 Q36,155 38,135 Q40,115 45,105"/>
+                        <!-- Right arm -->
+                        <path class="right-arm" d="M115,90 Q140,100 144,140 Q146,160 136,170 Q132,174 128,168 Q124,155 122,135 Q120,115 115,105"/>
+                        <!-- Left leg -->
+                        <path class="left-leg" d="M58,216 Q52,260 48,300 Q46,320 50,330 Q54,336 58,330 Q62,315 64,290 Q66,260 68,226"/>
+                        <!-- Right leg -->
+                        <path class="right-leg" d="M102,216 Q108,260 112,300 Q114,320 110,330 Q106,336 102,330 Q98,315 96,290 Q94,260 92,226"/>
+                    </svg>
+                    <p style="font-size:0.72rem; color:var(--text-secondary); margin-top:12px;">Нажмите на зону тела</p>
+                </div>
+
+                <div class="body-legend">
+                    <div class="body-part-input">
+                        <div class="body-part-dot" style="background:#f0dde5;"></div>
+                        <div class="body-part-name">Голова</div>
+                        <input type="text" placeholder="Какие эмоции здесь живут?">
+                    </div>
+                    <div class="body-part-input">
+                        <div class="body-part-dot" style="background:#dde9ef;"></div>
+                        <div class="body-part-name">Грудь</div>
+                        <input type="text" placeholder="Что вы чувствуете здесь?">
+                    </div>
+                    <div class="body-part-input">
+                        <div class="body-part-dot" style="background:#e4f0e1;"></div>
+                        <div class="body-part-name">Живот</div>
+                        <input type="text" placeholder="«Бабочки», «сжимает», «пусто»?">
+                    </div>
+                    <div class="body-part-input">
+                        <div class="body-part-dot" style="background:#f5ede4;"></div>
+                        <div class="body-part-name">Руки</div>
+                        <input type="text" placeholder="Хочется сжать кулаки? Или отпустить?">
+                    </div>
+                    <div class="body-part-input">
+                        <div class="body-part-dot" style="background:#e8e0f0;"></div>
+                        <div class="body-part-name">Ноги</div>
+                        <input type="text" placeholder="Подгибаются? Несут? Убегают?">
+                    </div>
+
+                    <div class="highlight" style="margin-top:16px;">
+                        <p><strong>Подсказка:</strong> Тревога – «бабочки» в животе. Гнев – напряжение в руках и челюсти. Страх – холод в ногах. Грусть – тяжесть в груди.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===================== ДНЕВНИК ===================== -->
+        <section class="section" id="sec-diary">
+            <div class="section-number">09</div>
+            <h2>Упражнение: Дневник чувств</h2>
+
+            <p>Каждый вечер записывайте 3 главные эмоции за день. Через неделю вы увидите свой эмоциональный ландшафт.</p>
+
+            <div class="diary" id="diary">
+                <!-- Days will be generated by JS -->
+            </div>
+
+            <div class="highlight" style="margin-top:24px;">
+                <p><strong>Совет:</strong> Не пишите «было плохо». Пишите точнее: «тревога, потом облегчение, потом лёгкая грусть». Называйте эмоции по имени.</p>
+            </div>
+        </section>
+
+        <!-- ===================== ВЫВОДЫ ===================== -->
+        <section class="section" id="sec-summary">
+            <div class="section-number">10</div>
+            <h2>Главные выводы</h2>
+
+            <ul class="list">
+                <li><strong>Эмоции</strong> – быстрые волны. <strong>Чувства</strong> – глубокие течения.</li>
+                <li>У эмоций и чувств есть <strong>иерархия</strong>: от животных реакций до человеческих смыслов.</li>
+                <li>Чем выше уровень чувства, тем больше в нём <strong>культуры, ценностей и личности</strong>.</li>
+                <li>Под каждой «негативной» эмоцией лежит <strong>позитивная потребность</strong> (в безопасности, уважении, любви).</li>
+                <li>Осознавать свои чувства – значит <strong>расширять территорию над водой</strong>, делая айсберг меньше и управляемее.</li>
+                <li><strong>Золотое правило:</strong> Не бывает «плохих» и «хороших» чувств. Бывают чувства, которые мы умеем или не умеем проживать.</li>
+            </ul>
+
+            <div class="divider">· · ·</div>
+
+            <div class="open-q">
+                <label>Что нового я узнал(а) о себе из этой темы?</label>
+                <textarea placeholder="Напиши здесь..."></textarea>
+            </div>
+
+            <div class="open-q">
+                <label>Какое упражнение было для меня самым важным?</label>
+                <textarea placeholder="Напиши здесь..."></textarea>
+            </div>
+
+            <div class="open-q">
+                <label>Какую эмоцию я хочу научиться замечать лучше?</label>
+                <textarea placeholder="Напиши здесь..."></textarea>
+            </div>
+
+            <div class="final-quote">
+                <p>Человек, который умеет различать свои чувства и спускаться вглубь айсберга, перестаёт быть игрушкой эмоций. Он становится капитаном своего внутреннего океана.</p>
+            </div>
+        </section>
+
+    
+        <!-- Topic Pagination Navigation -->
+        <nav class="topic-pagination" aria-label="Навигация по темам тетради">
+            <div class="pagination-inner">
+            <a href="introduction.html" class="page-nav-btn prev">
+                <span class="nav-arrow-icon">←</span>
+                <span class="nav-text">
+                    <span class="nav-sub">Назад</span>
+                    <span class="nav-title">Введение</span>
+                </span>
+            </a>
+            <div class="pagination-status">
+                <span class="status-badge">Тема 1 из 5</span>
+                <div class="progress-bar-wrap">
+                    <div class="progress-bar-fill" style="width: 20%;"></div>
+                </div>
+            </div>
+            <a href="topic2-crises.html" class="page-nav-btn next ">
+                <span class="nav-text">
+                    <span class="nav-sub">Далее</span>
+                    <span class="nav-title">Тема 2: Возрастные кризисы</span>
+                </span>
+                <span class="nav-arrow-icon">→</span>
+            </a>
+            </div>
+        </nav>
+
+    </main>
+
+    <footer class="footer">Тема 1 · Эмоции и чувства</footer>
+
+    <script>
+        // Nav scroll
+        function scrollNav(dir) {
+            document.getElementById('navScroll').scrollBy({ left: dir * 160, behavior: 'smooth' });
+        }
+
+        // Nav click
+        document.querySelectorAll('.nav-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const t = document.getElementById(btn.dataset.section);
+                if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+
+        // Active nav on scroll
+        const sections = document.querySelectorAll('.section');
+        const navBtns = document.querySelectorAll('.nav-btn');
+        const navScroll = document.getElementById('navScroll');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(sec => {
+                if (sec.getBoundingClientRect().top <= 120) current = sec.id;
+            });
+            navBtns.forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.section === current);
+                if (btn.dataset.section === current) {
+                    btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+                }
+            });
+        });
+
+        // Collapsible
+        function toggleCollapse(h) {
+            h.parentElement.classList.toggle('open');
+        }
+
+        // Emotion cards toggle
+        document.querySelectorAll('.emotion-card').forEach(card => {
+            card.addEventListener('click', () => card.classList.toggle('selected'));
+        });
+
+        // Rating items toggle
+        document.querySelectorAll('.rating-item').forEach(item => {
+            item.addEventListener('click', () => item.classList.toggle('selected'));
+        });
+
+        // Wheel combos highlight
+        document.querySelectorAll('.wheel-combo').forEach(combo => {
+            combo.addEventListener('click', () => {
+                document.querySelectorAll('.wheel-combo').forEach(c => c.classList.remove('selected'));
+                combo.classList.add('selected');
+            });
+        });
+
+        // Body map highlight & focus
+        const bodyMapIndices = {
+            'head': 0,
+            'chest': 1,
+            'stomach': 2,
+            'left-arm': 3,
+            'right-arm': 3,
+            'left-leg': 4,
+            'right-leg': 4
+        };
+        document.querySelectorAll('.body-svg-wrap svg path, .body-svg-wrap svg ellipse, .body-svg-wrap svg rect').forEach(part => {
+            part.addEventListener('click', () => {
+                const inputs = document.querySelectorAll('.body-part-input input');
+                let targetIdx = -1;
+                for (const [cls, idx] of Object.entries(bodyMapIndices)) {
+                    if (part.classList.contains(cls)) {
+                        targetIdx = idx;
+                        break;
+                    }
+                }
+                if (targetIdx >= 0 && inputs[targetIdx]) {
+                    inputs[targetIdx].focus();
+                    inputs[targetIdx].scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    const wrap = inputs[targetIdx].closest('.body-part-input');
+                    if (wrap) {
+                        wrap.style.borderColor = 'var(--accent)';
+                        wrap.style.transform = 'translateX(4px)';
+                        setTimeout(() => {
+                            wrap.style.borderColor = '';
+                            wrap.style.transform = '';
+                        }, 800);
+                    }
+                }
+            });
+        });
+
+        // Generate diary
+        const diaryEl = document.getElementById('diary');
+        const daysOfWeek = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'];
+        const quickEmotions = ['😊 Радость','😢 Грусть','😠 Гнев','😨 Страх','😰 Тревога','🤢 Отвращение','😲 Удивление','😔 Обида','😳 Стеснение','🤯 Стресс','😴 Усталость','🤗 Благодарность'];
+
+        for (let i = 1; i <= 7; i++) {
+            const day = document.createElement('div');
+            day.className = 'diary-day';
+            day.innerHTML = `
+                <div class="diary-day-header">
+                    <div class="diary-day-num">День ${i} <span style="color:var(--text-secondary); font-weight:300; font-size:0.8rem;">(${daysOfWeek[i-1] || ''})</span></div>
+                </div>
+                <div class="diary-emotions">
+                    ${quickEmotions.map(e => `<button class="diary-emotion-btn" onclick="this.classList.toggle('active')">${e}</button>`).join('')}
+                </div>
+                <div class="intensity-row">
+                    <label>Интенсивность</label>
+                    <input type="range" min="1" max="10" value="5" oninput="this.nextElementSibling.textContent=this.value">
+                    <span class="intensity-val">5</span>
+                </div>
+                <div class="diary-row">
+                    <div class="diary-field">
+                        <label>Ситуация</label>
+                        <input type="text" placeholder="Что произошло?">
+                    </div>
+                    <div class="diary-field">
+                        <label>Что под эмоцией?</label>
+                        <input type="text" placeholder="Что скрывается глубже?">
+                    </div>
+                </div>
+                <div class="diary-row">
+                    <div class="diary-field">
+                        <label>Заметки</label>
+                        <textarea placeholder="Любые мысли, которые появились..."></textarea>
+                    </div>
+                </div>
+            `;
+            diaryEl.appendChild(day);
+        }
+    
+        // ===================== WORKBOOK AUTOSAVE =====================
+        (function() {
+            const pageKey = 'wb_' + window.location.pathname.split('/').pop().replace('.html','');
+            
+            function saveState() {
+                try {
+                    const data = {};
+                    document.querySelectorAll('input:not([type="button"]):not([type="submit"]), textarea, select').forEach((el, i) => {
+                        const id = el.id || ('input_' + i);
+                        if (el.type === 'checkbox') {
+                            data[id] = el.checked;
+                        } else if (el.type === 'radio') {
+                            if (el.checked) data[el.name] = el.value;
+                        } else {
+                            data[id] = el.value;
+                        }
+                    });
+                    
+                    const activeElements = [];
+                    document.querySelectorAll('.emotion-card.selected, .rating-item.selected, .signal-item.checked, .diary-emotion-btn.active').forEach(el => {
+                        const parentId = el.closest('section')?.id || 'sec';
+                        const text = el.textContent.trim().slice(0, 30);
+                        activeElements.push(parentId + '::' + text);
+                    });
+                    data['__active_elements'] = activeElements;
+                    
+                    localStorage.setItem(pageKey, JSON.stringify(data));
+                } catch(e) {}
+            }
+
+            function restoreState() {
+                try {
+                    const raw = localStorage.getItem(pageKey);
+                    if (!raw) return;
+                    const data = JSON.parse(raw);
+                    
+                    document.querySelectorAll('input:not([type="button"]):not([type="submit"]), textarea, select').forEach((el, i) => {
+                        const id = el.id || ('input_' + i);
+                        if (data[id] !== undefined) {
+                            if (el.type === 'checkbox') {
+                                el.checked = data[id];
+                                const signalItem = el.closest('.signal-item');
+                                if (signalItem) signalItem.classList.toggle('checked', el.checked);
+                            } else if (el.type === 'radio') {
+                                if (el.value === data[el.name]) el.checked = true;
+                            } else {
+                                el.value = data[id];
+                                if (el.type === 'range') {
+                                    const valEl = el.nextElementSibling;
+                                    if (valEl && (valEl.classList.contains('slider-value') || valEl.classList.contains('intensity-val') || valEl.id === 'ageNum')) {
+                                        valEl.textContent = el.value;
+                                    }
+                                }
+                            }
+                            el.dispatchEvent(new Event('input', { bubbles: true }));
+                        }
+                    });
+
+                    if (data['__active_elements'] && Array.isArray(data['__active_elements'])) {
+                        const set = new Set(data['__active_elements']);
+                        document.querySelectorAll('.emotion-card, .rating-item, .signal-item, .diary-emotion-btn').forEach(el => {
+                            const parentId = el.closest('section')?.id || 'sec';
+                            const text = el.textContent.trim().slice(0, 30);
+                            if (set.has(parentId + '::' + text)) {
+                                if (el.classList.contains('emotion-card')) el.classList.add('selected');
+                                if (el.classList.contains('rating-item')) el.classList.add('selected');
+                                if (el.classList.contains('signal-item')) {
+                                    el.classList.add('checked');
+                                    const cb = el.querySelector('input[type="checkbox"]');
+                                    if (cb) cb.checked = true;
+                                }
+                                if (el.classList.contains('diary-emotion-btn')) el.classList.add('active');
+                            }
+                        });
+                    }
+                } catch(e) {}
+            }
+
+            if (document.readyState === 'loading') {
+                window.addEventListener('DOMContentLoaded', restoreState);
+            } else {
+                restoreState();
+            }
+            document.addEventListener('input', saveState);
+            document.addEventListener('change', saveState);
+            document.addEventListener('click', (e) => {
+                if (e.target.closest('.emotion-card, .rating-item, .signal-item, .diary-emotion-btn')) {
+                    setTimeout(saveState, 50);
+                }
+            });
+        })();
+
+    </script>
+</body>
+</html>

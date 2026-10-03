@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тема 4 – Онтогенез психического развития личности</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap');
+        :root{--bg:#faf8f5;--card:#fff;--text:#2c2c2c;--text-s:#6b6b6b;--accent:#b8a9c9;--accent-l:#e8e0f0;--accent-d:#8b7aad;--warm:#e8d5c4;--warm-l:#f5ede4;--green:#a8c5a0;--green-l:#e4f0e1;--blue:#a0b8c5;--blue-l:#dde9ef;--rose:#c5a0b0;--rose-l:#f0dde5;--border:#e8e4df;--shadow:0 2px 20px rgba(0,0,0,.04);--shadow-h:0 4px 30px rgba(0,0,0,.08)}
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;font-weight:300}
+
+        .hero{min-height:75vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:60px 20px;background:linear-gradient(135deg,#e4f0e1 0%,#e8e0f0 50%,#dde9ef 100%);position:relative;overflow:hidden}
+        .hero::before{content:'';position:absolute;width:600px;height:600px;background:radial-gradient(circle,rgba(168,197,160,.12) 0%,transparent 70%);top:-150px;right:-150px;border-radius:50%}
+        .hero-content{position:relative;z-index:1;max-width:720px}
+        .hero-label{font-size:.7rem;letter-spacing:3px;text-transform:uppercase;color:var(--accent-d);margin-bottom:20px;font-weight:500}
+        .hero h1{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:400;line-height:1.3;margin-bottom:16px}
+        .hero h1 em{font-style:italic;color:var(--accent-d)}
+        .hero-subtitle{font-size:.95rem;color:var(--text-s);max-width:560px;margin:0 auto 28px}
+        .hero-tags{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+        .hero-tag{padding:5px 13px;border-radius:20px;font-size:.72rem;font-weight:500;background:rgba(255,255,255,.6);color:var(--accent-d)}
+        .scroll-hint{display:inline-flex;align-items:center;gap:8px;font-size:.75rem;color:var(--accent-d);letter-spacing:1px;text-transform:uppercase;animation:bounce 2s infinite;cursor:pointer;text-decoration:none;margin-top:28px}
+        .scroll-hint svg{width:16px;height:16px}
+        @keyframes bounce{0%,20%,50%,80%,100%{transform:translateY(0)}40%{transform:translateY(6px)}60%{transform:translateY(3px)}}
+
+        .section-nav{position:sticky;top:0;background:rgba(250,248,245,.92);backdrop-filter:blur(12px);z-index:100;padding:14px 0;border-bottom:1px solid var(--border);margin-bottom:60px}
+        .nav-inner{max-width:960px;margin:0 auto;padding:0 20px;display:flex;align-items:center;gap:6px}
+        .nav-scroll{flex:1;display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;scroll-behavior:smooth}
+        .nav-scroll::-webkit-scrollbar{display:none}
+        .nav-arrow{width:32px;height:32px;border-radius:50%;border:1px solid var(--border);background:var(--card);display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;transition:all .25s;color:var(--text-s)}
+        .nav-arrow:hover{background:var(--accent-l);border-color:var(--accent);color:var(--accent-d)}
+        .nav-arrow svg{width:14px;height:14px}
+        .nav-btn{padding:7px 13px;border:1px solid var(--border);background:var(--card);border-radius:18px;font-size:.7rem;font-family:'Inter',sans-serif;color:var(--text-s);cursor:pointer;white-space:nowrap;transition:all .25s;flex-shrink:0}
+        .nav-btn:hover,.nav-btn.active{background:var(--accent-l);border-color:var(--accent);color:var(--accent-d)}
+
+        .content{max-width:840px;margin:0 auto;padding:60px 24px 120px}
+        .section{margin-bottom:80px;animation:fadeIn .5s ease}
+        @keyframes fadeIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+        .section-number{font-family:'Playfair Display',serif;font-size:2.8rem;color:var(--accent-l);font-weight:600;line-height:1;margin-bottom:6px}
+        .section h2{font-family:'Playfair Display',serif;font-size:1.7rem;font-weight:400;margin-bottom:28px}
+        .section h3{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:400;margin:28px 0 14px;color:var(--accent-d)}
+        .section p{margin-bottom:16px}
+        .section strong{font-weight:500}
+
+        .highlight{background:var(--card);border-left:3px solid var(--accent);padding:22px 26px;border-radius:0 12px 12px 0;margin:28px 0;box-shadow:var(--shadow)}
+        .highlight p:last-child{margin-bottom:0}
+        .quote{text-align:center;padding:36px 28px;margin:36px 0;background:linear-gradient(135deg,var(--accent-l) 0%,var(--warm-l) 100%);border-radius:18px}
+        .quote p{font-family:'Playfair Display',serif;font-size:1.1rem;font-style:italic;color:var(--accent-d);line-height:1.6}
+        .divider{text-align:center;margin:50px 0;color:var(--border);font-size:1.4rem;letter-spacing:10px}
+
+        .card{background:var(--card);border-radius:14px;padding:28px;margin:20px 0;box-shadow:var(--shadow);transition:box-shadow .3s}
+        .card:hover{box-shadow:var(--shadow-h)}
+        .card h4{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:400;margin-bottom:12px;color:var(--accent-d)}
+
+        .tbl{width:100%;border-collapse:separate;border-spacing:0;margin:24px 0;background:var(--card);border-radius:14px;overflow:hidden;box-shadow:var(--shadow)}
+        .tbl thead th{background:var(--accent-l);color:var(--accent-d);padding:14px 16px;font-weight:500;font-size:.76rem;letter-spacing:.5px;text-align:left}
+        .tbl tbody td{padding:12px 16px;border-bottom:1px solid var(--border);font-size:.86rem;vertical-align:top}
+        .tbl tbody tr:last-child td{border-bottom:none}
+        .tbl tbody tr:hover{background:rgba(184,169,201,.03)}
+
+        .collapse{background:var(--card);border-radius:14px;margin-bottom:10px;box-shadow:var(--shadow);overflow:hidden}
+        .collapse-header{padding:16px 20px;cursor:pointer;display:flex;align-items:center;gap:12px;transition:background .2s}
+        .collapse-header:hover{background:rgba(184,169,201,.04)}
+        .collapse-num{width:32px;height:32px;background:var(--accent-l);border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:.78rem;color:var(--accent-d);font-weight:600}
+        .collapse-title{font-weight:500;font-size:.9rem;flex:1}
+        .collapse-toggle{color:var(--accent);transition:transform .3s;font-size:1.2rem}
+        .collapse.open .collapse-toggle{transform:rotate(45deg)}
+        .collapse-body{max-height:0;overflow:hidden;transition:max-height .5s ease}
+        .collapse.open .collapse-body{max-height:5000px}
+        .collapse-body-inner{padding:0 20px 20px}
+        .collapse-body-inner p{font-size:.88rem;margin-bottom:12px}
+        .collapse-body-inner p:last-child{margin-bottom:0}
+
+        .list{list-style:none;margin:16px 0;counter-reset:concl}
+        .list li{position:relative;padding:14px 20px 14px 48px;background:var(--card);border-radius:12px;margin-bottom:8px;box-shadow:var(--shadow);font-size:.92rem;line-height:1.65}
+        .list li::before{counter-increment:concl;content:counter(concl);position:absolute;left:14px;top:14px;width:24px;height:24px;background:var(--accent-l);color:var(--accent-d);border-radius:50%;font-size:.75rem;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+
+        .tags{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0}
+        .tag{padding:5px 12px;border-radius:16px;font-size:.74rem;font-weight:500}
+        .tag-purple{background:var(--accent-l);color:var(--accent-d)}
+        .tag-warm{background:var(--warm);color:#8b6f56}
+        .tag-green{background:var(--green-l);color:#5a7d52}
+        .tag-blue{background:var(--blue-l);color:#4a6b7d}
+        .tag-rose{background:var(--rose-l);color:#8b5a6b}
+
+        .erikson-grid{display:grid;grid-template-columns:1fr;gap:12px;margin:24px 0}
+        .erikson-card{background:var(--card);border-radius:14px;padding:22px;box-shadow:var(--shadow);border-left:4px solid var(--accent);transition:all .25s}
+        .erikson-card:hover{box-shadow:var(--shadow-h)}
+        .erikson-age{font-size:.72rem;font-weight:600;color:var(--accent-d);letter-spacing:.5px;margin-bottom:4px}
+        .erikson-crisis{font-family:'Playfair Display',serif;font-size:1rem;color:var(--text);margin-bottom:6px}
+        .erikson-new{font-size:.82rem;color:var(--green);font-weight:500;margin-bottom:6px}
+        .erikson-desc{font-size:.84rem;color:var(--text-s);line-height:1.55}
+
+        .theory-card{background:var(--card);border-radius:14px;padding:24px;margin:16px 0;box-shadow:var(--shadow);border-top:3px solid var(--accent)}
+        .theory-card h4{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:400;margin-bottom:10px;color:var(--accent-d)}
+        .theory-card p,.theory-card li{font-size:.88rem}
+
+        .law-item{background:var(--card);border-radius:12px;padding:18px 20px;margin-bottom:8px;box-shadow:var(--shadow);cursor:pointer;transition:all .2s;border:2px solid transparent}
+        .law-item:hover{transform:translateY(-1px);box-shadow:var(--shadow-h)}
+        .law-item.selected{border-color:var(--accent);background:var(--accent-l)}
+        .law-item .li-name{font-weight:500;font-size:.9rem;margin-bottom:4px}
+        .law-item .li-desc{font-size:.82rem;color:var(--text-s);line-height:1.5}
+
+        .factor-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;margin:24px 0}
+        .factor-card{background:var(--card);border-radius:12px;padding:18px;box-shadow:var(--shadow);transition:all .25s}
+        .factor-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-h)}
+        .factor-card .fc-icon{font-size:1.4rem;margin-bottom:6px}
+        .factor-card .fc-title{font-weight:500;font-size:.88rem;margin-bottom:4px}
+        .factor-card .fc-desc{font-size:.8rem;color:var(--text-s);line-height:1.5}
+
+        .socialize-tbl td:first-child{font-weight:500;white-space:nowrap;color:var(--accent-d)}
+
+        .open-q{margin:24px 0}
+        .open-q label{display:block;font-size:.88rem;font-weight:500;margin-bottom:10px}
+        .open-q textarea{width:100%;min-height:70px;padding:14px 18px;border:1px solid var(--border);border-radius:12px;font-family:'Inter',sans-serif;font-size:.86rem;font-weight:300;color:var(--text);background:var(--card);resize:vertical;transition:border-color .2s;line-height:1.6}
+        .open-q textarea:focus{outline:none;border-color:var(--accent)}
+        .open-q textarea::placeholder{color:#c0b8b0}
+
+        .final-quote{text-align:center;padding:48px 32px;margin-top:70px;background:linear-gradient(135deg,var(--green-l) 0%,var(--accent-l) 50%,var(--warm-l) 100%);border-radius:22px}
+        .final-quote p{font-family:'Playfair Display',serif;font-size:1.1rem;font-style:italic;color:var(--accent-d);line-height:1.7;max-width:520px;margin:0 auto}
+        .footer{text-align:center;padding:36px 24px;color:var(--text-s);font-size:.78rem}
+
+        @media(max-width:700px){.factor-grid{grid-template-columns:1fr}}
+    
+        /* ===================== WORKBOOK GLOBAL NAVIGATION & PAGINATION ===================== */
+        :root {
+            --topbar-height: 54px;
+            --accent-l: var(--accent-light, #e8e0f0);
+            --accent-d: var(--accent-dark, #8b7aad);
+            --text-s: var(--text-secondary, #6b6b6b);
+        }
+
+        .section {
+            scroll-margin-top: 125px;
+        }
+
+        .workbook-topbar {
+            position: sticky;
+            top: 0;
+            z-index: 300;
+            background: rgba(250, 248, 245, 0.95);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border-bottom: 1px solid var(--border);
+            height: var(--topbar-height);
+            display: flex;
+            align-items: center;
+        }
+
+        .topbar-inner {
+            max-width: 960px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+        }
+
+        .topbar-brand {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            font-size: 0.9rem;
+            white-space: nowrap;
+            flex-shrink: 0;
+            transition: opacity 0.2s;
+        }
+
+        .topbar-brand:hover {
+            opacity: 0.8;
+        }
+
+        .topbar-tabs {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            overflow-x: auto;
+            scrollbar-width: none;
+            -webkit-overflow-scrolling: touch;
+            padding: 4px 0;
+        }
+
+        .topbar-tabs::-webkit-scrollbar {
+            display: none;
+        }
+
+        .tab-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 6px 13px;
+            border-radius: 16px;
+            font-size: 0.77rem;
+            font-weight: 500;
+            color: var(--text-s);
+            text-decoration: none;
+            background: transparent;
+            border: 1px solid transparent;
+            white-space: nowrap;
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+        }
+
+        .tab-link:hover {
+            background: rgba(184, 169, 201, 0.14);
+            color: var(--accent-d);
+        }
+
+        .tab-link.active {
+            background: var(--accent-l);
+            border-color: var(--accent);
+            color: var(--accent-d);
+            font-weight: 600;
+        }
+
+        .section-nav {
+            position: sticky;
+            top: var(--topbar-height) !important;
+            z-index: 150;
+        }
+
+        /* Pagination & CTA buttons */
+        .topic-pagination {
+            margin: 60px 0 20px;
+            padding-top: 40px;
+            border-top: 1px solid var(--border);
+        }
+
+        .pagination-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .page-nav-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 22px;
+            background: var(--card);
+            border: 1.5px solid var(--border);
+            border-radius: 16px;
+            text-decoration: none;
+            color: var(--text);
+            box-shadow: var(--shadow);
+            transition: all 0.25s ease;
+            min-width: 210px;
+        }
+
+        .page-nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 25px rgba(0,0,0,0.08);
+            border-color: var(--accent);
+        }
+
+        .page-nav-btn.next {
+            margin-left: auto;
+            background: linear-gradient(135deg, #ffffff 0%, var(--accent-l) 100%);
+            border-color: var(--accent);
+            text-align: right;
+            justify-content: flex-end;
+        }
+
+        .page-nav-btn.finish {
+            background: linear-gradient(135deg, #ffffff 0%, var(--green-light, var(--green-l, #e4f0e1)) 100%);
+            border-color: var(--green);
+        }
+
+        .page-nav-btn.primary-start {
+            display: inline-flex;
+            padding: 16px 36px;
+            font-size: 0.98rem;
+            font-weight: 500;
+            background: linear-gradient(135deg, var(--accent-d) 0%, #6f5f8f 100%);
+            color: #ffffff !important;
+            border: none;
+            border-radius: 30px;
+            box-shadow: 0 4px 20px rgba(139, 122, 173, 0.35);
+            text-align: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: all 0.25s ease;
+        }
+
+        .page-nav-btn.primary-start:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 6px 25px rgba(139, 122, 173, 0.45);
+        }
+
+        .nav-arrow-icon {
+            font-size: 1.3rem;
+            line-height: 1;
+            color: var(--accent-d);
+            transition: transform 0.2s;
+        }
+
+        .page-nav-btn:hover .nav-arrow-icon {
+            transform: translateX(4px);
+        }
+        .page-nav-btn.prev:hover .nav-arrow-icon {
+            transform: translateX(-4px);
+        }
+
+        .nav-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .nav-sub {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-s);
+            margin-bottom: 2px;
+        }
+
+        .nav-title {
+            font-weight: 500;
+            font-size: 0.9rem;
+            color: var(--text);
+        }
+
+        .page-nav-btn.next .nav-title {
+            color: var(--accent-d);
+            font-weight: 600;
+        }
+
+        .pagination-status {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            text-align: center;
+            min-width: 140px;
+        }
+
+        .status-badge {
+            font-size: 0.76rem;
+            font-weight: 500;
+            color: var(--text-s);
+        }
+
+        .progress-bar-wrap {
+            width: 130px;
+            height: 6px;
+            background: var(--border);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: var(--accent);
+            border-radius: 3px;
+            transition: width 0.3s ease;
+        }
+
+        .start-topic-cta {
+            text-align: center;
+            margin: 48px 0 24px;
+            padding: 36px 24px;
+            background: linear-gradient(135deg, var(--accent-l) 0%, var(--warm-light, #f5ede4) 100%);
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+        }
+
+        .start-topic-cta .cta-subtitle {
+            font-size: 0.95rem;
+            color: var(--text-s);
+            margin-bottom: 20px;
+            font-weight: 400;
+        }
+
+        @media (max-width: 640px) {
+            .pagination-inner {
+                flex-direction: column;
+            }
+            .page-nav-btn {
+                width: 100%;
+                min-width: auto;
+            }
+            .page-nav-btn.next {
+                text-align: left;
+                justify-content: space-between;
+            }
+            .page-nav-btn.prev {
+                justify-content: flex-start;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Global Workbook Topbar -->
+    <header class="workbook-topbar">
+        <div class="topbar-inner">
+            <a href="introduction.html" class="topbar-brand">
+                <span>📖</span>
+                <span>Рабочая тетрадь</span>
+            </a>
+            <nav class="topbar-tabs" aria-label="Разделы тетради">
+            <a href="introduction.html" class="tab-link">Введение</a>
+            <a href="topic1-emotions.html" class="tab-link">1. Эмоции</a>
+            <a href="topic2-crises.html" class="tab-link">2. Кризисы</a>
+            <a href="topic3-boundaries.html" class="tab-link">3. Границы</a>
+            <a href="topic4-ontogenesis.html" class="tab-link active">4. Онтогенез</a>
+            <a href="topic5-cognitive-biases.html" class="tab-link">5. Искажения</a>
+            </nav>
+        </div>
+    </header>
+
+
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-label">Тема 4</div>
+            <h1>Онтогенез психического <em>развития</em> личности</h1>
+            <p class="hero-subtitle">Комплексный анализ теорий, этапов и движущих сил. Как человек становится тем, кем он является.</p>
+            <div class="hero-tags">
+                <span class="hero-tag">закономерности</span>
+                <span class="hero-tag">теории</span>
+                <span class="hero-tag">кризисы</span>
+                <span class="hero-tag">периодизации</span>
+                <span class="hero-tag">социализация</span>
+            </div>
+            <a href="#start" class="scroll-hint">Начать<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg></a>
+        </div>
+    </section>
+
+    <nav class="section-nav">
+        <div class="nav-inner">
+            <button class="nav-arrow" onclick="scrollNav(-1)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg></button>
+            <div class="nav-scroll" id="navScroll">
+                <button class="nav-btn active" data-section="sec-intro">Введение</button>
+                <button class="nav-btn" data-section="sec-concept">Понятие</button>
+                <button class="nav-btn" data-section="sec-laws">Закономерности</button>
+                <button class="nav-btn" data-section="sec-novelty">Новообразования</button>
+                <button class="nav-btn" data-section="sec-forces">Движущие силы</button>
+                <button class="nav-btn" data-section="sec-factors">Факторы</button>
+                <button class="nav-btn" data-section="sec-theories">Теории</button>
+                <button class="nav-btn" data-section="sec-periods">Периодизации</button>
+                <button class="nav-btn" data-section="sec-erikson">Эриксон</button>
+                <button class="nav-btn" data-section="sec-social">Социализация</button>
+                <button class="nav-btn" data-section="sec-stability">Устойчивость</button>
+                <button class="nav-btn" data-section="sec-summary">Выводы</button>
+            </div>
+            <button class="nav-arrow" onclick="scrollNav(1)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></button>
+        </div>
+    </nav>
+
+    <main class="content" id="start">
+
+        <!-- 01 ВВЕДЕНИЕ -->
+        <section class="section" id="sec-intro">
+            <div class="section-number">01</div>
+            <h2>Введение</h2>
+            <div class="highlight">
+                <p><strong>Онтогенез психического развития личности</strong> – это не просто набор разрозненных этапов, а сложная, динамичная симфония, где каждая нота, каждая пауза и каждое крещендо играют свою роль в формировании уникального человеческого «Я».</p>
+            </div>
+            <p>В условиях постоянно меняющегося мира, стремительного развития технологий и увеличения информационных потоков вопрос устойчивости личности, её способности к адаптации и самореализации становится как никогда актуальным.</p>
+            <p>Данный раздел призван систематизировать и углубить знания об этом феномене, предложив всесторонний анализ ключевых теорий, этапов, движущих сил и механизмов, определяющих путь становления человека от рождения до глубокой старости.</p>
+        </section>
+
+        <!-- 02 ПОНЯТИЕ -->
+        <section class="section" id="sec-concept">
+            <div class="section-number">02</div>
+            <h2>Понятие и общие закономерности онтогенеза</h2>
+            <p><strong>Онтогенез психического развития личности</strong> – это необратимый, направленный и закономерный процесс количественных, качественных и структурных преобразований психики и поведения человека, обусловленный внутренними и внешними факторами.</p>
+            <p>Название происходит от древнегреческих слов <em>ontos</em> (сущее) и <em>genesis</em> (происхождение) – индивидуальное развитие организма.</p>
+            <h3>Три уровня изменений</h3>
+            <div class="factor-grid">
+                <div class="factor-card" style="border-top:3px solid var(--green)"><div class="fc-icon">🧬</div><div class="fc-title">Биологический</div><div class="fc-desc">Созревание мозга, нервной системы, эндокринной системы. Для развития речи необходимо созревание определённых зон коры.</div></div>
+                <div class="factor-card" style="border-top:3px solid var(--accent)"><div class="fc-icon">🧠</div><div class="fc-title">Психический</div><div class="fc-desc">Формирование восприятия, памяти, мышления, эмоций, темперамента, характера и способностей.</div></div>
+                <div class="factor-card" style="border-top:3px solid var(--blue)"><div class="fc-icon">👥</div><div class="fc-title">Социальный</div><div class="fc-desc">Усвоение культурного опыта, норм, ценностей. Формирование мировоззрения и системы отношений.</div></div>
+            </div>
+        </section>
+
+        <!-- 03 ЗАКОНОМЕРНОСТИ -->
+        <section class="section" id="sec-laws">
+            <div class="section-number">03</div>
+            <h2>Характеристики и закономерности психического развития</h2>
+            <p>Психическое развитие подчиняется ряду универсальных закономерностей:</p>
+            <div class="law-item" onclick="this.classList.toggle('selected')"><div class="li-name">Необратимость</div><div class="li-desc">Пройденные этапы не могут быть повторены. Однажды сформированные структуры интегрируются в более сложные системы.</div></div>
+            <div class="law-item" onclick="this.classList.toggle('selected')"><div class="li-name">Направленность</div><div class="li-desc">Развитие движется от простого к сложному, от менее дифференцированного к более дифференцированному.</div></div>
+            <div class="law-item" onclick="this.classList.toggle('selected')"><div class="li-name">Неравномерность</div><div class="li-desc">Различные психические функции развиваются с разной скоростью. В один период активно развивается речь, в другой – логическое мышление.</div></div>
+            <div class="law-item" onclick="this.classList.toggle('selected')"><div class="li-name">Гетерохронность</div><div class="li-desc">Пик развития различных функций не совпадает во времени (А.А. Ухтомский). Подростки могут мыслить абстрактно, но иметь несформированную эмоционально-волевую сферу.</div></div>
+            <div class="law-item" onclick="this.classList.toggle('selected')"><div class="li-name">Неустойчивость</div><div class="li-desc">Развитие не линейно. Включает кризисы, скачки, регрессы – это неотъемлемая часть процесса.</div></div>
+            <div class="law-item" onclick="this.classList.toggle('selected')"><div class="li-name">Сензитивность</div><div class="li-desc">Ограниченные периоды, когда психика наиболее чувствительна к определённым воздействиям. Пропуск сензитивного периода значительно затрудняет формирование соответствующей функции.</div></div>
+            <div class="law-item" onclick="this.classList.toggle('selected')"><div class="li-name">Кумулятивность</div><div class="li-desc">Изменения накапливаются, переходя в новое качество. Каждый этап строится на предыдущем, интегрируя опыт.</div></div>
+            <div class="law-item" onclick="this.classList.toggle('selected')"><div class="li-name">Закон ВПФ (Выготский)</div><div class="li-desc">Высшие психические функции возникают сначала как межличностные (интерпсихическая форма), затем интериоризируются в индивидуальные (интрапсихическая).</div></div>
+        </section>
+
+        <!-- 04 НОВООБРАЗОВАНИЯ -->
+        <section class="section" id="sec-novelty">
+            <div class="section-number">04</div>
+            <h2>Психологическое новообразование</h2>
+            <div class="highlight">
+                <p><strong>Психологическое новообразование</strong> – это качественно новая структура или функция психики, которая возникает на данной ступени развития, определяет сознание ребёнка, его отношение к среде и является исходной точкой для следующего этапа.</p>
+            </div>
+            <p>Новообразования могут проявляться как:</p>
+            <ul class="list">
+                <li><strong>Психические процессы:</strong> наглядно-действенное → наглядно-образное → логическое мышление</li>
+                <li><strong>Свойства личности:</strong> рефлексия в подростковом возрасте, произвольность в младшем школьном</li>
+                <li><strong>Самосознание:</strong> чувство «Я», идентичность, система ценностей</li>
+            </ul>
+            <p>Каждое новообразование не просто добавляется, а <strong>перестраивает всю личность</strong> на новой основе.</p>
+        </section>
+
+        <!-- 05 ДВИЖУЩИЕ СИЛЫ -->
+        <section class="section" id="sec-forces">
+            <div class="section-number">05</div>
+            <h2>Движущие силы и механизмы развития</h2>
+            <div class="highlight" style="border-left-color:var(--warm)">
+                <p><strong>Движущая сила развития</strong> – противоречия. Столкнувшиеся в конфликте противоположные начала, внутренне присущие процессу становления, служат неиссякаемым источником энергии для изменений.</p>
+            </div>
+            <h3>Типы противоречий</h3>
+            <div class="factor-grid">
+                <div class="factor-card" style="border-top:3px solid var(--rose)"><div class="fc-title">Потребности ↔ Среда</div><div class="fc-desc">Потребности развиваются, но среда не всегда offering возможности для их удовлетворения.</div></div>
+                <div class="factor-card" style="border-top:3px solid var(--warm)"><div class="fc-title">Возможности ↔ Деятельность</div><div class="fc-desc">Новые физические и духовные возможности не соответствуют старым формам деятельности.</div></div>
+                <div class="factor-card" style="border-top:3px solid var(--blue)"><div class="fc-title">Требования ↔ Навыки</div><div class="fc-desc">Новая деятельность требует умений, которыми человек ещё не обладает.</div></div>
+            </div>
+            <p>Разрешение противоречий происходит <strong>через деятельность</strong>. Нерешённые противоречия могут привести к задержкам развития, кризисным явлениям или психоневрозам.</p>
+            <h3>Роль обучения</h3>
+            <p>По Выготскому, обучение опирается на <strong>зону ближайшего развития</strong> (ЗБР) и целенаправленно создаёт условия для возникновения и разрешения развивающих противоречий.</p>
+        </section>
+
+        <!-- 06 ФАКТОРЫ -->
+        <section class="section" id="sec-factors">
+            <div class="section-number">06</div>
+            <h2>Внешние и внутренние факторы развития</h2>
+
+            <div class="collapse open">
+                <div class="collapse-header" onclick="toggleCollapse(this)">
+                    <div class="collapse-num">Внешние</div>
+                    <div class="collapse-title">Внешние факторы (среда)</div>
+                    <div class="collapse-toggle">+</div>
+                </div>
+                <div class="collapse-body"><div class="collapse-body-inner">
+                    <p><strong>Макросреда:</strong> социально-экономические условия, политический строй, культурно-исторические особенности общества.</p>
+                    <p><strong>Микросреда:</strong> семья (первый и самый мощный агент социализации), школа, группа сверстников, СМИ.</p>
+                    <p><strong>Воспитание и обучение:</strong> целенаправленное формирование качеств, передача знаний, умений и навыков.</p>
+                </div></div>
+            </div>
+
+            <div class="collapse">
+                <div class="collapse-header" onclick="toggleCollapse(this)">
+                    <div class="collapse-num">Внутр.</div>
+                    <div class="collapse-title">Внутренние факторы (организм)</div>
+                    <div class="collapse-toggle">+</div>
+                </div>
+                <div class="collapse-body"><div class="collapse-body-inner">
+                    <p><strong>Наследственность:</strong> генетические предрасположенности к типу нервной системы, темпераменту, задаткам.</p>
+                    <p><strong>Физиология:</strong> состояние здоровья, созревание мозга, гормональная система.</p>
+                    <p><strong>Активность личности:</strong> внутренняя потребность в деятельности, саморазвитии, познании.</p>
+                    <p><strong>Направленность:</strong> система доминирующих мотивов, ценностей, мировоззрения.</p>
+                    <p><strong>Саморегуляция:</strong> способность управлять поведением, эмоциями, ставить цели.</p>
+                </div></div>
+            </div>
+        </section>
+
+        <!-- 07 ТЕОРИИ -->
+        <section class="section" id="sec-theories">
+            <div class="section-number">07</div>
+            <h2>Теоретические подходы к развитию личности</h2>
+
+            <div class="theory-card">
+                <h4>Психоаналитический подход (Фрейд, Юнг, Адлер, Хорни)</h4>
+                <p>Основная идея: развитие детерминировано бессознательными влечениями и ранними детскими переживаниями. Модель Фрейда: Ид (влечения) → Эго (реальность) → Супер-Эго (мораль). Юнг добавил коллективное бессознательное и архетипы. Адлер – стремление к превосходству и чувство общности. Хорни – социальные и культурные факторы в развитии неврозов.</p>
+            </div>
+
+            <div class="theory-card">
+                <h4>Теории черт личности (Олпорт, Кеттелл, Айзенк)</h4>
+                <p>Фокус на стабильных, измеряемых характеристиках. Олпорт: кардинальные, центральные, второстепенные черты + функциональная автономия мотивов. Кеттелл: 16 исходных черт (факторный анализ). Айзенк: экстраверсия-интроверсия, нейротизм, психотизм.</p>
+            </div>
+
+            <div class="theory-card">
+                <h4>Теория социального научения (Бандура)</h4>
+                <p>Взаимный детерминизм: человек ↔ поведение ↔ среда. Ключевые механизмы: викарное научение (наблюдение), самоэффективность, ожидания, опосредованное подкрепление. Человек не пассивен – он активно формирует среду.</p>
+            </div>
+
+            <div class="theory-card">
+                <h4>Гуманистический подход (Маслоу, Роджерс, Фромм)</h4>
+                <p>Человек – целостная личность с врождённой тенденцией к самоактуализации. Маслоу: иерархия потребностей → самоактуализация. Роджерс: «реальное Я» ↔ «идеальное Я» = конгруэнтность. Фромм: 5 социальных потребностей (связь, преодоление, укоренённость, идентичность, ориентация).</p>
+            </div>
+
+            <div class="theory-card">
+                <h4>Отечественный подход (Выготский, Леонтьев, Рубинштейн, Ананьев)</h4>
+                <p>Культурно-историческая и деятельностная парадигма. Выготский: социальная ситуация развития, ЗБР, новообразования. Леонтьев: теория деятельности, ведущая деятельность. Рубинштейн: единство сознания и деятельности. Ананьев: комплексный подход (индивид – индивидуальность – личность – субъект).</p>
+            </div>
+        </section>
+
+        <!-- 08 ПЕРИОДИЗАЦИИ -->
+        <section class="section" id="sec-periods">
+            <div class="section-number">08</div>
+            <h2>Периодизации и ведущая деятельность</h2>
+
+            <h3>Ведущая деятельность (Леонтьев, Эльконин)</h3>
+            <p><strong>Ведущая деятельность</strong> – та деятельность, развитие которой обусловливает главнейшие изменения в психике на данном этапе.</p>
+
+            <table class="tbl">
+                <thead><tr><th>Возраст</th><th>Ведущая деятельность</th><th>Новообразование</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>0–1 год</strong></td><td>Непосредственно-эмоциональное общение</td><td>Эмоциональная привязанность, базовое доверие</td></tr>
+                    <tr><td><strong>1–3 года</strong></td><td>Предметно-манипулятивная</td><td>Наглядно-действенное мышление, речь</td></tr>
+                    <tr><td><strong>3–6 лет</strong></td><td>Сюжетно-ролевая игра</td><td>Воображение, произвольность, социальные нормы</td></tr>
+                    <tr><td><strong>7–11 лет</strong></td><td>Учебная деятельность</td><td>Теоретическое мышление, произвольная память</td></tr>
+                    <tr><td><strong>11–17 лет</strong></td><td>Общественно полезная + интимно-личностное общение</td><td>Рефлексия, идентичность, система ценностей</td></tr>
+                </tbody>
+            </table>
+
+            <h3>Эпохи зрелой личности (Моргун, Ткачева)</h3>
+            <table class="tbl">
+                <thead><tr><th>Эпоха</th><th>Ведущая деятельность</th><th>Новообразование</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>18–23</strong></td><td>Учебно-профессиональная</td><td>Чувство ответственности за будущее</td></tr>
+                    <tr><td><strong>23–30</strong></td><td>Интимно-личностное общение, семья</td><td>Профессиональное и личное самоопределение</td></tr>
+                    <tr><td><strong>31–40</strong></td><td>Профессиональная самореализация</td><td>Профессиональная и социальная компетентность</td></tr>
+                    <tr><td><strong>40–55</strong></td><td>Наставничество, передача опыта</td><td>Социальная зрелость, мудрость</td></tr>
+                    <tr><td><strong>55+</strong></td><td>Самопознание, осмысление жизни</td><td>Целостность, принятие, внутренний покой</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- 09 ЭРИКСОН -->
+        <section class="section" id="sec-erikson">
+            <div class="section-number">09</div>
+            <h2>Психосоциальная теория Э. Эриксона</h2>
+            <p>Эриксон расширил рамки развития на <strong>весь жизненный цикл</strong> и сделал акцент на социокультурных факторах. Каждая стадия – психосоциальный кризис: столкновение двух противоположных тенденций.</p>
+
+            <div class="erikson-grid">
+                <div class="erikson-card"><div class="erikson-age">0–1 год · Младенчество</div><div class="erikson-crisis">Доверие vs Недоверие</div><div class="erikson-new">→ Надежда</div><div class="erikson-desc">Если потребности ребёнка удовлетворяются последовательно и заботливо, формируется базовое доверие к миру.</div></div>
+                <div class="erikson-card"><div class="erikson-age">1–3 года · Раннее детство</div><div class="erikson-crisis">Автономия vs Стыд и сомнение</div><div class="erikson-new">→ Сила воли</div><div class="erikson-desc">Ребёнок осваивает самостоятельность. Поддержка формирует чувство автономии; подавление – стыд.</div></div>
+                <div class="erikson-card"><div class="erikson-age">3–6 лет · Дошкольный</div><div class="erikson-crisis">Инициатива vs Вина</div><div class="erikson-new">→ Целеустремлённость</div><div class="erikson-desc">Ребёнок исследует мир, фантазирует, проявляет инициативу. Поощрение → целеустремлённость.</div></div>
+                <div class="erikson-card"><div class="erikson-age">6–12 лет · Школьный</div><div class="erikson-crisis">Трудолюбие vs Неполноценность</div><div class="erikson-new">→ Компетентность</div><div class="erikson-desc">Освоение навыков, учёба, общение со сверстниками. Успех → чувство компетентности.</div></div>
+                <div class="erikson-card"><div class="erikson-age">12–19 лет · Отрочество</div><div class="erikson-crisis">Идентичность vs Ролевая путаница</div><div class="erikson-new">→ Верность</div><div class="erikson-desc">Центральный кризис: поиск «Кто я?». Формирование устойчивой идентичности, ценностей, жизненных целей.</div></div>
+                <div class="erikson-card"><div class="erikson-age">20–40 лет · Ранняя зрелость</div><div class="erikson-crisis">Близость vs Изоляция</div><div class="erikson-new">→ Любовь</div><div class="erikson-desc">Формирование интимных отношений, способности к глубокой эмоциональной привязанности.</div></div>
+                <div class="erikson-card"><div class="erikson-age">40–64 года · Средний возраст</div><div class="erikson-crisis">Генеративность vs Стагнация</div><div class="erikson-new">→ Забота</div><div class="erikson-desc">Забота о следующем поколении, продуктивность, вклад в общество. Самопоглощенность → стагнация.</div></div>
+                <div class="erikson-card"><div class="erikson-age">65+ · Поздняя зрелость</div><div class="erikson-crisis">Целостность vs Отчаяние</div><div class="erikson-new">→ Мудрость</div><div class="erikson-desc">Осмысление прожитой жизни. Принятие – мудрость. Сожаления – отчаяние.</div></div>
+            </div>
+        </section>
+
+        <!-- 10 СОЦИАЛИЗАЦИЯ -->
+        <section class="section" id="sec-social">
+            <div class="section-number">10</div>
+            <h2>Социализация и инкультурация</h2>
+
+            <div class="highlight">
+                <p><strong>Социализация</strong> – усвоение социальных ролей, норм, ценностей, знаний и умений для функционирования в обществе.</p>
+                <p><strong>Инкультурация</strong> – освоение культурных традиций, языка, ценностей, мировоззрения конкретной культуры.</p>
+            </div>
+
+            <table class="tbl socialize-tbl">
+                <thead><tr><th>Критерий</th><th>Социализация</th><th>Инкультурация</th></tr></thead>
+                <tbody>
+                    <tr><td>Фокус</td><td>Социальные роли, нормы, правила</td><td>Культурные традиции, язык, ценности</td></tr>
+                    <tr><td>Универсальность</td><td>Более универсальна</td><td>Более специфична для культуры</td></tr>
+                    <tr><td>Результат</td><td>Социально адекватная личность</td><td>«Культурное Я», носитель культуры</td></tr>
+                    <tr><td>Объект</td><td>Социальная структура, экономика, политика</td><td>Язык, традиции, типы общения</td></tr>
+                </tbody>
+            </table>
+
+            <h3>Механизмы социализации</h3>
+            <div class="tags"><span class="tag tag-purple">имитация</span><span class="tag tag-green">идентификация</span><span class="tag tag-blue">подкрепление</span><span class="tag tag-warm">обучение</span><span class="tag tag-rose">стыд и вина</span></div>
+
+            <h3>Агенты социализации</h3>
+            <div class="factor-grid">
+                <div class="factor-card"><div class="fc-icon">🏠</div><div class="fc-title">Семья</div><div class="fc-desc">Первый и ключевой агент. Формирует базовые ценности, эмоциональные реакции, язык.</div></div>
+                <div class="factor-card"><div class="fc-icon">🏫</div><div class="fc-title">Школа / вуз</div><div class="fc-desc">Систематическая передача знаний, формирование мировоззрения и гражданской позиции.</div></div>
+                <div class="factor-card"><div class="fc-icon">👫</div><div class="fc-title">Сверстники</div><div class="fc-desc">Формирование социальных навыков, идентичности, принятие норм группы.</div></div>
+                <div class="factor-card"><div class="fc-icon">📱</div><div class="fc-title">СМИ и интернет</div><div class="fc-desc">Огромное влияние на ценности, стереотипы, модели поведения.</div></div>
+            </div>
+        </section>
+
+        <!-- 11 УСТОЙЧИВОСТЬ -->
+        <section class="section" id="sec-stability">
+            <div class="section-number">11</div>
+            <h2>Устойчивость и изменчивость личности</h2>
+
+            <div class="highlight">
+                <p>По данным лонгитюдных исследований, <strong>более чем у половины людей</strong> основные черты личности остаются стабильными на протяжении 50 лет. Корреляции между оценками черт в разные возрасты достигают <strong>0.6–0.7 после 30 лет</strong>.</p>
+            </div>
+
+            <div class="collapse open">
+                <div class="collapse-header" onclick="toggleCollapse(this)">
+                    <div class="collapse-num">Б</div>
+                    <div class="collapse-title">Биологические (наибольшая стабильность)</div>
+                    <div class="collapse-toggle">+</div>
+                </div>
+                <div class="collapse-body"><div class="collapse-body-inner">
+                    <p><strong>Темперамент</strong> – наиболее стабильная характеристика, связанная с типом нервной системы. Экстраверсия-интроверсия, эмоциональная реактивность сохраняются на протяжении жизни. Составляют «фундамент» личности.</p>
+                </div></div>
+            </div>
+            <div class="collapse">
+                <div class="collapse-header" onclick="toggleCollapse(this)">
+                    <div class="collapse-num">П</div>
+                    <div class="collapse-title">Психологические и социальные (ситуативная изменчивость)</div>
+                    <div class="collapse-toggle">+</div>
+                </div>
+                <div class="collapse-body"><div class="collapse-body-inner">
+                    <p><strong>Агрессивность, честность, саморегуляция, зависимость, настроение</strong> – зависят от среды, воспитания, опыта. Ценностные ориентации и мировоззрение могут изменяться под влиянием значимых жизненных событий.</p>
+                </div></div>
+            </div>
+
+            <p>Стабильность черт <strong>возрастает от юности к зрелости</strong> и достигает пика в 50–60 лет. Детство и подростковый возраст – период наибольшей пластичности.</p>
+
+            <div class="highlight" style="border-left-color:var(--green)">
+                <p><strong>Факторы высокой устойчивости:</strong> оптимизм, доверие, адекватная самооценка, гибкость мышления, развитая воля, навыки саморегуляции.</p>
+            </div>
+        </section>
+
+        <!-- 12 ВЫВОДЫ -->
+        <section class="section" id="sec-summary">
+            <div class="section-number">12</div>
+            <h2>Выводы</h2>
+
+            <ul class="list">
+                <li><strong>Онтогенез</strong> – непрерывный диалог между внутренними возможностями и внешними вызовами, биологией и культурой.</li>
+                <li>Психическое развитие подчиняется <strong>закономерностям</strong>: необратимость, гетерохронность, сензитивность, кумулятивность.</li>
+                <li><strong>Движущая сила</strong> – противоречия, разрешаемые через деятельность.</li>
+                <li>Ведущие теории дают <strong>разные линзы</strong>: от бессознательного (Фрейд) до деятельности (Выготский) и самоактуализации (Маслоу).</li>
+                <li>Каждый возрастной этап характеризуется уникальным <strong>новообразованием</strong> и ведущей деятельностью.</li>
+                <li><strong>Социализация и инкультурация</strong> – два диалектически единых процесса формирования личности.</li>
+                <li>Личность обладает <strong>относительной стабильностью</strong> (особенно после 30 лет), но сохраняет способность к развитию.</li>
+            </ul>
+
+            <div class="divider">· · ·</div>
+
+            <div class="open-q"><label>Какая теория развития личности кажется вам наиболее близкой и почему?</label><textarea placeholder="Напиши здесь..."></textarea></div>
+            <div class="open-q"><label>Какое противоречие сейчас является движущей силой вашего развития?</label><textarea placeholder="Напиши здесь..."></textarea></div>
+            <div class="open-q"><label>Какой сензитивный период вы хотите использовать или вернуть?</label><textarea placeholder="Напиши здесь..."></textarea></div>
+
+            <div class="final-quote">
+                <p>Онтогенез психического развития личности – это непрерывный диалог между прошлым и будущим, между тем, кем мы были, и тем, кем мы становимся.</p>
+            </div>
+        </section>
+
+    
+        <!-- Topic Pagination Navigation -->
+        <nav class="topic-pagination" aria-label="Навигация по темам тетради">
+            <div class="pagination-inner">
+            <a href="topic3-boundaries.html" class="page-nav-btn prev">
+                <span class="nav-arrow-icon">←</span>
+                <span class="nav-text">
+                    <span class="nav-sub">Назад</span>
+                    <span class="nav-title">Тема 3: Личные границы</span>
+                </span>
+            </a>
+            <div class="pagination-status">
+                <span class="status-badge">Тема 4 из 5</span>
+                <div class="progress-bar-wrap">
+                    <div class="progress-bar-fill" style="width: 80%;"></div>
+                </div>
+            </div>
+            <a href="topic5-cognitive-biases.html" class="page-nav-btn next ">
+                <span class="nav-text">
+                    <span class="nav-sub">Далее</span>
+                    <span class="nav-title">Тема 5: Когнитивные искажения</span>
+                </span>
+                <span class="nav-arrow-icon">→</span>
+            </a>
+            </div>
+        </nav>
+
+    </main>
+
+    <footer class="footer">Тема 4 · Онтогенез психического развития личности</footer>
+
+    <script>
+        function scrollNav(dir){document.getElementById('navScroll').scrollBy({left:dir*160,behavior:'smooth'})}
+        document.querySelectorAll('.nav-btn').forEach(b=>{b.addEventListener('click',()=>{const t=document.getElementById(b.dataset.section);if(t)t.scrollIntoView({behavior:'smooth',block:'start'})})});
+        const secs=document.querySelectorAll('.section'),nBtns=document.querySelectorAll('.nav-btn'),nS=document.getElementById('navScroll');
+        window.addEventListener('scroll',()=>{let c='';secs.forEach(s=>{if(s.getBoundingClientRect().top<=120)c=s.id});nBtns.forEach(b=>{b.classList.toggle('active',b.dataset.section===c);if(b.dataset.section===c)b.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'})})});
+        function toggleCollapse(h){h.parentElement.classList.toggle('open')}
+    
+        // ===================== WORKBOOK AUTOSAVE =====================
+        (function() {
+            const pageKey = 'wb_' + window.location.pathname.split('/').pop().replace('.html','');
+            
+            function saveState() {
+                try {
+                    const data = {};
+                    document.querySelectorAll('input:not([type="button"]):not([type="submit"]), textarea, select').forEach((el, i) => {
+                        const id = el.id || ('input_' + i);
+                        if (el.type === 'checkbox') {
+                            data[id] = el.checked;
+                        } else if (el.type === 'radio') {
+                            if (el.checked) data[el.name] = el.value;
+                        } else {
+                            data[id] = el.value;
+                        }
+                    });
+                    
+                    const activeElements = [];
+                    document.querySelectorAll('.emotion-card.selected, .rating-item.selected, .signal-item.checked, .diary-emotion-btn.active').forEach(el => {
+                        const parentId = el.closest('section')?.id || 'sec';
+                        const text = el.textContent.trim().slice(0, 30);
+                        activeElements.push(parentId + '::' + text);
+                    });
+                    data['__active_elements'] = activeElements;
+                    
+                    localStorage.setItem(pageKey, JSON.stringify(data));
+                } catch(e) {}
+            }
+
+            function restoreState() {
+                try {
+                    const raw = localStorage.getItem(pageKey);
+                    if (!raw) return;
+                    const data = JSON.parse(raw);
+                    
+                    document.querySelectorAll('input:not([type="button"]):not([type="submit"]), textarea, select').forEach((el, i) => {
+                        const id = el.id || ('input_' + i);
+                        if (data[id] !== undefined) {
+                            if (el.type === 'checkbox') {
+                                el.checked = data[id];
+                                const signalItem = el.closest('.signal-item');
+                                if (signalItem) signalItem.classList.toggle('checked', el.checked);
+                            } else if (el.type === 'radio') {
+                                if (el.value === data[el.name]) el.checked = true;
+                            } else {
+                                el.value = data[id];
+                                if (el.type === 'range') {
+                                    const valEl = el.nextElementSibling;
+                                    if (valEl && (valEl.classList.contains('slider-value') || valEl.classList.contains('intensity-val') || valEl.id === 'ageNum')) {
+                                        valEl.textContent = el.value;
+                                    }
+                                }
+                            }
+                            el.dispatchEvent(new Event('input', { bubbles: true }));
+                        }
+                    });
+
+                    if (data['__active_elements'] && Array.isArray(data['__active_elements'])) {
+                        const set = new Set(data['__active_elements']);
+                        document.querySelectorAll('.emotion-card, .rating-item, .signal-item, .diary-emotion-btn').forEach(el => {
+                            const parentId = el.closest('section')?.id || 'sec';
+                            const text = el.textContent.trim().slice(0, 30);
+                            if (set.has(parentId + '::' + text)) {
+                                if (el.classList.contains('emotion-card')) el.classList.add('selected');
+                                if (el.classList.contains('rating-item')) el.classList.add('selected');
+                                if (el.classList.contains('signal-item')) {
+                                    el.classList.add('checked');
+                                    const cb = el.querySelector('input[type="checkbox"]');
+                                    if (cb) cb.checked = true;
+                                }
+                                if (el.classList.contains('diary-emotion-btn')) el.classList.add('active');
+                            }
+                        });
+                    }
+                } catch(e) {}
+            }
+
+            if (document.readyState === 'loading') {
+                window.addEventListener('DOMContentLoaded', restoreState);
+            } else {
+                restoreState();
+            }
+            document.addEventListener('input', saveState);
+            document.addEventListener('change', saveState);
+            document.addEventListener('click', (e) => {
+                if (e.target.closest('.emotion-card, .rating-item, .signal-item, .diary-emotion-btn')) {
+                    setTimeout(saveState, 50);
+                }
+            });
+        })();
+
+    </script>
+</body>
+</html>
